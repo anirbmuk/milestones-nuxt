@@ -1,0 +1,18 @@
+*,
+::before,
+::after {
+  --base: 18, 18, 18;
+  --base-color: rgb(var(--base));
+  --secondary-color: #f5c518;
+  --tertiary-color: #7c6600;
+  --tertiary-light-color: #6e6e6e;
+  --tertiary-text-color: #f5f5f5;
+  --bg-color: #f9f9f9;
+  --bg-dark-color: #f9f4ec;
+  --error-color: #dc1431;
+  --text-error-alert: #a94442;
+  --bg-error-alert: #f2dede;
+  --border-error-alert: #ebccd1;
+  --blue: #0d5baf;
+  --blue-light: #1877f2;
+}
