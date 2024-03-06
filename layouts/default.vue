@@ -1,31 +1,32 @@
 <template>
-    <UiHeader />
+  <UiHeader />
+  <main class="container mt-2.5">
     <slot />
-    <UiFooter />
+  </main>
 </template>
 
 <script setup lang="ts">
 useHead({
-    htmlAttrs: {
-        lang: 'en',
+  htmlAttrs: {
+    lang: 'en',
+  },
+  link: [
+    {
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: '/favicon.ico',
     },
-    link: [
-        {
-            rel: 'icon',
-            type: 'image/x-icon',
-            href: '/favicon.ico',
-        },
-    ],
-    titleTemplate(title) {
-        return title ? `Milestones | ${title}` : 'Milestones';
-    },
+  ],
+  titleTemplate(title) {
+    return title ? `Milestones | ${title}` : 'Milestones';
+  },
 });
 useSeoMeta({
-    colorScheme: 'dark light',
-    author: 'Anirban Mukherjee',
-    themeColor: '#f5f5f5',
+  colorScheme: 'dark light',
+  author: 'Anirban Mukherjee',
+  themeColor: '#f5f5f5',
 });
 defineOptions({
-    name: 'DefaultLayout',
+  name: 'DefaultLayout',
 });
 </script>

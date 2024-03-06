@@ -1,9 +1,7 @@
+import type { User } from './user';
+
 export type AuthState = {
   auth: boolean;
-  user?: {
-    email: string;
-    firstname: string;
-    lastname?: string;
-  };
+  user?: User;
   token?: string;
 };
