@@ -68,6 +68,14 @@ const signin = async () => {
     setTimeout(() => emailInput.value?.focus());
   }
 };
+definePageMeta({
+  middleware: [() => {
+    const { isLoggedIn } = useUser();
+    if (isLoggedIn.value) {
+      return navigateTo('/calendar');
+    }
+  }],
+});
 defineOptions({
   name: 'SigninComponent',
 });
@@ -75,18 +83,18 @@ defineOptions({
 
 <style scoped>
 .signin-container {
-  @apply mt-24 md:mt-20 lg:mt-16 xl:mt-12;
+@apply mt-24 md:mt-20 lg:mt-16 xl:mt-12;
 }
 #auth {
-  @apply p-4 md:p-8 w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%] 3xl:w-[30%] m-auto border border-gray-200 rounded-sm;
+@apply p-4 md:p-8 w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%] 3xl:w-[30%] m-auto border border-gray-200 rounded-sm;
 }
 form {
-  @apply px-2 py-4;
+@apply px-2 py-4;
 }
 input {
-  @apply p-2 border border-gray-200 rounded-sm outline-gray-700;
+@apply p-2 border border-gray-200 rounded-sm outline-gray-700;
 }
 button {
-  @apply p-4 bg-gray-700 text-white border border-gray-800 rounded-sm outline-black outline-2;
+@apply p-4 bg-gray-700 text-white border border-gray-800 rounded-sm outline-black outline-2;
 }
 </style>

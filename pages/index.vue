@@ -1,27 +1,18 @@
 <template>
-  <AuthGuard>
-    {{ 'Logged in as ' + user?.email }}
-    <button type="button"
-            @click="signout"
-    >
-      Logout
-    </button>
-  </AuthGuard>
+  SHOULD NOT COME TO THIS INDEX PAGE!
 </template>
 
 <script setup lang="ts">
-const { user, setUser } = useUser();
-const router = useRouter();
-
-const signout = async () => {
-  try {
-    await $fetch<{ auth: boolean }>('/api/logout', { method: 'POST' });
-  } finally {
-    setUser(undefined);
-    router.push('/');
-  }
-};
 defineOptions({
   name: 'RootIndexPage',
+});
+definePageMeta({
+  middleware: [() => {
+    const { isLoggedIn } = useUser();
+    if (!isLoggedIn.value) {
+      return navigateTo('/signin');
+    }
+    return navigateTo('/calendar');
+  }],
 });
 </script>
