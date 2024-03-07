@@ -1,6 +1,6 @@
 <template>
   <UiHeader />
-  <main class="container mt-2.5">
+  <main class="container mt-4">
     <slot />
   </main>
 </template>
@@ -9,6 +9,7 @@
 useHead({
   htmlAttrs: {
     lang: 'en',
+    translate: 'no',
   },
   link: [
     {

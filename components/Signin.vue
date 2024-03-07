@@ -1,37 +1,43 @@
 <template>
-  <div id="auth">
-    <form
-      class="flex flex-col space-y-6"
-      @submit.prevent="signin"
-    >
-      <div class="flex flex-col space-y-1">
-        <label for="email">Email</label>
-        <input id="email"
-               ref="emailInput"
-               v-model="email"
-               type="email"
-               name="email"
-               required
-        >
-      </div>
-      <div class="flex flex-col space-y-1">
-        <label for="Password">Password</label>
-        <input id="password"
-               v-model="password"
-               type="password"
-               name="password"
-               required
-        >
-      </div>
-      <button type="submit">
-        Submit
-      </button>
-      <p v-if="error"
-         class="text-red-700 text-md text-center"
+  <div class="signin-container">
+    <div id="auth">
+      <form
+        class="flex flex-col space-y-6"
+        @submit.prevent="signin"
       >
-        {{ error }}
-      </p>
-    </form>
+        <div class="flex flex-col space-y-1">
+          <label for="email"
+                 required
+          >Email address</label>
+          <input id="email"
+                 ref="emailInput"
+                 v-model="email"
+                 type="email"
+                 name="email"
+                 required
+          >
+        </div>
+        <div class="flex flex-col space-y-1">
+          <label for="Password"
+                 required
+          >Password</label>
+          <input id="password"
+                 v-model="password"
+                 type="password"
+                 name="password"
+                 required
+          >
+        </div>
+        <button type="submit">
+          Submit
+        </button>
+        <p v-if="error"
+           class="text-red-700 text-md text-center"
+        >
+          {{ error }}
+        </p>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -58,7 +64,7 @@ const signin = async () => {
     setUser(user);
     router.push('/');
   } catch (e) {
-    error.value = (e as any).data.data;
+    error.value = (e as any)?.data?.data?.error;
     setTimeout(() => emailInput.value?.focus());
   }
 };
@@ -67,14 +73,20 @@ defineOptions({
 });
 </script>
 
-  <style scoped>
-  #auth {
-    @apply p-10 w-[90%] md:w-[50%] lg:w-[40%] xl:w-[30%] m-auto border border-gray-200 rounded-sm;
-  }
-  input {
-    @apply p-2 border border-gray-200 rounded-sm outline-gray-700;
-  }
-  button {
-    @apply p-4 bg-gray-700 text-white border border-gray-800 rounded-sm outline-black outline-2;
-  }
-  </style>
+<style scoped>
+.signin-container {
+  @apply mt-24 md:mt-20 lg:mt-16 xl:mt-12;
+}
+#auth {
+  @apply p-4 md:p-8 w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%] 3xl:w-[30%] m-auto border border-gray-200 rounded-sm;
+}
+form {
+  @apply px-2 py-4;
+}
+input {
+  @apply p-2 border border-gray-200 rounded-sm outline-gray-700;
+}
+button {
+  @apply p-4 bg-gray-700 text-white border border-gray-800 rounded-sm outline-black outline-2;
+}
+</style>

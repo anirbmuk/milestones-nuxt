@@ -8,6 +8,7 @@ export default defineEventHandler(async (event) => {
 
   if (auth && token) {
     setCookie(event, '_auth', token, { httpOnly: true, maxAge: 24 * 3600 });
+    setCookie(event, '_user', JSON.stringify(user), { httpOnly: true, maxAge: 24 * 3600 });
     return { auth, user };
   }
 });
