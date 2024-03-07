@@ -1,8 +1,9 @@
+import type { AuthState } from '~/types/auth';
 import type { User } from '~/types/user';
 
 export const useUser = () => {
-  const storage = useCookie<User | undefined>('_user');
-  const userState = useState<User | undefined>('user', () => storage.value);
+  const storage = useCookie<AuthState | undefined>('_session');
+  const userState = useState<User | undefined>('user', () => storage.value?.user);
 
   const setUser = (user: User | undefined) => (userState.value = user);
 

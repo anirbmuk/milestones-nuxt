@@ -1,9 +1,10 @@
+import { AuthState } from '~/types/auth';
+
 export default defineEventHandler(async (event) => {
   const { mongodb } = useRuntimeConfig();
-  const token = getCookie(event, '_auth');
+  const { token } = JSON.parse(getCookie(event, '_session') || '') || {} as AuthState;
 
-  setCookie(event, '_auth', '', { maxAge: 0 });
-  setCookie(event, '_user', '', { maxAge: 0 });
+  setCookie(event, '_session', '', { maxAge: 0 });
 
   try {
     if (token) {
