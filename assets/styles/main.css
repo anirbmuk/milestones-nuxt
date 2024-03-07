@@ -24,4 +24,11 @@
   h6 {
     @apply text-md md:text;
   }
+  label {
+    @apply text-gray-700;
+  }
+  label[required]::after {
+    content: ' *';
+    @apply text-sm text-gray-700;
+  }
 }
