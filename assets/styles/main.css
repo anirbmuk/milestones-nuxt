@@ -24,6 +24,12 @@
   h6 {
     @apply text-md md:text;
   }
+  div[error] {
+    @apply font-code text-red-600 font-semiBold md:text-xl;
+  }
+  nav {
+    @apply bg-primary-dark p-4 w-full flex flex-row items-center whitespace-nowrap;
+  }
   label {
     @apply text-gray-700;
   }
@@ -33,5 +39,8 @@
   }
   select {
     @apply py-4 px-8 rounded border border-gray-200 bg-gray-50 outline-gray-700;
+  }
+  .cta-button-primary {
+    @apply min-w-24 cursor-pointer rounded-sm border border-primary-dark bg-primary-dark p-4 text-center tracking-tight text-white shadow-lg duration-200 ease-in md:min-w-40 md:hover:border-gray-800 md:hover:bg-gray-800;
   }
 }

@@ -61,8 +61,7 @@ function getCurrent(identifier: CONSTANTS) {
 };
 
 const getInitialState = () => ({
-  day: 1,
-  editDay: getCurrent(CONSTANTS._DAY),
+  day: getCurrent(CONSTANTS._DAY),
   month: getCurrent(CONSTANTS._MONTH),
   year: getCurrent(CONSTANTS._YEAR),
 } as CalendarState);
@@ -75,13 +74,12 @@ export const useCalendar = () => {
 
   watch(state, (value) => (_calendar.value = value));
 
-  const editDay = computed(() => state.value.editDay);
   const day = computed(() => state.value.day);
   const month = computed(() => state.value.month);
   const year = computed(() => state.value.year);
 
-  const currentDate = computed(() => `${state.value.month}/${state.value.editDay}/${state.value.year}`);
-  const currentFirstOfMonthWithYear = computed(() => `${state.value.month}/1/${state.value.year}`);
+  const currentDate = computed(() => `${month.value.toString().padStart(2, '0')}/${day.value.toString().padStart(2, '0')}/${year.value}`);
+  const currentFirstOfMonthWithYear = computed(() => `${state.value.year}-${state.value.month.toString().padStart(2, '0')}-01`);
   const getTooltipDate = (dd: number, mm: number, yyyy: number, type: 'long' | 'short' = 'long') => {
     const day = new Date(yyyy, mm - 1, dd).getDay();
     if (type === 'long') {
@@ -90,16 +88,16 @@ export const useCalendar = () => {
     return `${SHORT_DAYS[day]}, ${SHORT_MONTHS[mm - 1]} ${dd}, ${yyyy}`;
   };
 
-  const displayMonthYear = computed(() => `${LONG_MONTHS[state.value.month - 1]} ${state.value.year}`);
+  const displayMonthYear = computed(() => `${LONG_MONTHS[month.value - 1]} ${year.value}`);
 
   const initState = () => (state.value = getInitialState());
 
   const changeDayAction = (day: number) => (state.value = {
-    ...state.value, editDay: day,
-  });
+    ...state.value, day,
+  } as CalendarState);
   const previousMonthAction = () => {
-    let previousMonth = state.value.month - 1;
-    let previousYear = state.value.year;
+    let previousMonth = month.value - 1;
+    let previousYear = year.value;
     if (previousMonth < 1) {
       previousMonth = 12;
       previousYear -= 1;
@@ -111,8 +109,8 @@ export const useCalendar = () => {
     };
   };
   const nextMonthAction = () => {
-    let nextMonth = state.value.month + 1;
-    let nextYear = state.value.year;
+    let nextMonth = month.value + 1;
+    let nextYear = year.value;
     if (nextMonth > 12) {
       nextMonth = 1;
       nextYear += 1;
@@ -125,19 +123,19 @@ export const useCalendar = () => {
   };
   const changeYearAction = (year: number) => {
     const currentYear = new Date().getFullYear();
-    let month = 0;
+    let mm = 0;
     if (year === currentYear) {
-      const stateMonth = state.value.month;
+      const stateMonth = month.value;
       const maxMonth = new Date().getMonth() + 1;
       if (maxMonth < stateMonth) {
-        month = maxMonth;
+        mm = maxMonth;
       }
     }
     state.value = {
       ...state.value,
       year,
-      ...(month && {
-        month,
+      ...(mm && {
+        month: mm,
       }),
     };
   };
@@ -227,7 +225,6 @@ export const useCalendar = () => {
     initState,
     currentDate,
     day,
-    editDay,
     month,
     year,
     changeDayAction,
@@ -244,5 +241,6 @@ export const useCalendar = () => {
     getShortMonth,
     getDaysOfMonth,
     daysOfMonth,
+    getLastDayOfMonth,
   };
 };

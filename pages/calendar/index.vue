@@ -42,10 +42,15 @@
       <div
         class="grid grid-cols-3 gap-4 md:grid-cols-7 md:gap-6"
       >
-        <CalendarItem v-for="dayOfMonth in daysOfMonth"
-                      :key="dayOfMonth"
-                      :display-date="dayOfMonth"
-        />
+        <template v-for="dayOfMonth in daysOfMonth"
+                  :key="dayOfMonth"
+        >
+          <NuxtLink :to="`calendar/edit/${dayOfMonth}`">
+            <CalendarItem
+              :display-date="dayOfMonth"
+            />
+          </NuxtLink>
+        </template>
       </div>
     </div>
   </section>

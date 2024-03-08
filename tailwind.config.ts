@@ -40,6 +40,7 @@ export default {
     },
     fontFamily: {
       sans: ['Noto Sans', 'sans-serif'],
+      code: ['Courier New'],
     },
     container: {
       center: true,
