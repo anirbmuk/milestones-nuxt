@@ -4,10 +4,20 @@ export default defineEventHandler(async (event) => {
   const { mongodb } = useRuntimeConfig();
   const body = await readBody(event);
 
-  const { auth, user, token } = await $fetch<AuthState>(`${mongodb.hostUrl}${mongodb.apiBasePath}/user/login`, { body, method: 'POST' });
+  const {
+    auth, user, token,
+  } = await $fetch<AuthState>(`${mongodb.hostUrl}${mongodb.apiBasePath}/user/login`, {
+    body, method: 'POST',
+  });
 
   if (auth && token) {
-    setCookie(event, '_session', JSON.stringify({ user, token }), { httpOnly: true, maxAge: 24 * 3600 });
-    return { auth, user };
+    setCookie(event, '_session', JSON.stringify({
+      user, token,
+    }), {
+      httpOnly: true, maxAge: 24 * 3600,
+    });
+    return {
+      auth, user,
+    };
   }
 });

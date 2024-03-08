@@ -3,4 +3,4 @@ export type CalendarState = {
   editDay: number;
   month: number;
   year: number;
-}
+};

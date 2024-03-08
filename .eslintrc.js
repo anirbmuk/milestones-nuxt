@@ -13,7 +13,9 @@ module.exports = {
   rules: {
     'comma-dangle': ['error', 'always-multiline'],
     semi: ['error', 'always'],
-    'no-console': ['error', { allow: ['error'] }],
+    'no-console': ['error', {
+      allow: ['error'],
+    }],
     'vue/no-v-html': 'off',
     'vue/no-multiple-template-root': 'off',
     camelcase: 'off',
@@ -42,6 +44,18 @@ module.exports = {
     'vue/html-closing-bracket-newline': ['error', {
       singleline: 'never',
       multiline: 'always',
+    }],
+    'object-curly-newline': ['error', {
+      ObjectExpression: 'always',
+      ObjectPattern: {
+        multiline: true, minProperties: 2,
+      },
+      ImportDeclaration: {
+        multiline: true, minProperties: 2,
+      },
+      ExportDeclaration: {
+        multiline: true, minProperties: 2,
+      },
     }],
   },
 };

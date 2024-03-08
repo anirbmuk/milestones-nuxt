@@ -26,7 +26,9 @@ const getInitialState = () => ({
 } as CalendarState);
 
 export const useCalendar = () => {
-  const _calendar = useCookie<CalendarState>('_calendar', { default: () => getInitialState() });
+  const _calendar = useCookie<CalendarState>('_calendar', {
+    default: () => getInitialState(),
+  });
   const state = useState<CalendarState>('calendar', () => _calendar.value);
 
   watch(state, (value) => (_calendar.value = value));
@@ -40,7 +42,9 @@ export const useCalendar = () => {
 
   const initState = () => (state.value = getInitialState());
 
-  const changeDayAction = (day: number) => (state.value = { ...state.value, editDay: day });
+  const changeDayAction = (day: number) => (state.value = {
+    ...state.value, editDay: day,
+  });
   const previousMonthAction = () => {
     let previousMonth = state.value.month - 1;
     let previousYear = state.value.year;
@@ -80,7 +84,9 @@ export const useCalendar = () => {
     state.value = {
       ...state.value,
       year,
-      ...(month && { month }),
+      ...(month && {
+        month,
+      }),
     };
   };
 

@@ -61,7 +61,12 @@ const signin = async () => {
     return;
   }
   try {
-    const { user } = await $fetch<AuthState>('/api/login', { body: { email: email.value, password: password.value }, method: 'POST' });
+    const { user } = await $fetch<AuthState>('/api/login', {
+      body: {
+        email: email.value, password: password.value,
+      },
+      method: 'POST',
+    });
     setUser(user);
     initState();
     router.push('/');

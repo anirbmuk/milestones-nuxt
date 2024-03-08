@@ -13,7 +13,7 @@
     </div>
     <div class="mt-4 mb-2 grid grid-cols-3 md:mb-4 items-center">
       <button
-        class="text-left xl:text-right"
+        class="text-left xl:text-center"
         aria-label="Go to previous month"
         title="Previous Month"
         type="button"
@@ -27,7 +27,7 @@
         {{ currentDate }}
       </div>
       <button
-        class="text-right xl:text-left"
+        class="text-right xl:text-center"
         aria-label="Go to next month"
         title="Next Month"
         type="button"
@@ -42,7 +42,16 @@
 </template>
 
 <script setup lang="ts">
-const { currentDate, previousMonthAction, previousMonthDisabled, nextMonthAction, nextMonthDisabled, changeYearAction, getHistoricalYears, year } = useCalendar();
+const {
+  currentDate,
+  previousMonthAction,
+  previousMonthDisabled,
+  nextMonthAction,
+  nextMonthDisabled,
+  changeYearAction,
+  getHistoricalYears,
+  year,
+} = useCalendar();
 
 const selectedYear = ref<number>(year.value);
 
