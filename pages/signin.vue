@@ -52,6 +52,7 @@ const emailInput = ref<HTMLInputElement>();
 const error = ref<string | undefined>();
 
 const { setUser } = useUser();
+const { initState } = useCalendar();
 
 const signin = async () => {
   error.value = undefined;
@@ -62,6 +63,7 @@ const signin = async () => {
   try {
     const { user } = await $fetch<AuthState>('/api/login', { body: { email: email.value, password: password.value }, method: 'POST' });
     setUser(user);
+    initState();
     router.push('/');
   } catch (e) {
     error.value = (e as any)?.data?.data?.error;

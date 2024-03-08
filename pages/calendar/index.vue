@@ -1,8 +1,52 @@
 <template>
-  CALENDAR
+  <section>
+    <div class="flex items-center justify-center">
+      <select v-model.number="selectedYear"
+              @change="onYearChange"
+      >
+        <option v-for="history of getHistoricalYears()"
+                :key="history"
+        >
+          {{ history }}
+        </option>
+      </select>
+    </div>
+    <div class="mt-4 mb-2 grid grid-cols-3 md:mb-4 items-center">
+      <button
+        class="text-left xl:text-right"
+        aria-label="Go to previous month"
+        title="Previous Month"
+        type="button"
+        :class="{ '!cursor-not-allowed text-gray-300': previousMonthDisabled }"
+        :disabled="previousMonthDisabled"
+        @click="previousMonthAction"
+      >
+        <span class="font-bold text-3xl">&larr;</span>
+      </button>
+      <div class="text-center">
+        {{ currentDate }}
+      </div>
+      <button
+        class="text-right xl:text-left"
+        aria-label="Go to next month"
+        title="Next Month"
+        type="button"
+        :class="{ '!cursor-not-allowed text-gray-300': nextMonthDisabled }"
+        :disabled="nextMonthDisabled"
+        @click="nextMonthAction"
+      >
+        <span class="font-bold text-3xl">&rarr;</span>
+      </button>
+    </div>
+  </section>
 </template>
 
 <script setup lang="ts">
+const { currentDate, previousMonthAction, previousMonthDisabled, nextMonthAction, nextMonthDisabled, changeYearAction, getHistoricalYears, year } = useCalendar();
+
+const selectedYear = ref<number>(year.value);
+
+const onYearChange = () => changeYearAction(selectedYear.value);
 definePageMeta({
   middleware: ['guard'],
 });

@@ -31,4 +31,7 @@
     content: ' *';
     @apply text-sm text-gray-700;
   }
+  select {
+    @apply py-4 px-8 rounded border border-gray-200 bg-gray-50 outline-gray-700;
+  }
 }

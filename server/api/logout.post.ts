@@ -5,6 +5,7 @@ export default defineEventHandler(async (event) => {
   const { token } = JSON.parse(getCookie(event, '_session') || '{}') as AuthState;
 
   setCookie(event, '_session', '', { maxAge: 0 });
+  setCookie(event, '_calendar', '', { maxAge: 0 });
 
   try {
     if (token) {
