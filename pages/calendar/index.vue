@@ -23,8 +23,8 @@
       >
         <span class="font-bold text-3xl">&larr;</span>
       </button>
-      <div class="text-center">
-        {{ currentDate }}
+      <div class="text-center text font-semiBold md:text-2xl">
+        {{ displayMonthYear }}
       </div>
       <button
         class="text-right xl:text-center"
@@ -38,12 +38,22 @@
         <span class="font-bold text-3xl">&rarr;</span>
       </button>
     </div>
+    <div class="pb-8">
+      <div
+        class="grid grid-cols-3 gap-4 md:grid-cols-7 md:gap-6"
+      >
+        <CalendarItem v-for="dayOfMonth in daysOfMonth"
+                      :key="dayOfMonth"
+                      :display-date="dayOfMonth"
+        />
+      </div>
+    </div>
   </section>
 </template>
 
 <script setup lang="ts">
 const {
-  currentDate,
+  displayMonthYear,
   previousMonthAction,
   previousMonthDisabled,
   nextMonthAction,
@@ -51,6 +61,7 @@ const {
   changeYearAction,
   getHistoricalYears,
   year,
+  daysOfMonth,
 } = useCalendar();
 
 const selectedYear = ref<number>(year.value);

@@ -30,6 +30,7 @@ module.exports = {
     'space-in-parens': ['error', 'never'],
     'space-before-function-paren': 'off',
     'arrow-parens': ['error', 'always'],
+    'vue/multi-word-component-names': 'off',
     'vue/max-attributes-per-line': [
       'error',
       {

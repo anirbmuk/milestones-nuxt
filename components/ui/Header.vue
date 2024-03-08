@@ -19,11 +19,17 @@
 </template>
 
 <script setup lang="ts">
-const { isLoggedIn, user, setUser } = useUser();
+const {
+  isLoggedIn,
+  user,
+  setUser,
+} = useUser();
 
 const signout = async () => {
   try {
-    await $fetch<{ auth: boolean }>('/api/logout', { method: 'POST' });
+    await $fetch<{ auth: boolean }>('/api/logout', {
+      method: 'POST',
+    });
   } finally {
     setUser(undefined);
   }

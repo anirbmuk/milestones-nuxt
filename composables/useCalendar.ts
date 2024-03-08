@@ -6,6 +6,48 @@ const enum CONSTANTS {
   _YEAR = 'year'
 }
 
+const LONG_MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+const SHORT_MONTHS = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
+
+const LONG_DAYS = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+];
+
+const SHORT_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
 function getCurrent(identifier: CONSTANTS) {
   const currentDate = new Date().toISOString();
   const [date] = currentDate.split('T');
@@ -38,7 +80,17 @@ export const useCalendar = () => {
   const month = computed(() => state.value.month);
   const year = computed(() => state.value.year);
 
-  const currentDate = computed(() => `${state.value.month}/${state.value.day}/${state.value.year}`);
+  const currentDate = computed(() => `${state.value.month}/${state.value.editDay}/${state.value.year}`);
+  const currentFirstOfMonthWithYear = computed(() => `${state.value.month}/1/${state.value.year}`);
+  const getTooltipDate = (dd: number, mm: number, yyyy: number, type: 'long' | 'short' = 'long') => {
+    const day = new Date(yyyy, mm - 1, dd).getDay();
+    if (type === 'long') {
+      return `${LONG_DAYS[day]}, ${LONG_MONTHS[mm - 1]} ${dd}, ${yyyy}`;
+    }
+    return `${SHORT_DAYS[day]}, ${SHORT_MONTHS[mm - 1]} ${dd}, ${yyyy}`;
+  };
+
+  const displayMonthYear = computed(() => `${LONG_MONTHS[state.value.month - 1]} ${state.value.year}`);
 
   const initState = () => (state.value = getInitialState());
 
@@ -117,6 +169,59 @@ export const useCalendar = () => {
     return years;
   };
 
+  const getQualifiedDate = (date: string | number) => {
+    let qualifiedDate: string;
+    const stringDate = `${date}`;
+    if (stringDate.charAt(stringDate.length - 1) === '1') {
+      if (stringDate !== '11') {
+        qualifiedDate = stringDate + 'st';
+      } else {
+        qualifiedDate = stringDate + 'th';
+      }
+    } else if (stringDate.charAt(stringDate.length - 1) === '2') {
+      if (stringDate !== '12') {
+        qualifiedDate = stringDate + 'nd';
+      } else {
+        qualifiedDate = stringDate + 'th';
+      }
+    } else if (stringDate.charAt(stringDate.length - 1) === '3') {
+      if (stringDate !== '13') {
+        qualifiedDate = stringDate + 'rd';
+      } else {
+        qualifiedDate = stringDate + 'th';
+      }
+    } else {
+      qualifiedDate = stringDate + 'th';
+    }
+    return qualifiedDate;
+  };
+
+  const getLastDayOfMonth = (year: number, month: number) => {
+    return new Date(year, month, 0).getDate();
+  };
+
+  const getDaysOfMonth = (dateObject?: Date | null) => {
+    const days = [];
+    const currentDate = dateObject || new Date();
+    const lastDayOfMonth = dateObject
+      ? getLastDayOfMonth(
+        dateObject.getFullYear(),
+        dateObject.getMonth() + 1,
+      )
+      : null;
+    const currentDay = !lastDayOfMonth ? currentDate.getDate() : lastDayOfMonth;
+    let day = 0;
+    while (currentDay > day++) {
+      days.push(day);
+    }
+    return days;
+  };
+
+  const getLongMonth = (mm: number) => LONG_MONTHS[mm - 1];
+  const getShortMonth = (mm: number) => SHORT_MONTHS[mm - 1];
+
+  const daysOfMonth = computed(() => getDaysOfMonth(nextMonthDisabled.value ? null : new Date(currentFirstOfMonthWithYear.value)));
+
   return {
     state,
     initState,
@@ -132,5 +237,12 @@ export const useCalendar = () => {
     nextMonthDisabled,
     changeYearAction,
     getHistoricalYears,
+    getTooltipDate,
+    displayMonthYear,
+    getQualifiedDate,
+    getLongMonth,
+    getShortMonth,
+    getDaysOfMonth,
+    daysOfMonth,
   };
 };
