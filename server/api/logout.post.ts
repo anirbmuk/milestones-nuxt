@@ -1,7 +1,7 @@
-import { AuthState } from '~/types/auth';
+import type { AuthState } from '~/types/auth';
 
 export default defineEventHandler(async (event) => {
-  const { mongodb } = useRuntimeConfig();
+  const { middleware } = useRuntimeConfig();
   const { token } = JSON.parse(getCookie(event, '_session') || '{}') as AuthState;
 
   setCookie(event, '_session', '', {
@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
 
   try {
     if (token) {
-      await $fetch(`${mongodb.hostUrl}${mongodb.apiBasePath}/user/logout`, {
+      await $fetch(`${middleware.hostUrl}${middleware.apiBasePath}/user/logout`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,

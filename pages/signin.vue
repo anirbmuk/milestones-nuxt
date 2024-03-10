@@ -53,7 +53,7 @@ const emailInput = ref<HTMLInputElement>();
 
 const error = ref<string | undefined>();
 
-const { setUser } = useUser();
+const { setAuthState } = useUser();
 const { initState } = useCalendar();
 
 const signin = async () => {
@@ -63,13 +63,13 @@ const signin = async () => {
     return;
   }
   try {
-    const { user } = await $fetch<AuthState>('/api/login', {
+    const response = await $fetch<AuthState>('/api/login', {
       body: {
         email: email.value, password: password.value,
       },
       method: 'POST',
     });
-    setUser(user);
+    setAuthState(response);
     initState();
     router.push('/');
   } catch (e) {

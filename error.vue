@@ -61,7 +61,7 @@ const props = defineProps({
 const {
   isLoggedIn,
   user,
-  setUser,
+  setAuthState,
 } = useUser();
 
 const signout = async () => {
@@ -70,7 +70,7 @@ const signout = async () => {
       method: 'POST',
     });
   } finally {
-    setUser(undefined);
+    setAuthState(undefined);
   }
   return navigateTo('/');
 };

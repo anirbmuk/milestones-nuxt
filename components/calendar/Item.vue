@@ -10,6 +10,10 @@
 </template>
 
 <script setup lang="ts">
+import {
+  getShortMonth,
+  getQualifiedDate,
+} from '~/helpers/date';
 const props = defineProps({
   displayDate: {
     type: Number,
@@ -19,8 +23,6 @@ const props = defineProps({
 const {
   month,
   year,
-  getShortMonth,
-  getQualifiedDate,
   getTooltipDate,
 } = useCalendar();
 const label = computed(() => `${getShortMonth(month.value)} ${getQualifiedDate(props.displayDate)}`);

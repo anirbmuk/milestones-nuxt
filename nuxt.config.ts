@@ -16,7 +16,7 @@ export default defineNuxtConfig({
       baseUrl: '', // Override by setting NUXT_PUBLIC_BASE_URL
       apiBasePath: '', // Override by setting NUXT_PUBLIC_API_BASE_PATH
     },
-    mongodb: {
+    middleware: {
       hostUrl: '', // Override by setting NUXT_MONGODB_HOST_URL
       apiBasePath: '', // Override by setting NUXT_MONGODB_API_BASE_PATH
     },
@@ -24,7 +24,11 @@ export default defineNuxtConfig({
 
   css: ['@/assets/styles/root.css', '@/assets/styles/main.css'],
 
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/google-fonts',
+    'nuxt-svgo',
+  ],
 
   googleFonts: {
     display: 'swap',
@@ -33,5 +37,11 @@ export default defineNuxtConfig({
     families: {
       'Noto Sans': [400, 600, 700],
     },
+  },
+
+  svgo: {
+    autoImportPath: './assets/icons',
+    defaultImport: 'component',
+    componentPrefix: 'Icon',
   },
 });

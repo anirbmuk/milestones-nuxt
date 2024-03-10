@@ -11,9 +11,9 @@
         </option>
       </select>
     </div>
-    <div class="mt-4 mb-2 grid grid-cols-3 md:mb-4 items-center">
+    <div class="mt-4 mb-2 grid grid-cols-8 md:mb-4 items-center">
       <button
-        class="text-left xl:text-center"
+        class="text-left xl:text-center col-span-2"
         aria-label="Go to previous month"
         title="Previous Month"
         type="button"
@@ -23,11 +23,14 @@
       >
         <span class="font-bold text-3xl">&larr;</span>
       </button>
-      <div class="text-center text font-semiBold md:text-2xl">
-        {{ displayMonthYear }}
+      <div class="text-center text font-semiBold md:text-2xl hidden lg:block col-span-4">
+        {{ longDisplayMonthYear }}
+      </div>
+      <div class="text-center text font-semiBold md:text-2xl lg:hidden col-span-4">
+        {{ shortDisplayMonthYear }}
       </div>
       <button
-        class="text-right xl:text-center"
+        class="text-right xl:text-center col-span-2"
         aria-label="Go to next month"
         title="Next Month"
         type="button"
@@ -45,7 +48,7 @@
         <template v-for="dayOfMonth in daysOfMonth"
                   :key="dayOfMonth"
         >
-          <NuxtLink :to="`calendar/edit/${dayOfMonth}`">
+          <NuxtLink :to="`/calendar/edit/${dayOfMonth}`">
             <CalendarItem
               :display-date="dayOfMonth"
             />
@@ -57,14 +60,15 @@
 </template>
 
 <script setup lang="ts">
+import { getHistoricalYears } from '~/helpers/date';
 const {
-  displayMonthYear,
+  longDisplayMonthYear,
+  shortDisplayMonthYear,
   previousMonthAction,
   previousMonthDisabled,
   nextMonthAction,
   nextMonthDisabled,
   changeYearAction,
-  getHistoricalYears,
   year,
   daysOfMonth,
 } = useCalendar();
