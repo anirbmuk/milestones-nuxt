@@ -44,7 +44,6 @@
 </template>
 
 <script setup lang="ts">
-import type { AuthState } from '~/types/auth';
 const router = useRouter();
 
 const email = ref<string | undefined>();
@@ -53,8 +52,9 @@ const emailInput = ref<HTMLInputElement>();
 
 const error = ref<string | undefined>();
 
+const { signin: authenticate } = useAuth();
 const { setAuthState } = useUser();
-const { initState } = useCalendar();
+const { initState: initCalendarState } = useCalendar();
 
 const signin = async () => {
   error.value = undefined;
@@ -63,14 +63,9 @@ const signin = async () => {
     return;
   }
   try {
-    const response = await $fetch<AuthState>('/api/login', {
-      body: {
-        email: email.value, password: password.value,
-      },
-      method: 'POST',
-    });
+    const response = await authenticate(email.value, password.value);
     setAuthState(response);
-    initState();
+    initCalendarState();
     router.push('/');
   } catch (e) {
     error.value = (e as any)?.data?.data?.error;

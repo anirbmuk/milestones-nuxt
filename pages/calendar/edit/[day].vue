@@ -53,7 +53,6 @@
 import { validateDateAsString } from '~/helpers/date';
 import type { Milestone } from '~/types/milestone';
 
-const { token } = useUser();
 const route = useRoute();
 const {
   getLastDayOfMonth,
@@ -93,13 +92,7 @@ if ((+day.value > max)) {
 }
 
 changeDayAction(+day.value);
-const { data: milestones } = await useAsyncData(key.value, async () => {
-  return await $fetch<Milestone[]>('/api/milestone' + '?q=' + `${day.value}-${month.value}-${year.value}`, {
-    headers: {
-      Authorization: `Bearer ${token.value}`,
-    },
-  });
-});
+const { data: milestones } = await useData<Milestone[]>(key.value, '/api/milestone' + '?q=' + `${day.value}-${month.value}-${year.value}`);
 
 const goToPreviousDay = () => {
   const newDay = +day.value - 1;
@@ -115,8 +108,10 @@ const goToNextDay = () => {
   }
 };
 
+// eslint-disable-next-line no-console
 const deleteMilestone = (milestone: Milestone) => console.log('Deleting ' + milestone.milestoneid);
 const copyMilestone = (milestone: Milestone) => window.navigator.clipboard.writeText(milestone.description);
+// eslint-disable-next-line no-console
 const editMilestone = (milestone: Milestone) => console.log('Editing ' + milestone.milestoneid);
 definePageMeta({
   middleware: ['guard'],
