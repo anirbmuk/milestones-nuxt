@@ -61,6 +61,7 @@
 
 <script setup lang="ts">
 import { getHistoricalYears } from '~/helpers/date';
+const { getCanonical } = useSeo();
 const {
   longDisplayMonthYear,
   shortDisplayMonthYear,
@@ -78,6 +79,15 @@ const selectedYear = ref<number>(year.value);
 const onYearChange = () => changeYearAction(selectedYear.value);
 definePageMeta({
   middleware: ['guard'],
+});
+useHead({
+  title: 'Calendar',
+  link: [
+    {
+      rel: 'canonical',
+      href: getCanonical(),
+    },
+  ],
 });
 defineOptions({
   name: 'CalendarIndexPage',

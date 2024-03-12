@@ -55,6 +55,7 @@ const error = ref<string | undefined>();
 const { signin: authenticate } = useAuth();
 const { setAuthState } = useUser();
 const { initState: initCalendarState } = useCalendar();
+const { getCanonical } = useSeo();
 
 const signin = async () => {
   error.value = undefined;
@@ -79,6 +80,15 @@ definePageMeta({
       return navigateTo('/calendar');
     }
   }],
+});
+useHead({
+  title: 'Login',
+  link: [
+    {
+      rel: 'canonical',
+      href: getCanonical(),
+    },
+  ],
 });
 defineOptions({
   name: 'SigninComponent',

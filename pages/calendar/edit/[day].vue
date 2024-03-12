@@ -50,9 +50,13 @@
 </template>
 
 <script setup lang="ts">
-import { validateDateAsString } from '~/helpers/date';
+import {
+  getFullDate,
+  validateDateAsString,
+} from '~/helpers/date';
 import type { Milestone } from '~/types/milestone';
 
+const { getCanonical } = useSeo();
 const route = useRoute();
 const {
   getLastDayOfMonth,
@@ -115,6 +119,15 @@ const copyMilestone = (milestone: Milestone) => window.navigator.clipboard.write
 const editMilestone = (milestone: Milestone) => console.log('Editing ' + milestone.milestoneid);
 definePageMeta({
   middleware: ['guard'],
+});
+useHead({
+  title: computed(() => getFullDate(+day.value, month.value, year.value, 'short')),
+  link: [
+    {
+      rel: 'canonical',
+      href: getCanonical(),
+    },
+  ],
 });
 defineOptions({
   name: 'CalendarEditPage',
