@@ -96,7 +96,11 @@ if ((+day.value > max)) {
 }
 
 changeDayAction(+day.value);
-const { data: milestones } = await useData<Milestone[]>(key.value, '/api/milestone' + '?q=' + `${day.value}-${month.value}-${year.value}`);
+const {
+  data: milestones,
+  refresh,
+  deleteFn,
+} = await useData<Milestone[]>(key.value + '_get', '/api/milestone' + '?q=' + `${+day.value}-${month.value}-${year.value}`);
 
 const goToPreviousDay = () => {
   const newDay = +day.value - 1;
@@ -112,8 +116,10 @@ const goToNextDay = () => {
   }
 };
 
-// eslint-disable-next-line no-console
-const deleteMilestone = (milestone: Milestone) => console.log('Deleting ' + milestone.milestoneid);
+const deleteMilestone = async (milestone: Milestone) => {
+  await deleteFn('/api/milestone' + '?id=' + milestone.milestoneid);
+  await refresh();
+};
 const copyMilestone = (milestone: Milestone) => window.navigator.clipboard.writeText(milestone.description);
 // eslint-disable-next-line no-console
 const editMilestone = (milestone: Milestone) => console.log('Editing ' + milestone.milestoneid);

@@ -5,4 +5,5 @@ export type SupportedQueryParams = {
   sort: 'asc' | 'desc' | undefined;
   limit: string | undefined;
   skip: string | undefined;
+  id: string;
 };

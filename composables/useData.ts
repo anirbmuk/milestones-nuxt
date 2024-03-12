@@ -1,8 +1,6 @@
 import type { NuxtError } from '#app';
 
-interface BodyType extends Object {
-
-}
+type BodyType = { [key: string]: any, [key: number]: any }
 
 export const useData = async <T>(key: string, path: string, method: 'GET' | 'POST' = 'GET', body: BodyType | undefined = undefined) => {
   const { token } = useUser();
@@ -21,6 +19,7 @@ export const useData = async <T>(key: string, path: string, method: 'GET' | 'POS
 
   const {
     data,
+    refresh,
     error,
   } = await useAsyncData(key, async () => {
     return await $fetch<T>(path, {
@@ -34,11 +33,20 @@ export const useData = async <T>(key: string, path: string, method: 'GET' | 'POS
     });
   });
 
+  const deleteFn = async (path: string) => await $fetch(path, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token.value}`,
+    },
+  });
+
   if (error.value) {
     handleError(error.value);
   }
 
   return {
     data,
+    refresh,
+    deleteFn,
   };
 };
