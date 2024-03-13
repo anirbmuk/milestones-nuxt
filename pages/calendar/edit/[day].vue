@@ -99,8 +99,8 @@ changeDayAction(+day.value);
 const {
   data: milestones,
   refresh,
-  deleteFn,
-} = await useData<Milestone[]>(key.value + '_get', '/api/milestone' + '?q=' + `${+day.value}-${month.value}-${year.value}`);
+} = await useFetchData<Milestone[]>(key.value, '/api/milestone' + '?q=' + `${+day.value}-${month.value}-${year.value}`);
+const { deleteFn } = useDeleteData();
 
 const goToPreviousDay = () => {
   const newDay = +day.value - 1;
