@@ -102,10 +102,4 @@ defineOptions({
 #auth {
   @apply p-4 md:p-8 w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%] 3xl:w-[30%] m-auto border border-gray-200 rounded-sm;
 }
-form {
-  @apply px-2 py-4;
-}
-input {
-  @apply p-2 border border-gray-200 rounded-sm outline-gray-700;
-}
 </style>

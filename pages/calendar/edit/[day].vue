@@ -120,7 +120,7 @@ const goToNextDay = () => {
 const deleteMilestone = async (milestone: Milestone) => {
   await deleteFn('/api/milestone' + '?id=' + milestone.milestoneid);
   await refresh();
-  show('Your milestone entry is deleted', 3);
+  show('Your milestone entry is deleted');
 };
 const copyMilestone = (milestone: Milestone) => window.navigator.clipboard.writeText(milestone.description);
 // eslint-disable-next-line no-console

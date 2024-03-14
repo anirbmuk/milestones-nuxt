@@ -23,7 +23,7 @@
         type="button"
         @click="$emit('delete')"
       >
-        <IconDelete class="h-5 md:h-6 w-5 md:w-6 fill-red-600" />
+        <IconDelete class="h-5 md:h-6 w-5 md:w-6" />
       </button>
       <button
         aria-label="Copy this entry"

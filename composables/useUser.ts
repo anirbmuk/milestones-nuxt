@@ -11,10 +11,13 @@ export const useUser = () => {
 
   const isLoggedIn = computed(() => Boolean(authState.value?.user));
 
+  const fullName = computed(() => isLoggedIn.value ? `${user.value?.firstname || ''}${user.value?.lastname ? ' ' : ''}${user.value?.lastname || ''}` : '');
+
   return {
     user,
     token,
     setAuthState,
     isLoggedIn,
+    fullName,
   };
 };
