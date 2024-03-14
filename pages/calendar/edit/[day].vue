@@ -66,6 +66,7 @@ const {
   month,
   year,
 } = useCalendar();
+const { show } = useNotification();
 const day = computed(() => route.params.day.toString().padStart(2, '0'));
 const key = computed(() => `milestones-${year.value}-${month.value.toString().padStart(2, '0')}-${day.value}`);
 
@@ -119,6 +120,7 @@ const goToNextDay = () => {
 const deleteMilestone = async (milestone: Milestone) => {
   await deleteFn('/api/milestone' + '?id=' + milestone.milestoneid);
   await refresh();
+  show('Your milestone entry is deleted', 3);
 };
 const copyMilestone = (milestone: Milestone) => window.navigator.clipboard.writeText(milestone.description);
 // eslint-disable-next-line no-console

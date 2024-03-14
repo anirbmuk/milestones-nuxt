@@ -17,7 +17,7 @@
         </div>
       </div>
     </nav>
-    <!-- <UiNotification message="Test" /> -->
+    <UiNotifications />
   </header>
 </template>
 
