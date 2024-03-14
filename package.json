@@ -1,6 +1,7 @@
 {
   "name": "milestones",
   "version": "1.0.0",
+  "description": "A Nuxt3 front-end application for tracking personal milestones!",
   "private": true,
   "author": {
     "name": "anirbmuk",

@@ -25,6 +25,7 @@ useHead({
 useSeoMeta({
   colorScheme: 'dark light',
   author: 'Anirban Mukherjee',
+  description: 'A Nuxt3 front-end application for tracking personal milestones!',
   themeColor: '#f5f5f5',
 });
 defineOptions({
