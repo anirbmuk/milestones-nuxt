@@ -1,20 +1,28 @@
 <template>
-  <header>
-    <nav class="flex justify-end">
-      <div class="flex items-center justify-start gap-4">
-        <button v-if="isLoggedIn"
-                type="button"
-                role="menu"
-                class="text-white"
-                @click="signout"
+  <header class="fixed top-0 z-50 w-full">
+    <nav class="flex justify-between">
+      <div class="cursor-pointer rounded-sm bg-secondary px-3 py-1 text-xl font-bold lowercase tracking-wide text-primary outline-0 md:text-2xl">
+        <NuxtLink to="/">
+          <span v-if="isLoggedIn">{{ user?.firstname }}'s {{ ' ' }}</span>MILESTONES
+        </NuxtLink>
+      </div>
+      <div v-if="isLoggedIn"
+           class="flex justify-between items-center space-x-3"
+      >
+        <NuxtLink to="/calendar">
+          <IconCalendar class="h-8 w-8" />
+        </NuxtLink>
+        <NuxtLink to="/search">
+          <IconSearch class="h-8 w-8" />
+        </NuxtLink>
+        <button
+          type="button"
+          class="text-white"
+          :title="`Logout ${fullName}`"
+          @click="signout"
         >
-          Logout
+          <IconLogout class="h-8 w-8" />
         </button>
-        <div class="cursor-pointer rounded-sm bg-secondary px-3 py-1 text-xl font-bold lowercase tracking-wide text-primary outline-0 md:text-2xl">
-          <NuxtLink to="/">
-            <span v-if="isLoggedIn">{{ user?.firstname }}'s {{ ' ' }}</span>MILESTONES
-          </NuxtLink>
-        </div>
       </div>
     </nav>
   </header>
@@ -61,6 +69,7 @@ const props = defineProps({
 const {
   isLoggedIn,
   user,
+  fullName,
   setAuthState,
 } = useUser();
 

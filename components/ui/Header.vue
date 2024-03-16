@@ -6,14 +6,24 @@
           <span v-if="isLoggedIn">{{ user?.firstname }}'s {{ ' ' }}</span>MILESTONES
         </NuxtLink>
       </div>
-      <button v-if="isLoggedIn"
-              type="button"
-              class="text-white"
-              :title="`Logout ${fullName}`"
-              @click="signout"
+      <div v-if="isLoggedIn"
+           class="flex justify-between items-center space-x-3"
       >
-        <IconLogout class="h-8 w-8" />
-      </button>
+        <NuxtLink to="/calendar">
+          <IconCalendar class="h-8 w-8" />
+        </NuxtLink>
+        <NuxtLink to="/search">
+          <IconSearch class="h-8 w-8" />
+        </NuxtLink>
+        <button
+          type="button"
+          class="text-white"
+          :title="`Logout ${fullName}`"
+          @click="signout"
+        >
+          <IconLogout class="h-8 w-8" />
+        </button>
+      </div>
     </nav>
     <UiNotifications />
   </header>
