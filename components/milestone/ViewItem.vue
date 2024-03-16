@@ -23,7 +23,7 @@
         type="button"
         @click="$emit('delete')"
       >
-        <IconDelete class="h-5 md:h-6 w-5 md:w-6" />
+        <IconDelete class="size-5 md:size-6" />
       </button>
       <button
         aria-label="Copy this entry"
@@ -31,7 +31,7 @@
         type="button"
         @click="$emit('copy')"
       >
-        <IconCopy class="h-5 md:h-6 w-5 md:w-6" />
+        <IconCopy class="size-5 md:size-6" />
       </button>
       <button
         aria-label="Edit this entry"
@@ -39,7 +39,7 @@
         type="button"
         @click="$emit('edit')"
       >
-        <IconEdit class="h-5 md:h-6 w-5 md:w-6" />
+        <IconEdit class="size-5 md:size-6" />
       </button>
     </div>
   </div>

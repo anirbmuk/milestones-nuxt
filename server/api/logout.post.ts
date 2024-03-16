@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
         },
       });
     }
-  } catch {}
+  } catch { /* NOTHING TO DO IF THERE'S AN ERROR */ }
 
   return {
     auth: false,

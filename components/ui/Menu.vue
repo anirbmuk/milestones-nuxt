@@ -4,13 +4,13 @@
               aria-label="Calendar Menu"
               title="Calendar"
     >
-      <IconCalendar class="h-8 w-8" />
+      <IconCalendar class="size-8" />
     </NuxtLink>
     <NuxtLink to="/search"
               aria-label="Search Menu"
               title="Search"
     >
-      <IconSearch class="h-8 w-8" />
+      <IconSearch class="size-8" />
     </NuxtLink>
     <button
       type="button"
@@ -19,7 +19,7 @@
       :title="`Logout ${fullName}`"
       @click="$emit('signout')"
     >
-      <IconLogout class="h-8 w-8" />
+      <IconLogout class="size-8" />
     </button>
   </div>
 </template>

@@ -12,9 +12,9 @@
         </option>
       </select>
     </div>
-    <div class="mt-4 mb-2 grid grid-cols-8 md:mb-4 items-center">
+    <div class="mb-2 mt-4 grid grid-cols-8 items-center md:mb-4">
       <button
-        class="text-left xl:text-center col-span-2"
+        class="col-span-2 text-left xl:text-center"
         aria-label="Go to previous month"
         title="Previous Month"
         type="button"
@@ -22,16 +22,16 @@
         :disabled="previousMonthDisabled"
         @click="previousMonthAction"
       >
-        <span class="font-bold text-3xl">&larr;</span>
+        <span class="text-3xl font-bold">&larr;</span>
       </button>
-      <div class="text-center text font-semibold md:text-2xl hidden lg:block col-span-4">
+      <div class="col-span-4 hidden text-center text font-semibold md:text-2xl lg:block">
         {{ longDisplayMonthYear }}
       </div>
-      <div class="text-center text font-semibold md:text-2xl lg:hidden col-span-4">
+      <div class="col-span-4 text-center text font-semibold md:text-2xl lg:hidden">
         {{ shortDisplayMonthYear }}
       </div>
       <button
-        class="text-right xl:text-center col-span-2"
+        class="col-span-2 text-right xl:text-center"
         aria-label="Go to next month"
         title="Next Month"
         type="button"
@@ -39,7 +39,7 @@
         :disabled="nextMonthDisabled"
         @click="nextMonthAction"
       >
-        <span class="font-bold text-3xl">&rarr;</span>
+        <span class="text-3xl font-bold">&rarr;</span>
       </button>
     </div>
     <div class="pb-8">

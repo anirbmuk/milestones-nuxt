@@ -5,10 +5,11 @@ module.exports = {
     node: true,
   },
   extends: [
-    '@nuxtjs/eslint-config-typescript',
+    '@nuxt/eslint-config',
     'plugin:nuxt/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:sonarjs/recommended',
+    'plugin:tailwindcss/recommended',
   ],
   rules: {
     'comma-dangle': ['error', 'always-multiline'],
@@ -58,5 +59,6 @@ module.exports = {
         multiline: true, minProperties: 2,
       },
     }],
+    'tailwindcss/no-custom-classname': 'off',
   },
 };

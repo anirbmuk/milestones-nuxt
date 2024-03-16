@@ -19,7 +19,7 @@ function getCurrent(identifier: CONSTANTS) {
     return +mm;
   }
   return +yyyy;
-};
+}
 
 const getInitialState = () => ({
   day: getCurrent(CONSTANTS._DAY),

@@ -1,11 +1,11 @@
 <template>
   <div class="signin-container">
     <section class="px-4">
-      <div class="flex mt-4 mb-2 mx-auto space-x-2 items-center">
+      <div class="mx-auto mb-2 mt-4 flex items-center space-x-2">
         <span class="text-2xl font-semibold">Welcome to your Milestones!</span>
-        <IconMilestone class="h-6 w-6" />
+        <IconMilestone class="size-6" />
       </div>
-      <div class="text-md mb-2 text-gray-500">
+      <div class="mb-2 text-md text-gray-500">
         Sign in with your registered email account
       </div>
     </section>
@@ -39,7 +39,7 @@
           Submit
         </button>
         <p v-if="error"
-           class="text-red-700 text-md text-center"
+           class="text-center text-md text-red-700"
         >
           {{ error }}
         </p>

@@ -7,23 +7,23 @@
         </NuxtLink>
       </div>
       <UiMenu v-if="isLoggedIn"
-              class="flex justify-between items-center space-x-3"
+              class="flex items-center justify-between space-x-3"
               @signout="signout"
       />
     </nav>
   </header>
   <main class="container mx-auto my-20">
     <section class="text-center">
-      <h1 class="py-4 text-16xl font-bold text-black-dark md:text-massive">
+      <h1 class="py-4 text-16xl font-bold text-primary-dark md:text-massive">
         !{{ error?.statusCode }}!
       </h1>
-      <div v-if="error?.message"
-           class="m-2 text-red"
-      >
-        <div error>
+      <template v-if="error?.message">
+        <div class="m-2"
+             error
+        >
           {{ error.message }}
         </div>
-      </div>
+      </template>
       <div class="mb-2 mt-8 flex items-center justify-center">
         <button
           type="button"

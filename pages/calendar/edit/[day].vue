@@ -1,8 +1,8 @@
 <template>
   <section>
-    <div class="mt-4 mb-2 grid grid-cols-8 md:mb-4 items-center">
+    <div class="mb-2 mt-4 grid grid-cols-8 items-center md:mb-4">
       <button
-        class="text-left xl:text-center col-span-2"
+        class="col-span-2 text-left xl:text-center"
         aria-label="Go to previous day"
         title="Previous Day"
         type="button"
@@ -10,16 +10,16 @@
         :disabled="+day === min"
         @click="goToPreviousDay"
       >
-        <span class="font-bold text-3xl">&larr;</span>
+        <span class="text-3xl font-bold">&larr;</span>
       </button>
-      <div class="text-center text font-semibold md:text-2xl hidden lg:block col-span-4">
+      <div class="col-span-4 hidden text-center text font-semibold md:text-2xl lg:block">
         {{ longDisplayDate }}
       </div>
-      <div class="text-center text font-semibold md:text-2xl lg:hidden col-span-4">
+      <div class="col-span-4 text-center text font-semibold md:text-2xl lg:hidden">
         {{ shortDisplayDate }}
       </div>
       <button
-        class="text-right xl:text-center col-span-2"
+        class="col-span-2 text-right xl:text-center"
         aria-label="Go to next day"
         title="Next Day"
         type="button"
@@ -27,7 +27,7 @@
         :disabled="+day === max"
         @click="goToNextDay"
       >
-        <span class="font-bold text-3xl">&rarr;</span>
+        <span class="text-3xl font-bold">&rarr;</span>
       </button>
     </div>
     <template v-if="milestones?.length">

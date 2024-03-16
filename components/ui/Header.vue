@@ -7,7 +7,7 @@
         </NuxtLink>
       </div>
       <UiMenu v-if="isLoggedIn"
-              class="flex justify-between items-center space-x-3"
+              class="flex items-center justify-between space-x-3"
               @signout="signout"
       />
     </nav>
