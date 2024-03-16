@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
 
   return await $fetch<Milestone[]>(`${middleware.hostUrl}${middleware.apiBasePath}/${endPoint}`, {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: authorization!,
     },
   });
 });
