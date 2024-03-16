@@ -6,24 +6,10 @@
           <span v-if="isLoggedIn">{{ user?.firstname }}'s {{ ' ' }}</span>MILESTONES
         </NuxtLink>
       </div>
-      <div v-if="isLoggedIn"
-           class="flex justify-between items-center space-x-3"
-      >
-        <NuxtLink to="/calendar">
-          <IconCalendar class="h-8 w-8" />
-        </NuxtLink>
-        <NuxtLink to="/search">
-          <IconSearch class="h-8 w-8" />
-        </NuxtLink>
-        <button
-          type="button"
-          class="text-white"
-          :title="`Logout ${fullName}`"
-          @click="signout"
-        >
-          <IconLogout class="h-8 w-8" />
-        </button>
-      </div>
+      <UiMenu v-if="isLoggedIn"
+              class="flex justify-between items-center space-x-3"
+              @signout="signout"
+      />
     </nav>
   </header>
   <main class="container mx-auto my-20">
@@ -69,7 +55,6 @@ const props = defineProps({
 const {
   isLoggedIn,
   user,
-  fullName,
   setAuthState,
 } = useUser();
 

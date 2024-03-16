@@ -2,6 +2,7 @@
   <section>
     <div class="flex items-center justify-center">
       <select v-model.number="selectedYear"
+              aria-label="Select year"
               @change="onYearChange"
       >
         <option v-for="history of getHistoricalYears()"
