@@ -23,10 +23,10 @@
       >
         <span class="font-bold text-3xl">&larr;</span>
       </button>
-      <div class="text-center text font-semiBold md:text-2xl hidden lg:block col-span-4">
+      <div class="text-center text font-semibold md:text-2xl hidden lg:block col-span-4">
         {{ longDisplayMonthYear }}
       </div>
-      <div class="text-center text font-semiBold md:text-2xl lg:hidden col-span-4">
+      <div class="text-center text font-semibold md:text-2xl lg:hidden col-span-4">
         {{ shortDisplayMonthYear }}
       </div>
       <button

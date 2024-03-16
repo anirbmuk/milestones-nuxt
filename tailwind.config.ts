@@ -35,7 +35,7 @@ export default {
     },
     fontWeight: {
       normal: 400,
-      semiBold: 600,
+      semibold: 600,
       bold: 700,
     },
     fontFamily: {
