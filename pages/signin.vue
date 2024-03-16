@@ -1,28 +1,33 @@
 <template>
   <div class="signin-container">
+    <section class="px-4">
+      <div class="flex mt-4 mb-2 mx-auto space-x-2 items-center">
+        <span class="text-2xl font-semibold">Welcome to your Milestones!</span>
+        <IconMilestone class="h-6 w-6" />
+      </div>
+      <div class="text-md mb-2 text-gray-500">
+        Sign in with your registered email account
+      </div>
+    </section>
     <div id="auth">
       <form
         class="flex flex-col space-y-6"
         @submit.prevent="signin"
       >
         <div class="flex flex-col space-y-1">
-          <label for="email"
-                 required
-          >Email address</label>
           <input id="email"
                  ref="emailInput"
                  v-model="email"
+                 placeholder="Email address"
                  type="email"
                  name="email"
                  required
           >
         </div>
         <div class="flex flex-col space-y-1">
-          <label for="Password"
-                 required
-          >Password</label>
           <input id="password"
                  v-model="password"
+                 placeholder="Password"
                  type="password"
                  name="password"
                  required
@@ -97,9 +102,9 @@ defineOptions({
 
 <style scoped>
 .signin-container {
-  @apply mt-24 md:mt-20 lg:mt-16 xl:mt-12;
+  @apply mt-24 w-[95%] lg:w-[50%] xl:w-[40%] 4xl:w-[30%] lg:absolute lg:right-4;
 }
 #auth {
-  @apply p-4 md:p-8 w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%] 3xl:w-[30%] m-auto border border-gray-200 rounded-sm;
+  @apply p-4 lg:p-8 m-auto border border-gray-200 rounded-sm lg:relative;
 }
 </style>

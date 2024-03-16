@@ -1,6 +1,6 @@
 <template>
   <UiHeader />
-  <main class="container mt-4">
+  <main class="container mx-auto my-20 md:my-24">
     <slot />
   </main>
 </template>
