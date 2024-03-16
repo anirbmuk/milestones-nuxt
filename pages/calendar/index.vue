@@ -75,7 +75,7 @@ const {
 } = useCalendar();
 
 const selectedYear = ref<number>(year.value);
-
+watch(year, (value) => (selectedYear.value = value));
 const onYearChange = () => changeYearAction(selectedYear.value);
 definePageMeta({
   middleware: ['guard'],

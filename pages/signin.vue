@@ -87,7 +87,7 @@ definePageMeta({
   }],
 });
 useHead({
-  title: 'Login',
+  title: 'Signin',
   link: [
     {
       rel: 'canonical',
@@ -102,9 +102,9 @@ defineOptions({
 
 <style scoped>
 .signin-container {
-  @apply mt-24 w-[95%] lg:w-[50%] xl:w-[40%] 4xl:w-[30%] lg:absolute lg:right-4;
+  @apply mt-32 w-full lg:w-[50%] xl:w-[40%] 4xl:w-[30%] lg:absolute lg:right-4 rounded px-2 py-8 bg-gray-50 border border-gray-300;
 }
 #auth {
-  @apply p-4 lg:p-8 m-auto border border-gray-200 rounded-sm lg:relative;
+  @apply m-auto rounded-sm lg:relative;
 }
 </style>

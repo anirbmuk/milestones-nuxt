@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute p-4 mx-4 my-1 rounded flex justify-start items-center z-10 border border-primary-dark w-full right-2 max-w-72 bg-primary-dark ease-in-out duration-300 text-secondary"
+    class="absolute p-4 mx-4 my-1 rounded flex justify-start items-center z-10 border border-primary-dark w-full -right-2 max-w-72 bg-primary-dark ease-in-out duration-300 text-secondary"
   >
     {{ notification.message }}
   </div>

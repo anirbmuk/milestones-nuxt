@@ -122,9 +122,15 @@ const deleteMilestone = async (milestone: Milestone) => {
   await refresh();
   show('Your milestone entry is deleted');
 };
-const copyMilestone = (milestone: Milestone) => window.navigator.clipboard.writeText(milestone.description);
+
+const copyMilestone = (milestone: Milestone) => {
+  window.navigator.clipboard.writeText(milestone.description);
+  show('The text is copied to clipboard');
+};
+
 // eslint-disable-next-line no-console
 const editMilestone = (milestone: Milestone) => console.log('Editing ' + milestone.milestoneid);
+
 definePageMeta({
   middleware: ['guard'],
 });
