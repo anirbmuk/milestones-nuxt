@@ -51,7 +51,8 @@ export const useCalendar = () => {
   const initState = () => (state.value = getInitialState());
 
   const changeDayAction = (day: number) => (state.value = {
-    ...state.value, day,
+    ...state.value,
+    day,
   } as CalendarState);
   const previousMonthAction = () => {
     let previousMonth = month.value - 1;

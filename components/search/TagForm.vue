@@ -1,9 +1,9 @@
 <template>
-  SearchItem
+  SearchTagForm
 </template>
 
 <script setup lang="ts">
 defineOptions({
-  name: 'MilestoneSearchItem',
+  name: 'SearchTagForm',
 });
 </script>

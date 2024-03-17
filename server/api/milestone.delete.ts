@@ -1,3 +1,4 @@
+import { COOKIES } from '~/helpers/cookie';
 import { Milestone } from '~/types/milestone';
 import type { SupportedQueryParams } from '~/types/query';
 
@@ -7,12 +8,11 @@ export default defineEventHandler(async (event) => {
   const [, token] = authorization?.toString()?.split('Bearer ') || [];
 
   if (!token) {
-    setCookie(event, '_session', '', {
-      maxAge: 0,
-    });
-    setCookie(event, '_calendar', '', {
-      maxAge: 0,
-    });
+    for (const cookie of COOKIES) {
+      setCookie(event, cookie, '', {
+        maxAge: 0,
+      });
+    }
     throw new Error('You have been logged off');
   }
 
