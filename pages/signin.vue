@@ -11,7 +11,7 @@
     </section>
     <div id="auth">
       <form
-        class="flex flex-col space-y-6"
+        class="flex flex-col space-y-6 px-2 py-4"
         @submit.prevent="signin"
       >
         <div class="flex flex-col space-y-1">

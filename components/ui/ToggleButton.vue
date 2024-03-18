@@ -38,7 +38,7 @@ defineOptions({
 
 <style scoped>
 button {
-  @apply bg-white text-primary-dark px-4 py-3 rounded-sm min-w-16 border border-gray-200;
+  @apply bg-white text-primary-dark p-3 rounded-sm min-w-14 border border-gray-200;
 }
 .selected {
   @apply bg-gray-200;
