@@ -43,12 +43,17 @@
   form {
     @apply px-2 py-4;
   }
-  input {
+  input[type=text],
+  input[type=email],
+  input[type=password] {
     @apply p-2 border border-gray-200 rounded-sm outline-gray-400 shadow focus:shadow-lg;
   }
   input[type=radio],
   label[radio] {
     @apply cursor-pointer;
+  }
+  input[type=radio] {
+    @apply scale-150 outline-none border-none accent-primary-dark;
   }
   .cta-button-primary {
     @apply min-w-24 cursor-pointer rounded-sm border border-primary-dark bg-primary-dark p-4 text-center text-white shadow-lg duration-200 ease-in-out md:min-w-40 md:hover:border-gray-800 md:hover:bg-gray-800;

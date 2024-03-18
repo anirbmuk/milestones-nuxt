@@ -4,5 +4,5 @@ export type SearchState = {
   searchDepth: 'all' | 'in';
   limit: number;
   skip: number;
-  sortdir: 'asc' | 'desc';
+  sortDir: 'asc' | 'desc';
 };
