@@ -33,11 +33,18 @@ export const useSearch = () => {
       searchDepth,
     };
   };
+  const setSearchString = (q: SearchState['q']) => {
+    state.value = {
+      ...state.value,
+      q,
+    };
+  };
 
   return {
     state,
     setSearchType,
     setSortDir,
     setSearchDepth,
+    setSearchString,
   };
 };

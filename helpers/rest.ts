@@ -15,3 +15,7 @@ export const getMilestoneEndPoint = ({
   }
   return `milestone?q=${q}&findBy=${findBy}`;
 };
+
+export const getActivityEndPoint = (q: string) => {
+  return `activity?q=${q}`;
+};

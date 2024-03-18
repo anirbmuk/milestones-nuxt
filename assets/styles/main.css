@@ -46,7 +46,7 @@
   input[type=text],
   input[type=email],
   input[type=password] {
-    @apply p-2 border border-gray-200 rounded-sm outline-gray-400 shadow focus:shadow-lg;
+    @apply py-2 px-3 border border-gray-200 rounded-sm outline-gray-400 shadow focus:shadow;
   }
   input[type=radio],
   label[radio] {
