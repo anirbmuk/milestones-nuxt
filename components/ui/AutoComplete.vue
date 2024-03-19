@@ -22,14 +22,14 @@
         </div>
       </template>
     </div>
-    <div v-if="modelValue?.length"
+    <div v-if="chips.length"
          class="absolute top-10 flex space-x-2"
     >
-      <template v-for="(item, index) of modelValue"
-                :key="item"
+      <template v-for="(chip, index) of chips"
+                :key="chip"
       >
-        <UiChip v-if="item"
-                :text="item"
+        <UiChip v-if="chip"
+                :text="chip"
                 removable
                 @remove="removeItem(index)"
         />
@@ -47,8 +47,8 @@ const autocompleteInput = ref<HTMLInputElement | undefined>();
 
 const props = defineProps({
   modelValue: {
-    type: Array as PropType<string[]>,
-    required: true,
+    type: String,
+    default: '',
   },
   options: {
     type: Array as PropType<string[]>,
@@ -62,6 +62,8 @@ const props = defineProps({
 // eslint-disable-next-line vue/valid-define-emits
 const emit = defineEmits([UPDATE_MODEL_VALUE, UPDATE_INPUT]);
 
+const chips = computed(() => props.modelValue.split(',').filter(Boolean));
+
 const typeahead = (event: Event) => {
   const { value } = (event.target as HTMLInputElement);
   emit(UPDATE_INPUT, value);
@@ -70,15 +72,15 @@ const typeahead = (event: Event) => {
 const _debouncedTypeahead = debounce(typeahead, 300);
 
 const removeItem = (index: number) => {
-  const copy = props.modelValue.slice();
+  const copy = chips.value.slice();
   copy.splice(index, 1);
-  emit(UPDATE_MODEL_VALUE, copy);
+  emit(UPDATE_MODEL_VALUE, copy.join(','));
 };
 
 const select = (item: string) => {
-  const newArr = [...props.modelValue, item];
+  const copy = [...chips.value, item];
   emit(UPDATE_INPUT, '');
-  emit(UPDATE_MODEL_VALUE, newArr);
+  emit(UPDATE_MODEL_VALUE, copy.join(','));
   setTimeout(() => {
     if (autocompleteInput.value) {
       autocompleteInput.value.value = '';

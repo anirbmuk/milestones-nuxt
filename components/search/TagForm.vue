@@ -2,14 +2,14 @@
   <div>
     <div class="mx-auto my-4 space-y-2 lg:w-1/2">
       <div class="flex items-center justify-between">
-        <UiToggleButton v-model="searchDepth"
+        <UiToggleButton v-model="searchState.searchDepth"
                         :options="depthOptions"
         />
-        <UiToggleButton v-model="sortDirection"
+        <UiToggleButton v-model="searchState.sortDir"
                         :options="sortOptions"
         />
       </div>
-      <UiAutoComplete v-model="activities"
+      <UiAutoComplete v-model="searchState.q"
                       :options="options"
                       placeholder="Add tags to search..."
                       @update:input="fetchActivities($event)"
@@ -22,12 +22,7 @@
 import type { SearchState } from '~/types/search';
 import type { KeyValue } from '~/types/toggle';
 
-const {
-  state: searchState,
-  setSortDir, 
-  setSearchDepth,
-  setSearchString,
-} = useSearch();
+const { state: searchState } = useSearch();
 const {
   fetch,
   data: options, 
@@ -40,8 +35,6 @@ const sortOptions: KeyValue<SearchState['sortDir']>[] = [{
   label: 'Desc',
   value: 'desc', 
 }];
-const sortDirection = ref<SearchState['sortDir']>(searchState.value.sortDir);
-watch(sortDirection, (sd) => setSortDir(sd));
 
 const depthOptions: KeyValue<SearchState['searchDepth']>[] = [{
   label: 'Match all',
@@ -50,11 +43,6 @@ const depthOptions: KeyValue<SearchState['searchDepth']>[] = [{
   label: 'Match any',
   value: 'in', 
 }];
-const searchDepth = ref<SearchState['searchDepth']>(searchState.value.searchDepth);
-watch(searchDepth, (sd) => setSearchDepth(sd));
-
-const activities = ref<string[]>(searchState.value.q.split(',').filter(Boolean));
-watch(activities, (q) => setSearchString(q.join(',')));
 
 const fetchActivities = async (value: string) => await fetch(`/api/activity?q=${value}`);
 

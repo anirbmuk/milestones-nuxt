@@ -15,36 +15,26 @@ export const useSearch = () => {
 
   watch(state, (value) => (_search.value = value));
 
-  const setSearchType = (searchType: SearchState['searchType']) => {
-    state.value = {
-      ...state.value,
-      searchType,
-    };
-  };
-  const setSortDir = (sortDir: SearchState['sortDir']) => {
-    state.value = {
-      ...state.value,
-      sortDir,
-    };
-  };
-  const setSearchDepth = (searchDepth: SearchState['searchDepth']) => {
-    state.value = {
-      ...state.value,
-      searchDepth,
-    };
-  };
-  const setSearchString = (q: SearchState['q']) => {
-    state.value = {
+  const searchType = computed(() => state.value.searchType);
+  const sortDir = computed(() => state.value.sortDir);
+  const searchDepth = computed(() => state.value.searchDepth);
+  const q = computed(() => state.value.q.trim());
+  watch([q, searchDepth, searchType, sortDir],
+    ([q, searchDepth, searchType, sortDir]) => (state.value = {
       ...state.value,
       q,
-    };
-  };
+      searchDepth,
+      searchType,
+      sortDir,
+    }));
+
+  // eslint-disable-next-line no-console
+  const search = () => console.log('[SEARCH]', state.value);
+  const reset = () => (state.value = getInitialState());
 
   return {
     state,
-    setSearchType,
-    setSortDir,
-    setSearchDepth,
-    setSearchString,
+    search,
+    reset,
   };
 };

@@ -59,6 +59,6 @@
     @apply w-full cursor-pointer rounded-sm border border-primary-dark bg-primary-dark px-4 py-3 text-center text-white shadow-lg duration-200 ease-in-out md:hover:border-gray-800 md:hover:bg-gray-800;
   }
   button[type=reset] {
-    @apply w-full cursor-pointer border-none px-4 py-3 text-center text-red-600 duration-200 ease-in-out md:hover:bg-red-100 !bg-transparent;
+    @apply min-w-16 cursor-pointer border-none px-4 py-3 text-center text-red-600 duration-200 ease-in-out hover:bg-red-50 bg-transparent rounded-sm;
   }
 }
