@@ -29,7 +29,12 @@ const {
   data: options,
 } = useGetData<string[]>();
 
-const fetchActivities = async (value: string) => await fetch(`/api/activity?q=${value}`);
+const fetchActivities = async (value: string) => {
+  if (!value) {
+    return options.value = [];
+  }
+  await fetch(`/api/activity?q=${value}`);
+};
 
 defineOptions({
   name: 'SearchTagForm',

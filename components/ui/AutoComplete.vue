@@ -25,7 +25,7 @@
       </template>
     </div>
     <div v-if="chips.length"
-         class="absolute top-10 flex space-x-2"
+         class="absolute top-10 flex flex-wrap"
     >
       <template v-for="(chip, index) of chips"
                 :key="chip"
@@ -33,6 +33,7 @@
         <UiChip v-if="chip"
                 :text="chip"
                 removable
+                class="mb-1 mr-1"
                 @remove="removeItem(index)"
         />
       </template>
@@ -72,7 +73,9 @@ const chips = computed(() => props.modelValue.split(',').filter(Boolean));
 
 const typeahead = (event: Event) => {
   const { value } = (event.target as HTMLInputElement);
-  emit(UPDATE_INPUT, value);
+  if (value?.trim() && value.trim().length > 2) {
+    emit(UPDATE_INPUT, value.trim());
+  }
 };
 
 const _debouncedTypeahead = debounce(typeahead, 300);
@@ -84,9 +87,9 @@ const removeItem = (index: number) => {
 };
 
 const select = (item: string) => {
-  const copy = [...chips.value, item];
+  const copy = new Set([...chips.value, item.toLowerCase()]);
   emit(UPDATE_INPUT, '');
-  emit(UPDATE_MODEL_VALUE, copy.join(','));
+  emit(UPDATE_MODEL_VALUE, Array.from(copy).join(','));
   setTimeout(() => {
     if (autocompleteInput.value) {
       autocompleteInput.value.value = '';
