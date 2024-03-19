@@ -6,6 +6,8 @@
            class="absolute w-full"
            type="text"
            @input="_debouncedTypeahead"
+           @blur="selectOnBlur"
+           @keydown.enter="selectOnEnter"
     >
     <div v-if="options.length"
          class="relative top-10 z-10 my-2 flex w-full flex-col space-y-2 rounded border border-gray-200 bg-white p-0.5"
@@ -58,6 +60,10 @@ const props = defineProps({
     type: String,
     default: 'Enter search term',
   },
+  allowUnlistedValue: {
+    type: Boolean,
+    default: () => false,
+  },
 });
 // eslint-disable-next-line vue/valid-define-emits
 const emit = defineEmits([UPDATE_MODEL_VALUE, UPDATE_INPUT]);
@@ -87,6 +93,25 @@ const select = (item: string) => {
       autocompleteInput.value.focus();
     }
   });
+};
+
+const selectOnBlur = (event: Event) => {
+  if (props.allowUnlistedValue) {
+    const { value } = (event.target as HTMLInputElement);
+    if (value) {
+      select(value);
+    }
+  }
+};
+
+const selectOnEnter = (event: KeyboardEvent) => {
+  if (props.allowUnlistedValue) {
+    event.preventDefault();
+    const { value } = (event.target as HTMLInputElement);
+    if (value) {
+      select(value);
+    }
+  }
 };
 
 defineOptions({
