@@ -60,6 +60,7 @@ const error = ref<string | undefined>();
 const { signin: authenticate } = useAuth();
 const { setAuthState } = useUser();
 const { initState: initCalendarState } = useCalendar();
+const { initState: initSearchState } = useSearch();
 const { getCanonical } = useSeo();
 
 const signin = async () => {
@@ -72,6 +73,7 @@ const signin = async () => {
     const response = await authenticate(email.value, password.value);
     setAuthState(response);
     initCalendarState();
+    initSearchState();
     router.push('/');
   } catch (e) {
     error.value = (e as any)?.data?.data?.error;

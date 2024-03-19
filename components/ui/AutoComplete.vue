@@ -10,7 +10,7 @@
            @keydown.enter="selectOnEnter"
     >
     <div v-if="options.length"
-         class="relative -top-4 z-10 my-2 flex w-full flex-col space-y-2 rounded border border-gray-200 bg-white p-0.5"
+         class="absolute top-[2.2rem] z-10 my-2 flex w-full flex-col space-y-2 rounded border border-gray-200 bg-white p-0.5"
          role="listbox"
     >
       <template v-for="option of options"
@@ -121,6 +121,6 @@ defineOptions({
 
 <style scoped>
 div[autocomplete] {
-  @apply flex flex-col space-y-2 relative;
+  @apply relative flex flex-col space-y-2;
 }
 </style>

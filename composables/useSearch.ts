@@ -1,3 +1,5 @@
+import { getMilestoneEndPoint } from "~/helpers/rest";
+import type { Milestone } from "~/types/milestone";
 import type { SearchState } from "~/types/search";
 import type { KeyValue } from "~/types/toggle";
 
@@ -5,7 +7,9 @@ const getInitialState = () => ({
   q: '',
   searchDepth: 'all',
   searchType: 'tag',
-  sortDir: 'asc', 
+  sortDir: 'asc',
+  limit: 8,
+  skip: 0,
 } as SearchState);
 
 export const useSearch = () => {
@@ -14,7 +18,14 @@ export const useSearch = () => {
   });
   const state = useState<SearchState>('search', () => _search.value);
 
+  const initState = () => (state.value = getInitialState());
+
   watch(state, (value) => (_search.value = value));
+
+  const {
+    fetch,
+    data, 
+  } = useGetData<Milestone[]>();
 
   const searchType = computed(() => state.value.searchType);
   const sortDir = computed(() => state.value.sortDir);
@@ -29,8 +40,20 @@ export const useSearch = () => {
       sortDir,
     }));
 
-  // eslint-disable-next-line no-console
-  const search = () => console.log('[SEARCH]', state.value);
+  const search = async () => {
+    if (!state.value.q) {
+      return;
+    }
+    const endPoint = getMilestoneEndPoint({
+      q: state.value.q,
+      findBy: state.value.searchType,
+      depth: state.value.searchDepth,
+      sort: state.value.sortDir,
+      limit: `${state.value.limit}`,
+      skip: `${state.value.skip}`,
+    });
+    await fetch(`/api/${endPoint}`);
+  };
   const reset = () => (state.value = getInitialState());
 
   const SORT_OPTIONS: KeyValue<SearchState['sortDir']>[] = [{
@@ -51,7 +74,9 @@ export const useSearch = () => {
 
   return {
     state,
+    initState,
     search,
+    data,
     reset,
     SORT_OPTIONS,
     DEPTH_OPTIONS,

@@ -6,6 +6,12 @@
                         :options="SORT_OPTIONS"
         />
       </div>
+      <input id="daterange"
+             ref="daterangeInput"
+             class="w-full"
+             placeholder="Enter a date range"
+             type="text"
+      >
     </div>
   </div>
 </template>

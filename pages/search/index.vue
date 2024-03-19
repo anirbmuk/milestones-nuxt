@@ -21,10 +21,10 @@
       >Search with date</label>
     </div>
   </div>
-  <div class="relative mt-8">
+  <div class="mt-8">
     <SearchTagForm v-if="searchState.searchType === 'tag'" />
     <SearchDateRangeForm v-if="searchState.searchType === 'daterange'" />
-    <form class="absolute-center top-44"
+    <form class="mt-12"
           @submit.prevent="search"
     >
       <div class="flex items-center justify-center space-x-2">
@@ -38,6 +38,9 @@
         </button>
       </div>
     </form>
+  </div>
+  <div class="relative mt-8">
+    TEST
   </div>
 </template>
 
