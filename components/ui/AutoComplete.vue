@@ -3,20 +3,20 @@
     <input id="autocomplete"
            ref="autocompleteInput"
            :placeholder="placeholder"
-           class="absolute w-full"
+           class=" w-full"
            type="text"
            @input="_debouncedTypeahead"
            @blur="selectOnBlur"
            @keydown.enter="selectOnEnter"
     >
     <div v-if="options.length"
-         class="relative top-10 z-10 my-2 flex w-full flex-col space-y-2 rounded border border-gray-200 bg-white p-0.5"
+         class="relative -top-4 z-10 my-2 flex w-full flex-col space-y-2 rounded border border-gray-200 bg-white p-0.5"
          role="listbox"
     >
       <template v-for="option of options"
                 :key="option"
       >
-        <div class="relative cursor-pointer rounded-sm px-1 py-2 hover:bg-gray-100"
+        <div class="cursor-pointer rounded-sm px-1 py-2 hover:bg-gray-100"
              role="option"
              @click="select(option)"
         >

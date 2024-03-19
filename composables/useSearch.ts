@@ -1,4 +1,5 @@
 import type { SearchState } from "~/types/search";
+import type { KeyValue } from "~/types/toggle";
 
 const getInitialState = () => ({
   q: '',
@@ -32,9 +33,27 @@ export const useSearch = () => {
   const search = () => console.log('[SEARCH]', state.value);
   const reset = () => (state.value = getInitialState());
 
+  const SORT_OPTIONS: KeyValue<SearchState['sortDir']>[] = [{
+    label: 'Asc',
+    value: 'asc', 
+  }, {
+    label: 'Desc',
+    value: 'desc', 
+  }];
+  
+  const DEPTH_OPTIONS: KeyValue<SearchState['searchDepth']>[] = [{
+    label: 'Match all',
+    value: 'all', 
+  }, {
+    label: 'Match any',
+    value: 'in', 
+  }];
+
   return {
     state,
     search,
     reset,
+    SORT_OPTIONS,
+    DEPTH_OPTIONS,
   };
 };

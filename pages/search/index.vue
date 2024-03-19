@@ -2,7 +2,7 @@
   <div class="flex items-center justify-center space-x-4">
     <div class="flex items-center justify-center space-x-2">
       <input id="tag"
-             v-model="searchType"
+             v-model="searchState.searchType"
              type="radio"
              value="tag"
       >
@@ -12,7 +12,7 @@
     </div>
     <div class="flex items-center justify-center space-x-2">
       <input id="daterange"
-             v-model="searchType"
+             v-model="searchState.searchType"
              type="radio"
              value="daterange"
       >
@@ -21,21 +21,34 @@
       >Search with date</label>
     </div>
   </div>
-  <SearchTagForm v-if="searchState.searchType === 'tag'" />
-  <SearchDateRangeForm v-if="searchState.searchType === 'daterange'" />
+  <div class="relative mt-8">
+    <SearchTagForm v-if="searchState.searchType === 'tag'" />
+    <SearchDateRangeForm v-if="searchState.searchType === 'daterange'" />
+    <form class="absolute-center top-44"
+          @submit.prevent="search"
+    >
+      <div class="flex items-center justify-center space-x-2">
+        <button type="submit">
+          SEARCH
+        </button>
+        <button type="reset"
+                @click="reset"
+        >
+          RESET
+        </button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script setup lang="ts">
-import type { SearchState } from '~/types/search';
-
 const { getCanonical } = useSeo();
 const {
   state: searchState,
-  setSearchType,
+  search,
+  reset,
 } = useSearch();
 
-const searchType = ref<SearchState['searchType']>(searchState.value.searchType);
-watch(searchType, (value) => setSearchType(value));
 definePageMeta({
   middleware: ['guard'],
 });

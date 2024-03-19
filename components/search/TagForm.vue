@@ -3,10 +3,10 @@
     <div class="mx-auto my-4 space-y-2 lg:w-1/2">
       <div class="flex items-center justify-between">
         <UiToggleButton v-model="searchState.searchDepth"
-                        :options="depthOptions"
+                        :options="DEPTH_OPTIONS"
         />
         <UiToggleButton v-model="searchState.sortDir"
-                        :options="sortOptions"
+                        :options="SORT_OPTIONS"
         />
       </div>
       <UiAutoComplete v-model="searchState.q"
@@ -19,30 +19,15 @@
 </template>
 
 <script setup lang="ts">
-import type { SearchState } from '~/types/search';
-import type { KeyValue } from '~/types/toggle';
-
-const { state: searchState } = useSearch();
+const {
+  state: searchState,
+  SORT_OPTIONS,
+  DEPTH_OPTIONS,
+} = useSearch();
 const {
   fetch,
-  data: options, 
+  data: options,
 } = useGetData<string[]>();
-
-const sortOptions: KeyValue<SearchState['sortDir']>[] = [{
-  label: 'Asc',
-  value: 'asc', 
-}, {
-  label: 'Desc',
-  value: 'desc', 
-}];
-
-const depthOptions: KeyValue<SearchState['searchDepth']>[] = [{
-  label: 'Match all',
-  value: 'all', 
-}, {
-  label: 'Match any',
-  value: 'in', 
-}];
 
 const fetchActivities = async (value: string) => await fetch(`/api/activity?q=${value}`);
 
