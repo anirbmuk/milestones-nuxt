@@ -24,9 +24,7 @@
   <div class="mt-6 md:mt-10">
     <SearchTagForm v-if="searchState.searchType === 'tag'" />
     <SearchDateRangeForm v-if="searchState.searchType === 'daterange'" />
-    <form class="mt-16 md:mt-12"
-          @submit.prevent="search"
-    >
+    <form @submit.prevent="search">
       <div class="flex items-center justify-center space-x-2">
         <button type="submit">
           SEARCH
@@ -39,17 +37,17 @@
       </div>
     </form>
   </div>
-  <div class="mt-8">
-    <SearchResults
-      v-if="!error"
-      :milestones="data"
-      :status="status"
-    />
-    <div v-else
-         error
-    >
-      {{ error }}
-    </div>
+  <SearchResults
+    v-if="!error"
+    class="mt-4"
+    :milestones="data"
+    :status="status"
+  />
+  <div v-else
+       class="mt-2"
+       error
+  >
+    {{ error }}
   </div>
 </template>
 

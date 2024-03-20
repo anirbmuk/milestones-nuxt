@@ -38,11 +38,11 @@
         >
           Submit
         </button>
-        <p v-if="error"
-           class="text-center text-md text-red-700"
+        <div v-if="error"
+             error
         >
           {{ error }}
-        </p>
+        </div>
       </form>
     </div>
   </div>
@@ -104,7 +104,7 @@ defineOptions({
 
 <style scoped>
 .signin-container {
-  @apply mt-32 w-full lg:w-[50%] xl:w-[40%] 4xl:w-[30%] lg:absolute lg:right-4 rounded px-2 py-8 bg-gray-50 border border-gray-300;
+  @apply mt-32 w-full lg:w-[50%] xl:w-[40%] 4xl:w-[30%] lg:absolute lg:right-4 rounded px-2 py-4 bg-gray-50 border border-gray-300;
 }
 #auth {
   @apply m-auto rounded-sm lg:relative;

@@ -3,6 +3,8 @@
     <div>{{ text }}</div>
     <div v-if="removable"
          class="cursor-pointer text-sm font-semibold !text-primary"
+         role="button"
+         :aria-label="`Remove tag ${text}`"
          @click="$emit('remove', text)"
     >
       &#x2715;
@@ -29,6 +31,6 @@ defineOptions({
 
 <style scoped>
 .chip {
-  @apply flex items-center justify-stretch min-w-20 max-w-fit rounded-sm border border-gray-400 bg-transparent px-2 py-1 text-center text-md bg-gray-100 space-x-2;
+  @apply flex items-center justify-between min-w-20 max-w-fit rounded-sm border border-gray-400 bg-transparent px-2 py-1 text-center text-md bg-gray-100 space-x-2;
 }
 </style>

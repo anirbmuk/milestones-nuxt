@@ -1,20 +1,18 @@
 <template>
-  <div>
-    <div class="mx-auto my-4 space-y-2 lg:w-1/2">
-      <div class="flex items-center justify-between">
-        <UiToggleButton v-model="searchState.searchDepth"
-                        :options="DEPTH_OPTIONS"
-        />
-        <UiToggleButton v-model="searchState.sortDir"
-                        :options="SORT_OPTIONS"
-        />
-      </div>
-      <UiAutoComplete v-model="searchState.tq"
-                      :options="options"
-                      placeholder="Add tags to search..."
-                      @update:input="fetchActivities($event)"
+  <div class="mx-auto my-3 space-y-2 lg:w-1/2">
+    <div class="flex items-center justify-between">
+      <UiToggleButton v-model="searchState.searchDepth"
+                      :options="DEPTH_OPTIONS"
+      />
+      <UiToggleButton v-model="searchState.sortDir"
+                      :options="SORT_OPTIONS"
       />
     </div>
+    <UiAutoComplete v-model="searchState.tq"
+                    :options="options"
+                    placeholder="Add tags to search..."
+                    @update:input="fetchActivities($event)"
+    />
   </div>
 </template>
 

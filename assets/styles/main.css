@@ -27,8 +27,9 @@
   div[progress] {
     @apply text-gray-600 font-semibold md:text-xl text-center p-4 animate-pulse duration-200;
   }
-  div[error] {
-    @apply text-red-600 font-semibold text-center p-4;
+  div[error],
+  p[error] {
+    @apply text-error text-center text-shadow-error;
   }
   nav {
     @apply bg-primary-dark p-4 w-full flex flex-row items-center whitespace-nowrap;
@@ -57,16 +58,22 @@
     @apply scale-150 outline-none border-none accent-primary-dark;
   }
   .cta-button-primary {
-    @apply w-full cursor-pointer rounded-sm border border-primary-dark bg-primary-dark px-4 py-3 text-center text-white shadow-lg duration-200 ease-in-out md:hover:border-gray-800 md:hover:bg-gray-800;
+    @apply min-w-32 cursor-pointer rounded-sm border border-primary-dark bg-primary-dark px-4 py-3 text-center text-white shadow-lg duration-200 ease-in-out md:hover:border-gray-800 md:hover:bg-gray-800;
   }
   button[type=submit] {
     @apply min-w-16 cursor-pointer rounded-sm border border-primary-dark bg-primary-dark px-4 py-3 text-center text-white shadow-lg duration-200 ease-in-out md:hover:border-gray-800 md:hover:bg-gray-800;
   }
   button[type=reset] {
-    @apply min-w-16 cursor-pointer border-none px-4 py-3 text-center text-red-600 duration-200 ease-in-out hover:bg-red-50 bg-transparent rounded-sm;
+    @apply min-w-16 cursor-pointer border-none px-4 py-3 text-center text-error duration-200 ease-in-out hover:bg-red-50 bg-transparent rounded-sm;
   }
   .absolute-center {
     @apply absolute top-1/2 left-1/2;
     transform: translate(-50%, -50%);
+  }
+  .text-shadow {
+    text-shadow: 0 0 1px var(--base-color);
+  }
+  .text-shadow-error {
+    text-shadow: 0 0 1px var(--error-color);
   }
 }

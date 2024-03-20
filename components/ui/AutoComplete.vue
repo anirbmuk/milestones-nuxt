@@ -25,7 +25,7 @@
       </template>
     </div>
     <div v-if="chips.length"
-         class="absolute top-10 flex flex-wrap"
+         class="flex flex-wrap"
     >
       <template v-for="(chip, index) of chips"
                 :key="chip"
