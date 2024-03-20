@@ -9,7 +9,8 @@ import type { KeyValue } from "~/types/toggle";
 const searchStatus = ref<SearchStatus>('notstarted');
 
 const getInitialState = () => ({
-  q: '',
+  tq: '',
+  dq: '',
   searchDepth: 'all',
   searchType: 'tag',
   sortDir: 'asc',
@@ -38,11 +39,13 @@ export const useSearch = () => {
   const searchType = computed(() => state.value.searchType);
   const sortDir = computed(() => state.value.sortDir);
   const searchDepth = computed(() => state.value.searchDepth);
-  const q = computed(() => state.value.q.trim());
-  watch([q, searchDepth, sortDir],
-    ([q, searchDepth, sortDir]) => (state.value = {
+  const tq = computed(() => state.value.tq.trim());
+  const dq = computed(() => state.value.dq.trim());
+  watch([tq, dq, searchDepth, sortDir],
+    ([tq, dq, searchDepth, sortDir]) => (state.value = {
       ...state.value,
-      q,
+      tq,
+      dq,
       searchDepth,
       sortDir,
     }));
@@ -57,12 +60,12 @@ export const useSearch = () => {
     });
 
   const search = async () => {
-    if (!state.value.q || searchStatus.value === 'inprogress') {
+    if ((state.value.searchType === 'tag' && !state.value.tq) || (state.value.searchType === 'daterange' && !state.value.dq) || searchStatus.value === 'inprogress') {
       return;
     }
     searchStatus.value = 'inprogress';
     const endPoint = getMilestoneEndPoint({
-      q: state.value.q,
+      q: state.value.searchType === 'tag' ? state.value.tq : state.value.dq,
       findBy: state.value.searchType,
       depth: state.value.searchDepth,
       sort: state.value.sortDir,
@@ -74,7 +77,10 @@ export const useSearch = () => {
     searchStatus.value = 'complete';
   };
   const reset = () => {
-    state.value = getInitialState();
+    state.value = {
+      ...getInitialState(),
+      searchType: state.value.searchType,
+    };
     data.value = [];
     searchStatus.value = 'notstarted';
   };

@@ -6,12 +6,9 @@
                         :options="SORT_OPTIONS"
         />
       </div>
-      <input id="daterange"
-             ref="daterangeInput"
-             class="w-full"
-             placeholder="Enter a date range"
-             type="text"
-      >
+      <div class="grid grid-cols-2 gap-2 md:gap-4">
+        <UiDateRange v-model="searchState.dq" />
+      </div>
     </div>
   </div>
 </template>

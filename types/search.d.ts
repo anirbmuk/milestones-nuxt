@@ -1,5 +1,6 @@
 export type SearchState = {
-  q: string;
+  tq: string;
+  dq: string;
   searchType: 'tag' | 'daterange';
   searchDepth: 'all' | 'in';
   limit: number;

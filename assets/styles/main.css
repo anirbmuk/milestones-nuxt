@@ -44,6 +44,7 @@
     @apply py-4 px-8 rounded border border-gray-200 bg-gray-50 outline-gray-700;
   }
   input[type=text],
+  input[type=date],
   input[type=email],
   input[type=password] {
     @apply py-2 px-3 border border-gray-200 rounded-sm outline-gray-400 shadow focus:shadow;

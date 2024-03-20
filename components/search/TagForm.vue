@@ -9,7 +9,7 @@
                         :options="SORT_OPTIONS"
         />
       </div>
-      <UiAutoComplete v-model="searchState.q"
+      <UiAutoComplete v-model="searchState.tq"
                       :options="options"
                       placeholder="Add tags to search..."
                       @update:input="fetchActivities($event)"

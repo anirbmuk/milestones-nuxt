@@ -66,6 +66,27 @@ export function validateDateAsString(dateAsString: string | undefined) {
   }
 }
 
+export function validateDateRangeAsString(start: string | undefined, end: string | undefined) {
+  if (!start || !end) {
+    return false;
+  }
+  try {
+    const [isoStartDate] = new Date(start).toISOString().split('T');
+    const [isoEndDate] = new Date(end).toISOString().split('T');
+    const startDateValid = start === isoStartDate;
+    const endDateValid = end === isoEndDate;
+    const endIsAfterStart = +new Date(end) >= +new Date(start);
+    return startDateValid && endDateValid && endIsAfterStart;
+  } catch {
+    return false;
+  }
+}
+
+export function getUiDate(date: string | undefined) {
+  const [dd, mm, yyyy] = date?.split('-') || [];
+  return (dd && mm && yyyy) ? `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}` : undefined;
+}
+
 export const getCurrentDate = (dd: number, mm: number, yyyy: number) => `${mm.toString().padStart(2, '0')}/${dd.toString().padStart(2, '0')}/${yyyy}`;
 
 export const getFullDate = (dd: number, mm: number, yyyy: number, type: 'long' | 'short' = 'long') => {
