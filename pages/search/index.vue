@@ -40,7 +40,7 @@
     </form>
   </div>
   <div class="mt-8">
-    <SearchResult 
+    <SearchResults 
       :milestones="data"
       :status="searchStatus"
     />
@@ -56,6 +56,8 @@ const {
   data,
   searchStatus,
 } = useSearch();
+
+onUnmounted(() => (searchStatus.value = 'notstarted'));
 
 definePageMeta({
   middleware: ['guard'],

@@ -117,6 +117,23 @@ export const useCalendar = () => {
     );
   });
 
+  const setCalendar = ({
+    dd,mm,yyyy, 
+  }: {dd?: number, mm?: number, yyyy?: number}) => {
+    state.value = {
+      ...state.value,
+      ...(dd && {
+        day: dd,
+      }),
+      ...(mm && {
+        month: mm,
+      }),
+      ...(yyyy && {
+        year: yyyy,
+      }),
+    };
+  };
+
   const daysOfMonth = computed(() => getDaysOfMonth(nextMonthDisabled.value ? null : new Date(currentFirstOfMonthWithYear.value)));
 
   return {
@@ -126,6 +143,7 @@ export const useCalendar = () => {
     day,
     month,
     year,
+    setCalendar,
     changeDayAction,
     previousMonthAction,
     previousMonthDisabled,
