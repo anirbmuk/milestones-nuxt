@@ -68,7 +68,6 @@ const {
 } = useCalendar();
 const { show } = useNotification();
 const day = computed(() => route.params.day.toString().padStart(2, '0'));
-const key = computed(() => `milestones-${year.value}-${month.value.toString().padStart(2, '0')}-${day.value}`);
 
 const getMax = () => {
   const currentDate = new Date();
@@ -99,8 +98,10 @@ if ((+day.value > max)) {
 changeDayAction(+day.value);
 const {
   data: milestones,
-  refresh,
-} = await useFetchData<Milestone[]>(key.value, '/api/milestone' + '?q=' + `${+day.value}-${month.value}-${year.value}`);
+  fetch,
+} = useGetData<Milestone[]>();
+const refresh = () => fetch('/api/milestone' + '?q=' + `${+day.value}-${month.value}-${year.value}`);
+await refresh();
 const { deleteFn } = useDeleteData();
 
 const goToPreviousDay = () => {

@@ -5,10 +5,10 @@
         {{ milestone.activitycodes?.join(', ') }}
       </div>
       <div class="text-sm text-primary-light md:text-md">
-        {{ 'Created On: ' + getFullDateAndTime(milestone.createdAt) }}
+        {{ 'Created: ' + getFullDateAndTime(milestone.createdAt) }}
       </div>
       <div class="text-sm text-primary-light md:text-md">
-        {{ 'Last Updated On: ' + getFullDateAndTime(milestone.updatedAt) }}
+        {{ 'Last updated: ' + getFullDateAndTime(milestone.updatedAt) }}
       </div>
     </div>
     <div milestone-content>

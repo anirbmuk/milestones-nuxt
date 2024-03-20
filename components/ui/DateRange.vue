@@ -10,6 +10,7 @@
          ref="daterangeEndInput"
          v-model="endDateInputValue"
          :min="startDateInputValue"
+         :max="today"
          class="w-full"
          placeholder="End date"
          type="date"
@@ -26,6 +27,8 @@ const props = defineProps({
     default: '',
   },
 });
+
+const today = computed(() => new Date().toISOString().split('T')[0]);
 
 const daterangeStartInput = ref<HTMLInputElement | undefined>();
 const daterangeEndInput = ref<HTMLInputElement | undefined>();
