@@ -21,7 +21,7 @@
       >Search with date</label>
     </div>
   </div>
-  <div class="mt-8">
+  <div class="mt-4">
     <SearchTagForm v-if="searchState.searchType === 'tag'" />
     <SearchDateRangeForm v-if="searchState.searchType === 'daterange'" />
     <form class="mt-12"
@@ -40,10 +40,16 @@
     </form>
   </div>
   <div class="mt-8">
-    <SearchResults 
+    <SearchResults
+      v-if="!error"
       :milestones="data"
-      :status="searchStatus"
+      :status="status"
     />
+    <div v-else
+         error
+    >
+      {{ error }}
+    </div>
   </div>
 </template>
 
@@ -54,10 +60,11 @@ const {
   search,
   reset,
   data,
-  searchStatus,
+  error,
+  status,
 } = useSearch();
 
-onUnmounted(() => (searchStatus.value = 'notstarted'));
+onUnmounted(() => (status.value = 'notstarted'));
 
 definePageMeta({
   middleware: ['guard'],

@@ -1,3 +1,4 @@
+import { validateDateRangeAsString } from "~/helpers/date";
 import { getMilestoneEndPoint } from "~/helpers/rest";
 import type { Milestone } from "~/types/milestone";
 import type {
@@ -5,8 +6,6 @@ import type {
   SearchStatus, 
 } from "~/types/search";
 import type { KeyValue } from "~/types/toggle";
-
-const searchStatus = ref<SearchStatus>('notstarted');
 
 const getInitialState = () => ({
   tq: '',
@@ -16,7 +15,7 @@ const getInitialState = () => ({
   sortDir: 'asc',
   limit: 8,
   skip: 0,
-} as SearchState);
+} satisfies SearchState);
 
 export const useSearch = () => {
   const _search = useCookie<SearchState>('_search', {
@@ -28,8 +27,8 @@ export const useSearch = () => {
 
   watch(state, (value) => (_search.value = value));
 
-  // const wait = (delay = 2000) =>
-  //   new Promise<void>((resolve) => setTimeout(resolve, delay));
+  const status = ref<SearchStatus>('notstarted');
+  const error = ref<string | undefined>('');
 
   const {
     fetch,
@@ -55,15 +54,45 @@ export const useSearch = () => {
         ...state.value,
         searchType,
       };
-      searchStatus.value = 'notstarted';
+      status.value = 'notstarted';
+      error.value = '';
       data.value = [];
     });
 
-  const search = async () => {
-    if ((state.value.searchType === 'tag' && !state.value.tq) || (state.value.searchType === 'daterange' && !state.value.dq) || searchStatus.value === 'inprogress') {
+  const validateSearchState = () => {
+    error.value = '';
+    if (status.value === 'inprogress') {
       return;
     }
-    searchStatus.value = 'inprogress';
+    if (state.value.searchType === 'tag' && !state.value.tq) {
+      error.value = 'At least one tag is required';
+      return false;
+    }
+    if (state.value.searchType === 'daterange') {
+      const [start, end] = state.value.dq?.split(',') || [];
+      const [dd1, mm1, yyyy1] = start?.split('-') || [];
+      const [dd2, mm2, yyyy2] = end?.split('-') || [];
+      if (!(dd1 && dd2 && mm1 && mm2 && yyyy1 && yyyy2)) {
+        error.value = 'Please enter both start and end dates';
+        return false;
+      }
+      if (!validateDateRangeAsString(`${yyyy1}-${mm1}-${dd1}`, `${yyyy2}-${mm2}-${dd2}`)) {
+        error.value = 'End date must be on or after start date';
+        return false;
+      }
+    }
+    return true;
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const wait = (delay = 2000) =>
+    new Promise<void>((resolve) => setTimeout(resolve, delay));
+
+  const search = async () => {
+    if (!validateSearchState()) {
+      return;
+    }
+    status.value = 'inprogress';
     const endPoint = getMilestoneEndPoint({
       q: state.value.searchType === 'tag' ? state.value.tq : state.value.dq,
       findBy: state.value.searchType,
@@ -74,7 +103,7 @@ export const useSearch = () => {
     });
     await fetch(`/api/${endPoint}`);
     // await wait();
-    searchStatus.value = 'complete';
+    status.value = 'complete';
   };
   const reset = () => {
     state.value = {
@@ -82,7 +111,6 @@ export const useSearch = () => {
       searchType: state.value.searchType,
     };
     data.value = [];
-    searchStatus.value = 'notstarted';
   };
 
   const SORT_OPTIONS: KeyValue<SearchState['sortDir']>[] = [{
@@ -103,11 +131,12 @@ export const useSearch = () => {
 
   return {
     state,
-    searchStatus,
+    status,
     initState,
     search,
     data,
     reset,
+    error,
     SORT_OPTIONS,
     DEPTH_OPTIONS,
   };

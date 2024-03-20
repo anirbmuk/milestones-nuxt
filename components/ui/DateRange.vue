@@ -9,6 +9,7 @@
   <input id="daterangeend"
          ref="daterangeEndInput"
          v-model="endDateInputValue"
+         :min="startDateInputValue"
          class="w-full"
          placeholder="End date"
          type="date"
@@ -16,10 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  validateDateRangeAsString,
-  getUiDate, 
-} from '~/helpers/date';
+import { getUiDate } from '~/helpers/date';
 const UPDATE_MODEL_VALUE = 'update:model-value';
 
 const props = defineProps({
@@ -48,13 +46,18 @@ watch(() => props.modelValue, (value) => {
 });
 
 watch([startDateInputValue, endDateInputValue], ([start, end]) => {
-  const valid = validateDateRangeAsString(start, end);
-  if (valid) {
-    const [yyyy1, mm1, dd1] = start?.split('-') || [];
-    const [yyyy2, mm2, dd2] = end?.split('-') || [];
-    const searchString = `${dd1}-${mm1}-${yyyy1},${dd2}-${mm2}-${yyyy2}`;
-    emit(UPDATE_MODEL_VALUE, searchString);
+  const [yyyy1, mm1, dd1] = start?.split('-') || [];
+  const [yyyy2, mm2, dd2] = end?.split('-') || [];
+  let startDate = '';
+  let endDate = '';
+  if (dd1 && mm1 && yyyy1) {
+    startDate = `${dd1}-${mm1}-${yyyy1}`;
   }
+  if (dd2 && mm2 && yyyy2) {
+    endDate = `${dd2}-${mm2}-${yyyy2}`;
+  }
+  const searchString = `${startDate},${endDate}`;
+  emit(UPDATE_MODEL_VALUE, searchString);
 });
 defineOptions({
   name: 'DateRange',

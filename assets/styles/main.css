@@ -28,7 +28,7 @@
     @apply text-gray-600 font-semibold md:text-xl text-center p-4 animate-pulse duration-200;
   }
   div[error] {
-    @apply font-code text-red-600 font-semibold md:text-xl text-center p-4;
+    @apply text-red-600 font-semibold text-center p-4;
   }
   nav {
     @apply bg-primary-dark p-4 w-full flex flex-row items-center whitespace-nowrap;
