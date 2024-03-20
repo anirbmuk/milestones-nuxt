@@ -4,7 +4,7 @@ export const useGetData = <T extends Array<any>>() => {
   const { token } = useUser();
   const { handleError } = useErrorhandler();
 
-  const data = ref<T | Array<any>>([]);
+  const data = ref<T>([] as any);
 
   const getFn = async (path: string) => {
     const data = await $fetch<T>(path, {
@@ -16,11 +16,12 @@ export const useGetData = <T extends Array<any>>() => {
   };
 
   const fetch = async (path: string) => {
-    data.value = [];
+    data.value = [] as any;
     if (!path) {
       return;
     }
     try {
+      // @ts-ignore
       data.value = await getFn(path);
     } catch (e) {
       handleError(e as NuxtError);

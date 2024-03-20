@@ -54,7 +54,10 @@ export const useSearch = () => {
     });
     await fetch(`/api/${endPoint}`);
   };
-  const reset = () => (state.value = getInitialState());
+  const reset = () => {
+    state.value = getInitialState();
+    data.value = [];
+  };
 
   const SORT_OPTIONS: KeyValue<SearchState['sortDir']>[] = [{
     label: 'Asc',
