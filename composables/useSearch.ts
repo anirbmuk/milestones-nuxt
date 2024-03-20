@@ -111,6 +111,8 @@ export const useSearch = () => {
       searchType: state.value.searchType,
     };
     data.value = [];
+    error.value = '';
+    status.value = 'notstarted';
   };
 
   const SORT_OPTIONS: KeyValue<SearchState['sortDir']>[] = [{

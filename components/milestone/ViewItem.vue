@@ -63,7 +63,7 @@ defineOptions({
 
 <style scoped>
 div[milestone] {
-  @apply block my-2 p-4 rounded bg-background-dark;
+  @apply block mb-3 px-3 py-2 rounded bg-background-dark;
   box-shadow: 0 2px 1px -1px #0003,0 1px 1px #00000024,0 1px 3px #0000001f;
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
