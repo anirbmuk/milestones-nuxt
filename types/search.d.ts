@@ -6,3 +6,5 @@ export type SearchState = {
   skip: number;
   sortDir: 'asc' | 'desc';
 };
+
+export type SearchStatus = 'notstarted' | 'inprogress' | 'complete';

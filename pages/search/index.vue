@@ -42,6 +42,7 @@
   <div class="mt-8">
     <SearchResult 
       :milestones="data"
+      :status="searchStatus"
     />
   </div>
 </template>
@@ -53,6 +54,7 @@ const {
   search,
   reset,
   data,
+  searchStatus,
 } = useSearch();
 
 definePageMeta({

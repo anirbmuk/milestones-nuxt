@@ -24,6 +24,9 @@
   h6 {
     @apply text-md md:text;
   }
+  div[progress] {
+    @apply text-gray-600 font-semibold md:text-xl text-center p-4 animate-pulse duration-200;
+  }
   div[error] {
     @apply font-code text-red-600 font-semibold md:text-xl text-center p-4;
   }

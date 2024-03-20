@@ -1,7 +1,12 @@
 import { getMilestoneEndPoint } from "~/helpers/rest";
 import type { Milestone } from "~/types/milestone";
-import type { SearchState } from "~/types/search";
+import type {
+  SearchState,
+  SearchStatus, 
+} from "~/types/search";
 import type { KeyValue } from "~/types/toggle";
+
+const searchStatus = ref<SearchStatus>('notstarted');
 
 const getInitialState = () => ({
   q: '',
@@ -22,6 +27,9 @@ export const useSearch = () => {
 
   watch(state, (value) => (_search.value = value));
 
+  // const wait = (delay = 2000) =>
+  //   new Promise<void>((resolve) => setTimeout(resolve, delay));
+
   const {
     fetch,
     data, 
@@ -31,19 +39,28 @@ export const useSearch = () => {
   const sortDir = computed(() => state.value.sortDir);
   const searchDepth = computed(() => state.value.searchDepth);
   const q = computed(() => state.value.q.trim());
-  watch([q, searchDepth, searchType, sortDir],
-    ([q, searchDepth, searchType, sortDir]) => (state.value = {
+  watch([q, searchDepth, sortDir],
+    ([q, searchDepth, sortDir]) => (state.value = {
       ...state.value,
       q,
       searchDepth,
-      searchType,
       sortDir,
     }));
+  watch(searchType,
+    (searchType) => {
+      state.value = {
+        ...state.value,
+        searchType,
+      };
+      searchStatus.value = 'notstarted';
+      data.value = [];
+    });
 
   const search = async () => {
-    if (!state.value.q) {
+    if (!state.value.q || searchStatus.value === 'inprogress') {
       return;
     }
+    searchStatus.value = 'inprogress';
     const endPoint = getMilestoneEndPoint({
       q: state.value.q,
       findBy: state.value.searchType,
@@ -53,10 +70,13 @@ export const useSearch = () => {
       skip: `${state.value.skip}`,
     });
     await fetch(`/api/${endPoint}`);
+    // await wait();
+    searchStatus.value = 'complete';
   };
   const reset = () => {
     state.value = getInitialState();
     data.value = [];
+    searchStatus.value = 'notstarted';
   };
 
   const SORT_OPTIONS: KeyValue<SearchState['sortDir']>[] = [{
@@ -77,6 +97,7 @@ export const useSearch = () => {
 
   return {
     state,
+    searchStatus,
     initState,
     search,
     data,
