@@ -15,6 +15,7 @@ const getInitialState = () => ({
   sortDir: 'asc',
   limit: 8,
   skip: 0,
+  datasetComplete: false,
 } satisfies SearchState);
 
 export const useSearch = () => {
@@ -35,19 +36,28 @@ export const useSearch = () => {
     data, 
   } = useGetData<Milestone[]>();
 
+  const updateState = (key: keyof SearchState, value: any) => (state.value = {
+    ...state.value,
+    [key]: value,
+  });
+
   const searchType = computed(() => state.value.searchType);
   const sortDir = computed(() => state.value.sortDir);
   const searchDepth = computed(() => state.value.searchDepth);
   const tq = computed(() => state.value.tq.trim());
   const dq = computed(() => state.value.dq.trim());
-  watch([tq, dq, searchDepth, sortDir],
-    ([tq, dq, searchDepth, sortDir]) => (state.value = {
+  const datasetComplete = computed(() => state.value.datasetComplete);
+
+  watch([tq, dq, searchDepth, sortDir, datasetComplete],
+    ([tq, dq, searchDepth, sortDir, datasetComplete]) => (state.value = {
       ...state.value,
       tq,
       dq,
       searchDepth,
       sortDir,
+      datasetComplete,
     }));
+
   watch(searchType,
     (searchType) => {
       state.value = {
@@ -85,13 +95,16 @@ export const useSearch = () => {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const wait = (delay = 2000) =>
+  const wait = (delay = 5000) =>
     new Promise<void>((resolve) => setTimeout(resolve, delay));
 
   const search = async () => {
     if (!validateSearchState()) {
       return;
     }
+    updateState('skip', 0);
+    updateState('datasetComplete', false);
+
     status.value = 'inprogress';
     const endPoint = getMilestoneEndPoint({
       q: state.value.searchType === 'tag' ? state.value.tq : state.value.dq,
@@ -105,6 +118,38 @@ export const useSearch = () => {
     // await wait();
     status.value = 'complete';
   };
+
+  const loadmoreResults = async () => {
+    if (state.value.datasetComplete) {
+      return;
+    }
+    const scrollYPosition = window.scrollY;
+    const previousData = [...data.value || []];
+    updateState('skip', state.value.skip + state.value.limit);
+    status.value = 'loadmore';
+    const endPoint = getMilestoneEndPoint({
+      q: state.value.searchType === 'tag' ? state.value.tq : state.value.dq,
+      findBy: state.value.searchType,
+      depth: state.value.searchDepth,
+      sort: state.value.sortDir,
+      limit: `${state.value.limit}`,
+      skip: `${state.value.skip}`,
+    });
+
+    // await wait();
+    await fetch(`/api/${endPoint}`);
+    updateState('datasetComplete', data.value?.length < state.value.limit);
+    data.value.unshift(...previousData);
+    status.value = 'complete';
+    setTimeout(() => {
+      window.scrollTo({
+        left: 0,
+        top: scrollYPosition + 100,
+        behavior: 'auto', 
+      });
+    });
+  };
+
   const reset = () => {
     state.value = {
       ...getInitialState(),
@@ -136,6 +181,7 @@ export const useSearch = () => {
     status,
     initState,
     search,
+    loadmoreResults,
     data,
     reset,
     error,

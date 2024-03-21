@@ -1,4 +1,4 @@
-export type SearchStatus = 'notstarted' | 'inprogress' | 'complete';
+export type SearchStatus = 'notstarted' | 'inprogress' | 'loadmore' | 'complete';
 
 export type SearchState = {
   tq: string;
@@ -8,4 +8,5 @@ export type SearchState = {
   limit: number;
   skip: number;
   sortDir: 'asc' | 'desc';
+  datasetComplete: boolean;
 };

@@ -1,24 +1,33 @@
 <template>
-  <div v-if="status === 'complete'">
-    <div v-if="milestones?.length"
-         role="list"
-         list
-    >
-      <SearchResult v-for="milestone of milestones"
-                    :key="milestone.milestoneid"
-                    :milestone="milestone"
-      />
+  <div>
+    <div v-if="['complete', 'loadmore'].includes(status)">
+      <div v-if="milestones?.length"
+           role="list"
+           list
+      >
+        <SearchResult v-for="milestone of milestones"
+                      :key="milestone.milestoneid"
+                      :milestone="milestone"
+        />
+      </div>
+      <div v-else
+           error
+      >
+        No milestone entries found
+      </div>
+      <UtilIntersect multiple
+                     @tracked="$emit('loadmore')"
+      >
+        <div class="p-2"
+             aria-hidden="true"
+        />
+      </UtilIntersect>
     </div>
-    <div v-else
-         error
+    <div v-if="['inprogress', 'loadmore'].includes(status)"
+         progress
     >
-      No milestone entries found
+      Fetching...
     </div>
-  </div>
-  <div v-else-if="status === 'inprogress'"
-       progress
-  >
-    Fetching...
   </div>
 </template>
 
@@ -36,13 +45,8 @@ defineProps({
     required: true,
   },
 });
+defineEmits(['loadmore']);
 defineOptions({
   name: 'SearchResults',
 });
 </script>
-
-<style scoped>
-div[list] {
-  @apply pb-2.5 pt-0.5;
-}
-</style>

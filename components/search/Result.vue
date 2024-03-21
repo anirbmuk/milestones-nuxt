@@ -49,10 +49,3 @@ defineOptions({
   name: 'SearchResult',
 });
 </script>
-
-<style scoped>
-div[listitem] {
-  @apply mb-4 mt-2 block min-h-20 p-3 text-md first:mt-0 last:mb-0 bg-background-dark;
-  box-shadow: 0 3px 3px -2px #0003,0 3px 4px #00000024,0 1px 8px #0000001f;
-}
-</style>

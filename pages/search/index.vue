@@ -42,9 +42,10 @@
     class="mt-4"
     :milestones="data"
     :status="status"
+    @loadmore="loadmoreResults"
   />
   <div v-else
-       class="mt-2"
+       class="mx-auto mt-4 bg-red-50 p-4 lg:w-1/2"
        error
   >
     {{ error }}
@@ -56,6 +57,7 @@ const { getCanonical } = useSeo();
 const {
   state: searchState,
   search,
+  loadmoreResults,
   reset,
   data,
   error,
