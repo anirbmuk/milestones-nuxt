@@ -8,5 +8,5 @@ export type SearchState = {
   limit: number;
   skip: number;
   sortDir: 'asc' | 'desc';
-  datasetComplete: boolean;
+  allFetched: boolean;
 };

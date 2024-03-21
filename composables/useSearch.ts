@@ -15,7 +15,7 @@ const getInitialState = () => ({
   sortDir: 'asc',
   limit: 8,
   skip: 0,
-  datasetComplete: false,
+  allFetched: false,
 } satisfies SearchState);
 
 export const useSearch = () => {
@@ -36,6 +36,8 @@ export const useSearch = () => {
     data, 
   } = useGetData<Milestone[]>();
 
+  const searchData = ref<Milestone[]>([]);
+
   const updateState = (key: keyof SearchState, value: any) => (state.value = {
     ...state.value,
     [key]: value,
@@ -46,16 +48,16 @@ export const useSearch = () => {
   const searchDepth = computed(() => state.value.searchDepth);
   const tq = computed(() => state.value.tq.trim());
   const dq = computed(() => state.value.dq.trim());
-  const datasetComplete = computed(() => state.value.datasetComplete);
+  const allFetched = computed(() => state.value.allFetched);
 
-  watch([tq, dq, searchDepth, sortDir, datasetComplete],
-    ([tq, dq, searchDepth, sortDir, datasetComplete]) => (state.value = {
+  watch([tq, dq, searchDepth, sortDir, allFetched],
+    ([tq, dq, searchDepth, sortDir, allFetched]) => (state.value = {
       ...state.value,
       tq,
       dq,
       searchDepth,
       sortDir,
-      datasetComplete,
+      allFetched,
     }));
 
   watch(searchType,
@@ -66,7 +68,7 @@ export const useSearch = () => {
       };
       status.value = 'notstarted';
       error.value = '';
-      data.value = [];
+      searchData.value = [];
     });
 
   const validateSearchState = () => {
@@ -103,7 +105,7 @@ export const useSearch = () => {
       return;
     }
     updateState('skip', 0);
-    updateState('datasetComplete', false);
+    updateState('allFetched', false);
 
     status.value = 'inprogress';
     const endPoint = getMilestoneEndPoint({
@@ -115,16 +117,16 @@ export const useSearch = () => {
       skip: `${state.value.skip}`,
     });
     await fetch(`/api/${endPoint}`);
+    searchData.value = [...data.value || []];
+    updateState('allFetched', data.value?.length < state.value.limit);
     // await wait();
     status.value = 'complete';
   };
 
   const loadmoreResults = async () => {
-    if (state.value.datasetComplete) {
+    if (state.value.allFetched) {
       return;
     }
-    const scrollYPosition = window.scrollY;
-    const previousData = [...data.value || []];
     updateState('skip', state.value.skip + state.value.limit);
     status.value = 'loadmore';
     const endPoint = getMilestoneEndPoint({
@@ -138,16 +140,9 @@ export const useSearch = () => {
 
     // await wait();
     await fetch(`/api/${endPoint}`);
-    updateState('datasetComplete', data.value?.length < state.value.limit);
-    data.value.unshift(...previousData);
+    updateState('allFetched', data.value?.length < state.value.limit);
+    searchData.value.push(...(data.value || []));
     status.value = 'complete';
-    setTimeout(() => {
-      window.scrollTo({
-        left: 0,
-        top: scrollYPosition + 100,
-        behavior: 'auto', 
-      });
-    });
   };
 
   const reset = () => {
@@ -155,7 +150,7 @@ export const useSearch = () => {
       ...getInitialState(),
       searchType: state.value.searchType,
     };
-    data.value = [];
+    searchData.value = [];
     error.value = '';
     status.value = 'notstarted';
   };
@@ -182,7 +177,7 @@ export const useSearch = () => {
     initState,
     search,
     loadmoreResults,
-    data,
+    data: computed(() => searchData.value),
     reset,
     error,
     SORT_OPTIONS,
