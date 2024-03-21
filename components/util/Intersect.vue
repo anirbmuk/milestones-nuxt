@@ -44,6 +44,9 @@ onMounted(() => {
   const target = content.value;
   target && observer?.observe(target);
 });
+
+onBeforeUnmount(() => observer?.disconnect());
+
 defineOptions({
   name: 'UtilIntersect',
 });
