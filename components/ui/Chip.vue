@@ -2,7 +2,7 @@
   <div class="chip">
     <div>{{ text }}</div>
     <div v-if="removable"
-         class="cursor-pointer text-sm font-semibold !text-primary"
+         class="cursor-pointer text-sm !text-primary-light"
          role="button"
          :aria-label="`Remove tag ${text}`"
          @click="$emit('remove', text)"
