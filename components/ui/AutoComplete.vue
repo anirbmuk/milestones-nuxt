@@ -75,6 +75,8 @@ const typeahead = (event: Event) => {
   const { value } = (event.target as HTMLInputElement);
   if (value?.trim() && value.trim().length > 2) {
     emit(UPDATE_INPUT, value.trim());
+  } else {
+    emit(UPDATE_INPUT, '');
   }
 };
 
