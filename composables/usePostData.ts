@@ -1,14 +1,14 @@
 import type { NuxtError } from "#app";
 
-export const usePatchData = <T>() => {
+export const usePostData = <T>() => {
   const { token } = useUser();
   const { handleError } = useErrorhandler();
 
   const data = ref<T | undefined>();
 
-  const patchFn = async (path: string, body: Partial<T>) => {
+  const postFn = async (path: string, body: Partial<T>) => {
     const data = await $fetch<T>(path, {
-      method: 'PATCH',
+      method: 'POST',
       body,
       headers: {
         Authorization: `Bearer ${token.value}`,
@@ -17,20 +17,20 @@ export const usePatchData = <T>() => {
     return data as T;
   };
 
-  const patch = async (path: string, body: Partial<T>) => {
+  const post = async (path: string, body: Partial<T>) => {
     data.value = undefined;
     if (!path) {
       return;
     }
     try {
-      data.value = await patchFn(path, body);
+      data.value = await postFn(path, body);
     } catch (e) {
       handleError(e as NuxtError);
     }
   };
 
   return {
-    patch,
+    post,
     data,
   };
 };

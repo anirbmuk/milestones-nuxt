@@ -18,34 +18,34 @@
             <hr>
           </div>
           <div class="modal-body">
-            <template v-if="selection">
-              <input 
-                v-model="milestoneDate"
-                class="mb-4 w-full"
-                placeholder="Milestone date"
-                :max="getToday()"
-                type="date"
-              >
-              <UiAutoComplete 
-                v-model="autoCompleteInput"
-                allow-unlisted-value
-                :options="options"
-                placeholder="New tag..."
-                class="mb-4"
-                @update:input="fetchActivities($event)"
-              />
-              <textarea 
-                v-model="description"
-                rows="8"
-                class="w-full"
-                required
-              />
-            </template>
+            <input 
+              v-model="milestoneDate"
+              class="mb-4 w-full"
+              placeholder="Milestone date"
+              :max="getToday()"
+              :disabled="type === 'create'"
+              type="date"
+            >
+            <UiAutoComplete 
+              v-model="autoCompleteInput"
+              allow-unlisted-value
+              :options="options"
+              placeholder="New tag..."
+              class="mb-4"
+              @update:input="fetchActivities($event)"
+            />
+            <textarea 
+              v-model="description"
+              placeholder="Description..."
+              rows="8"
+              class="w-full"
+              required
+            />
           </div>
           <div class="modal-actions">
             <slot 
               name="actions"
-              :output="{ milestone: output, id: selection?.milestoneid }"
+              :output="{ milestone: output, id: selection?.milestoneid, changed }"
             >
               <button 
                 type="button"
@@ -63,9 +63,12 @@
 </template>
 
 <script setup lang="ts">
-import { getCurrentDate } from '~/helpers/date';
-import { getToday } from '~/helpers/date';
+import {
+  getCurrentDate,
+  getToday, 
+} from '~/helpers/date';
 import type { Milestone } from '~/types/milestone';
+import type { Operation } from '~/types/operation';
 
 const props = defineProps({
   open: {
@@ -73,7 +76,7 @@ const props = defineProps({
     default: false,
   },
   type: {
-    type: String as PropType<'create' | 'edit'>,
+    type: String as PropType<Operation>,
     required: true,
   },
   selection: {
@@ -82,6 +85,12 @@ const props = defineProps({
   },
 });
 defineEmits(['closeModal']);
+
+const {
+  day,
+  month,
+  year,
+} = useCalendar();
 
 const {
   fetch,
@@ -94,14 +103,18 @@ const fetchActivities = async (value: string) => {
   }
   await fetch(`/api/activity?q=${value}`);
 };
+const changed = ref(false);
 const output = ref<Partial<Milestone> | undefined>(props.selection);
 
-const milestoneDate = ref<string>(props.selection ? getCurrentDate(props.selection.day, props.selection.month, props.selection.year) : getToday());
+const milestoneDate = ref<string>(props.selection ? 
+  getCurrentDate(props.selection.day, props.selection.month, props.selection.year) : 
+  getCurrentDate(day.value, month.value, year.value));
 const autoCompleteInput = ref<string>(props.selection?.activitycodes?.join(',') || '');
 const description = ref<string>(props.selection?.description || '');
 
-watch([autoCompleteInput, description], ([auto, desc]) => {
-  const [year, month, day] = milestoneDate.value.split('-');
+watch([milestoneDate, autoCompleteInput, description], ([date, auto, desc]) => {
+  changed.value = true;
+  const [year, month, day] = date.split('-');
   output.value = {
     activitycodes: (auto || '').split(','),
     description: desc,

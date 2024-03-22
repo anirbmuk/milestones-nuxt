@@ -6,8 +6,8 @@
              :type="type"
              @close-modal="closeModal"
     >
-      <template #actions="{ output: { milestone, id } }">
-        <form @submit.prevent="save(milestone, id)">
+      <template #actions="{ output: { milestone, id, changed } }">
+        <form @submit.prevent="save(milestone, id, changed ? type : 'unchanged')">
           <div class="flex items-center justify-end space-x-2">
             <button type="submit">
               SAVE
@@ -21,6 +21,11 @@
         </form>
       </template>
     </UiModal>
+    <button class="cta-button-primary m-auto flex items-center justify-center"
+            @click="createMilestone"
+    >
+      CREATE
+    </button>
     <div class="mb-2 mt-4 grid grid-cols-8 items-center md:mb-4">
       <button
         class="col-span-2 text-left xl:text-center"
@@ -76,6 +81,7 @@ import {
   validateDateAsString,
 } from '~/helpers/date';
 import type { Milestone } from '~/types/milestone';
+import type { Operation } from '~/types/operation';
 
 const { getCanonical } = useSeo();
 const route = useRoute();
@@ -87,10 +93,21 @@ const {
   month,
   year,
 } = useCalendar();
-const { show } = useNotification();
+const { notify } = useNotification();
 const day = computed(() => route.params.day.toString().padStart(2, '0'));
 
 const {
+  data: milestones,
+  fetch: fetchMilestones,
+} = useGetData<Milestone[]>();
+const refresh = () => fetchMilestones(`/api/milestone?q=${+day.value}-${month.value}-${year.value}`);
+await refresh();
+const { post } = usePostData<Milestone>();
+const { patch } = usePatchData<Milestone>();
+const { deleteFn } = useDeleteData();
+
+const {
+  showCreateModal,
   showEditModal,
   closeModal,
   type,
@@ -125,14 +142,6 @@ if ((+day.value > max)) {
 }
 
 changeDayAction(+day.value);
-const {
-  data: milestones,
-  fetch: fetchMilestones,
-} = useGetData<Milestone[]>();
-const refresh = () => fetchMilestones(`/api/milestone?q=${+day.value}-${month.value}-${year.value}`);
-await refresh();
-const { patch } = usePatchData<Milestone>();
-const { deleteFn } = useDeleteData();
 
 const goToPreviousDay = () => {
   const newDay = +day.value - 1;
@@ -148,23 +157,34 @@ const goToNextDay = () => {
   }
 };
 
+const createMilestone = () => showCreateModal();
+
+const editMilestone = (milestone: Milestone) => showEditModal(milestone);
+
 const deleteMilestone = async (milestone: Milestone) => {
   await deleteFn(`/api/milestone?id=${milestone.milestoneid}`);
   await refresh();
-  show('Your milestone entry is deleted');
+  notify('Your milestone entry is deleted');
 };
 
 const copyMilestone = (milestone: Milestone) => {
   window.navigator.clipboard.writeText(milestone.description);
-  show('The text is copied to clipboard');
+  notify('The text is copied to clipboard');
 };
 
-const editMilestone = (milestone: Milestone) => showEditModal(milestone);
-
-const save = async (milestone: Partial<Milestone> | undefined, id: number | undefined) => {
+const save = async (milestone: Partial<Milestone> | undefined, id: number | undefined, type: Operation) => {
   closeModal();
+  if (type === 'unchanged') {
+    return notify('No changes were made');
+  }
   if (milestone) {
-    await patch(`/api/milestone?id=${id}`, milestone);
+    if (type === 'create') {
+      await post('/api/milestone', milestone);
+      notify('A new milestone entry has been created');
+    } else if (type === 'edit') {
+      await patch(`/api/milestone?id=${id}`, milestone);
+      notify('Your milestone entry has been updated');
+    }
     await refresh();
   }
 };

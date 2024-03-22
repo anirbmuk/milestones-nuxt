@@ -3,7 +3,7 @@ import type { UiNotification } from '~/types/notification';
 const notifications = ref<UiNotification[]>([]);
 
 export const useNotification = () => {
-  const show = (message: string, duration = 4) => {
+  const notify = (message: string, duration = 4) => {
     notifications.value = [...notifications.value, {
       id: _getUniqueId(message),
       message,
@@ -21,7 +21,7 @@ export const useNotification = () => {
 
   return {
     notifications,
-    show,
+    notify,
     hide,
   };
 };

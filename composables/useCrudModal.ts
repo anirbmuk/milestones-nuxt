@@ -1,12 +1,14 @@
 import type { Milestone } from "~/types/milestone";
+import type { Operation } from "~/types/operation";
 
 const open = ref<boolean>(false);
-const type = ref<'create' | 'edit'>('create');
+const type = ref<Operation>('create');
 const selected = ref<Milestone | undefined>();
 
 export const useCrudModal = () => {
 
-  const showModal = (m?: Milestone | undefined, t: 'create' | 'edit' = 'create') => {
+  const showModal = (m?: Milestone | undefined, t: Operation = 'create') => {
+    selected.value = undefined;
     if (m) {
       selected.value = {
         ...m, 
