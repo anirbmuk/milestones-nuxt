@@ -3,26 +3,41 @@
 @tailwind utilities;
 
 @layer base {
+  @media screen and (max-width: 767px) {
+    html {
+      font-size: 93.75% !important;
+    }
+    input,
+    textarea,
+    select,
+    .mat-select {
+      font-size: 16px !important;
+    }
+  }
   html {
     scroll-behavior: smooth;
   }
   h1 {
-    @apply text-4xl md:text-6xl;
-  }
-  h2 {
     @apply text-3xl md:text-5xl;
   }
-  h3 {
-    @apply text-2xl md:text-4xl;
+  h2 {
+    @apply text-4xl md:text-6xl;
   }
-  h4 {
+  h3 {
     @apply text-xl md:text-3xl;
   }
-  h5 {
+  h4 {
     @apply text md:text-2xl;
   }
+  h5 {
+    @apply text-md md:text-xl;
+  }
   h6 {
-    @apply text-md md:text;
+    @apply text-sm md:text;
+  }
+  hr {
+    @apply my-3;
+    border-top: 1px solid lightgray;
   }
   div[progress] {
     @apply text-primary-dark md:text-xl text-center p-2 animate-pulse duration-200 uppercase tracking-wider;
@@ -47,8 +62,9 @@
   input[type=text],
   input[type=date],
   input[type=email],
-  input[type=password] {
-    @apply py-2 px-3 border border-gray-200 rounded-sm outline-gray-400 shadow focus:shadow;
+  input[type=password],
+  textarea {
+    @apply py-2 px-3 border border-gray-100 rounded-sm hover:border hover:border-gray-400 outline-gray-400 shadow focus:shadow;
   }
   input[type=radio],
   label[radio] {
@@ -58,13 +74,13 @@
     @apply scale-150 outline-none border-none accent-primary-dark;
   }
   .cta-button-primary {
-    @apply min-w-32 cursor-pointer rounded-sm border border-primary-dark bg-primary-dark px-4 py-3 text-center text-white shadow-lg duration-200 ease-in-out md:hover:border-gray-800 md:hover:bg-gray-800;
+    @apply min-w-32 cursor-pointer rounded-sm border-none bg-primary-dark px-5 py-2.5 text-center text-white shadow-lg duration-200 ease-in-out outline-gray-800 md:hover:bg-primary;
   }
   button[type=submit] {
-    @apply min-w-16 cursor-pointer rounded-sm border border-primary-dark bg-primary-dark px-4 py-3 text-center text-white shadow-lg duration-200 ease-in-out md:hover:border-gray-800 md:hover:bg-gray-800;
+    @apply min-w-16 cursor-pointer rounded-sm border-none bg-primary-dark px-5 py-2.5 text-center text-white shadow-lg duration-200 ease-in-out outline-primary-dark md:hover:bg-primary;
   }
   button[type=reset] {
-    @apply min-w-16 cursor-pointer border-none px-4 py-3 text-center text-error duration-200 ease-in-out hover:bg-red-50 bg-transparent rounded-sm;
+    @apply min-w-16 cursor-pointer border-none px-5 py-2.5 text-center text-error duration-200 ease-in-out hover:bg-red-50 bg-transparent rounded-sm outline-red-100;
   }
   .absolute-center {
     @apply absolute top-1/2 left-1/2;

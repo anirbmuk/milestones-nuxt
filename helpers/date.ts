@@ -87,7 +87,11 @@ export function getUiDate(date: string | undefined) {
   return (dd && mm && yyyy) ? `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}` : undefined;
 }
 
-export const getCurrentDate = (dd: number, mm: number, yyyy: number) => `${mm.toString().padStart(2, '0')}/${dd.toString().padStart(2, '0')}/${yyyy}`;
+export const getCurrentDate = (dd: number, mm: number, yyyy: number) => `${yyyy}-${mm.toString().padStart(2, '0')}-${dd.toString().padStart(2, '0')}`;
+export const getToday = () => {
+  const today = new Date();
+  return `${today.getFullYear()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
+};
 
 export const getFullDate = (dd: number, mm: number, yyyy: number, type: 'long' | 'short' = 'long') => {
   const day = new Date(yyyy, mm - 1, dd).getDay();

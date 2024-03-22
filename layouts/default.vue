@@ -8,6 +8,7 @@
     </ClientOnly>
     <slot />
   </main>
+  <div id="backdrop" />
 </template>
 
 <script setup lang="ts">

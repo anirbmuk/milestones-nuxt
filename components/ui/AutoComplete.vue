@@ -6,7 +6,6 @@
            class=" w-full"
            type="text"
            @input="_debouncedTypeahead"
-           @blur="selectOnBlur"
            @keydown.enter="selectOnEnter"
     >
     <div v-if="options.length"
@@ -98,15 +97,6 @@ const select = (item: string) => {
       autocompleteInput.value.focus();
     }
   });
-};
-
-const selectOnBlur = (event: Event) => {
-  if (props.allowUnlistedValue) {
-    const { value } = (event.target as HTMLInputElement);
-    if (value) {
-      select(value);
-    }
-  }
 };
 
 const selectOnEnter = (event: KeyboardEvent) => {
