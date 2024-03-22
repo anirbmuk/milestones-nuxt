@@ -4,23 +4,9 @@
              :open="open"
              :selection="selected"
              :type="type"
-             @close-modal="closeModal"
-    >
-      <template #actions="{ output: { milestone, id, changed } }">
-        <form @submit.prevent="save(milestone, id, changed ? type : 'unchanged')">
-          <div class="flex items-center justify-end space-x-2">
-            <button type="submit">
-              SAVE
-            </button>
-            <button type="reset"
-                    @click="closeModal"
-            >
-              CANCEL
-            </button>
-          </div>
-        </form>
-      </template>
-    </UiModal>
+             @save="save($event)"
+             @close="closeModal"
+    />
     <button class="cta-button-primary m-auto flex items-center justify-center"
             @click="createMilestone"
     >
@@ -172,7 +158,11 @@ const copyMilestone = (milestone: Milestone) => {
   notify('The text is copied to clipboard');
 };
 
-const save = async (milestone: Partial<Milestone> | undefined, id: number | undefined, type: Operation) => {
+const save = async ({
+  id,
+  milestone,
+  type,
+}: { id: number | undefined, milestone: Partial<Milestone> | undefined, type: Operation }) => {
   closeModal();
   if (type === 'unchanged') {
     return notify('No changes were made');

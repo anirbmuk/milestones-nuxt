@@ -17,45 +17,50 @@
             </h4>
             <hr>
           </div>
-          <div class="modal-body">
-            <input 
-              v-model="milestoneDate"
-              class="mb-4 w-full"
-              placeholder="Milestone date"
-              :max="getToday()"
-              :disabled="type === 'create'"
-              type="date"
-            >
-            <UiAutoComplete 
-              v-model="autoCompleteInput"
-              allow-unlisted-value
-              :options="options"
-              placeholder="New tag..."
-              class="mb-4"
-              @update:input="fetchActivities($event)"
-            />
-            <textarea 
-              v-model="description"
-              placeholder="Description..."
-              rows="8"
-              class="w-full"
-              required
-            />
-          </div>
-          <div class="modal-actions">
-            <slot 
-              name="actions"
-              :output="{ milestone: output, id: selection?.milestoneid, changed }"
-            >
-              <button 
-                type="button"
-                class="cta-button-primary"
-                @click="$emit('closeModal')"
+          <form @submit.prevent="$emit('save', { id: selection?.milestoneid, milestone: output, type: changed ? type : 'unchanged' })">
+            <div class="modal-body">
+              <input 
+                v-model="milestoneDate"
+                class="mb-4 w-full"
+                placeholder="Milestone date"
+                :max="getToday()"
+                :disabled="type === 'create'"
+                type="date"
               >
-                Ok
-              </button>
-            </slot>
-          </div>
+              <UiAutoComplete 
+                v-model="autoCompleteInput"
+                allow-unlisted-value
+                :options="options"
+                placeholder="New tag..."
+                class="mb-4"
+                @update:input="fetchActivities($event)"
+              />
+              <textarea 
+                v-model="description"
+                placeholder="Description..."
+                rows="8"
+                class="w-full"
+                required
+              />
+            </div>
+            <div class="modal-actions">
+              <slot
+                name="actions"
+                :output="{ id: selection?.milestoneid, milestone: output, type: changed ? type : 'unchanged' }"
+              >
+                <div class="flex items-center justify-end space-x-2">
+                  <button type="submit">
+                    SAVE
+                  </button>
+                  <button type="reset"
+                          @click="$emit('close')"
+                  >
+                    CANCEL
+                  </button>
+                </div>
+              </slot>
+            </div>
+          </form>
         </div>
       </div>
     </Transition>
@@ -84,7 +89,7 @@ const props = defineProps({
     default: undefined,
   },
 });
-defineEmits(['closeModal']);
+defineEmits(['save', 'close']);
 
 const {
   day,
@@ -136,7 +141,7 @@ defineOptions({
   background-color: rgba(var(--base), 0.5)
 }
 .modal-container {
-  @apply bg-white m-auto p-6 rounded w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%] flex flex-col;
+  @apply bg-white m-auto p-6 rounded w-[95%] md:w-[70%] lg:w-[50%] xl:w-[40%] flex flex-col;
   transition: all 0.3s ease;
 }
 .modal-header {

@@ -39,6 +39,9 @@
     @apply my-3;
     border-top: 1px solid lightgray;
   }
+  div[info] {
+    @apply text-md md:text text-gray-400 -mb-2;
+  }
   div[progress] {
     @apply text-primary-dark md:text-xl text-center p-2 animate-pulse duration-200 uppercase tracking-wider;
   }

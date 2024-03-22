@@ -1,5 +1,10 @@
 <template>
   <div autocomplete>
+    <div v-if="allowUnlistedValue"
+         info
+    >
+      Press enter to select a value not in the list
+    </div>
     <input id="autocomplete"
            ref="autocompleteInput"
            :placeholder="placeholder"
@@ -103,7 +108,7 @@ const selectOnEnter = (event: KeyboardEvent) => {
   if (props.allowUnlistedValue) {
     event.preventDefault();
     const { value } = (event.target as HTMLInputElement);
-    if (value) {
+    if (value && value.trim().length > 2) {
       select(value);
     }
   }
