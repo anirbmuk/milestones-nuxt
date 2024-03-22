@@ -45,7 +45,7 @@
           <div class="modal-actions">
             <slot 
               name="actions"
-              :output="output"
+              :output="{ milestone: output, id: selection?.milestoneid }"
             >
               <button 
                 type="button"
@@ -103,8 +103,6 @@ const description = ref<string>(props.selection?.description || '');
 watch([autoCompleteInput, description], ([auto, desc]) => {
   const [year, month, day] = milestoneDate.value.split('-');
   output.value = {
-    ...(output.value || {
-    }),
     activitycodes: (auto || '').split(','),
     description: desc,
     day: +day,

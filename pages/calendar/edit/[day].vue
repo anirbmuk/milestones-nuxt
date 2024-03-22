@@ -1,5 +1,26 @@
 <template>
   <section>
+    <UiModal v-if="open"
+             :open="open"
+             :selection="selected"
+             :type="type"
+             @close-modal="closeModal"
+    >
+      <template #actions="{ output: { milestone, id } }">
+        <form @submit.prevent="save(milestone, id)">
+          <div class="flex items-center justify-end space-x-2">
+            <button type="submit">
+              SAVE
+            </button>
+            <button type="reset"
+                    @click="closeModal"
+            >
+              CANCEL
+            </button>
+          </div>
+        </form>
+      </template>
+    </UiModal>
     <div class="mb-2 mt-4 grid grid-cols-8 items-center md:mb-4">
       <button
         class="col-span-2 text-left xl:text-center"
@@ -69,6 +90,14 @@ const {
 const { show } = useNotification();
 const day = computed(() => route.params.day.toString().padStart(2, '0'));
 
+const {
+  showEditModal,
+  closeModal,
+  type,
+  selected,
+  open,
+} = useCrudModal();
+
 const getMax = () => {
   const currentDate = new Date();
   if (month.value === currentDate.getMonth() + 1) {
@@ -98,10 +127,11 @@ if ((+day.value > max)) {
 changeDayAction(+day.value);
 const {
   data: milestones,
-  fetch,
+  fetch: fetchMilestones,
 } = useGetData<Milestone[]>();
-const refresh = () => fetch('/api/milestone' + '?q=' + `${+day.value}-${month.value}-${year.value}`);
+const refresh = () => fetchMilestones(`/api/milestone?q=${+day.value}-${month.value}-${year.value}`);
 await refresh();
+const { patch } = usePatchData<Milestone>();
 const { deleteFn } = useDeleteData();
 
 const goToPreviousDay = () => {
@@ -119,7 +149,7 @@ const goToNextDay = () => {
 };
 
 const deleteMilestone = async (milestone: Milestone) => {
-  await deleteFn('/api/milestone' + '?id=' + milestone.milestoneid);
+  await deleteFn(`/api/milestone?id=${milestone.milestoneid}`);
   await refresh();
   show('Your milestone entry is deleted');
 };
@@ -129,8 +159,15 @@ const copyMilestone = (milestone: Milestone) => {
   show('The text is copied to clipboard');
 };
 
-// eslint-disable-next-line no-console
-const editMilestone = (milestone: Milestone) => console.log('Editing ' + milestone.milestoneid);
+const editMilestone = (milestone: Milestone) => showEditModal(milestone);
+
+const save = async (milestone: Partial<Milestone> | undefined, id: number | undefined) => {
+  closeModal();
+  if (milestone) {
+    await patch(`/api/milestone?id=${id}`, milestone);
+    await refresh();
+  }
+};
 
 definePageMeta({
   middleware: ['guard'],

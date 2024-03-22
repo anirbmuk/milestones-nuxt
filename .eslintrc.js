@@ -23,6 +23,7 @@ module.exports = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
     'sonarjs/cognitive-complexity': ['warn'],
+    'sonarjs/no-duplicate-string': ['warn'],
     'vue/first-attribute-linebreak': 'off',
     indent: ['error', 2],
     'computed-property-spacing': ['error', 'never'],
