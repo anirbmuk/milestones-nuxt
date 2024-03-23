@@ -115,6 +115,7 @@ export const useSearch = () => {
       sort: state.value.sortDir,
       limit: `${state.value.limit}`,
       skip: `${state.value.skip}`,
+      id: '',
     });
     await fetch(`/api/${endPoint}`);
     searchData.value = [...data.value || []];
@@ -136,6 +137,7 @@ export const useSearch = () => {
       sort: state.value.sortDir,
       limit: `${state.value.limit}`,
       skip: `${state.value.skip}`,
+      id: '',
     });
 
     // await wait();
