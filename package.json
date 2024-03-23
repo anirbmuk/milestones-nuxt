@@ -9,12 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anirbmuk/nuxt-milestones.git"
+    "url": "git+https://github.com/anirbmuk/milestones-nuxt.git"
   },
   "bugs": {
-    "url": "https://github.com/anirbmuk/nuxt-milestones/issues"
+    "url": "https://github.com/anirbmuk/milestones-nuxt/issues"
   },
-  "homepage": "https://home-milestones.firebaseapp.com",
   "keywords": [
     "mongodb",
     "express",
