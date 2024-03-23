@@ -10,7 +10,7 @@
     </div>
     <UiAutoComplete v-model="searchState.tq"
                     :options="options"
-                    placeholder="Add tags to search..."
+                    placeholder="Search by tags (min 3 characters)..."
                     @update:input="fetchActivities($event)"
     />
   </div>

@@ -33,6 +33,7 @@
                 :options="options"
                 placeholder="New tag..."
                 class="mb-4"
+                options-position="top-[3.7rem]"
                 @update:input="fetchActivities($event)"
               />
               <textarea 

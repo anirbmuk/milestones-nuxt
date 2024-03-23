@@ -3,7 +3,7 @@
     <div v-if="allowUnlistedValue"
          info
     >
-      Press enter to select a value not in the list
+      Press enter to select values not in the list
     </div>
     <input id="autocomplete"
            ref="autocompleteInput"
@@ -14,7 +14,8 @@
            @keydown.enter="selectOnEnter"
     >
     <div v-if="options.length"
-         class="absolute top-[2.2rem] z-10 my-2 flex w-full flex-col space-y-2 rounded border border-gray-200 bg-white p-0.5"
+         class="absolute z-10 my-2 flex w-full flex-col space-y-2 rounded border border-gray-200 bg-white p-0.5"
+         :class="optionsPosition"
          role="listbox"
     >
       <template v-for="option of options"
@@ -68,6 +69,10 @@ const props = defineProps({
   allowUnlistedValue: {
     type: Boolean,
     default: () => false,
+  },
+  optionsPosition: {
+    type: String,
+    default: 'top-[2.3rem] md:top-[2.2rem]',
   },
 });
 // eslint-disable-next-line vue/valid-define-emits

@@ -18,15 +18,15 @@
     </div>
     <div milestone-actions>
       <button
-        aria-label="Delete this entry"
-        title="Delete this entry"
+        aria-label="Delete this milestone"
+        title="Delete this milestone"
         type="button"
         @click="$emit('delete')"
       >
         <IconDelete class="size-5 md:size-6" />
       </button>
       <button
-        aria-label="Copy this entry"
+        aria-label="Copy text to clipboard"
         title="Copy text to clipboard"
         type="button"
         @click="$emit('copy')"
@@ -34,8 +34,8 @@
         <IconCopy class="size-5 md:size-6" />
       </button>
       <button
-        aria-label="Edit this entry"
-        title="Edit this entry"
+        aria-label="Edit this milestone"
+        title="Edit this milestone"
         type="button"
         @click="$emit('edit')"
       >

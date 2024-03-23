@@ -1,16 +1,21 @@
 <template>
   <section>
-    <UiModal v-if="open"
-             :open="open"
-             :selection="selected"
-             :type="type"
-             @save="save($event)"
-             @close="closeModal"
+    <UiModal
+      v-if="open"
+      :open="open"
+      :selection="selected"
+      :type="type"
+      @save="save($event)"
+      @close="closeModal"
     />
-    <button class="cta-button-primary m-auto flex items-center justify-center"
-            @click="createMilestone"
+    <button
+      type="button"
+      class="cta-button-icon m-auto flex items-center justify-center"
+      aria-label="Add a new milestone"
+      title="Add a new milestone"
+      @click="createMilestone"
     >
-      CREATE
+      &#43;
     </button>
     <div class="mb-2 mt-4 grid grid-cols-8 items-center md:mb-4">
       <button
@@ -44,18 +49,19 @@
     </div>
     <template v-if="milestones?.length">
       <div class="my-8 block md:grid md:grid-cols-3 md:gap-4">
-        <MilestoneViewItem v-for="milestone in milestones"
-                           :key="milestone.milestoneid"
-                           :milestone="milestone"
-                           @delete="deleteMilestone(milestone)"
-                           @copy="copyMilestone(milestone)"
-                           @edit="editMilestone((milestone))"
+        <MilestoneViewItem
+          v-for="milestone in milestones"
+          :key="milestone.milestoneid"
+          :milestone="milestone"
+          @delete="deleteMilestone(milestone)"
+          @copy="copyMilestone(milestone)"
+          @edit="editMilestone((milestone))"
         />
       </div>
     </template>
     <template v-else>
       <div error>
-        No milestone entries found
+        No milestones found
       </div>
     </template>
   </section>
@@ -150,7 +156,7 @@ const editMilestone = (milestone: Milestone) => showEditModal(milestone);
 const deleteMilestone = async (milestone: Milestone) => {
   await deleteFn(`/api/milestone?id=${milestone.milestoneid}`);
   await refresh();
-  notify('Your milestone entry is deleted');
+  notify('Your milestone is deleted');
 };
 
 const copyMilestone = (milestone: Milestone) => {
@@ -170,10 +176,10 @@ const save = async ({
   if (milestone) {
     if (type === 'create') {
       await post('/api/milestone', milestone);
-      notify('A new milestone entry has been created');
+      notify('A new milestone has been created');
     } else if (type === 'edit') {
       await patch(`/api/milestone?id=${id}`, milestone);
-      notify('Your milestone entry has been updated');
+      notify('Your milestone has been updated');
     }
     await refresh();
   }

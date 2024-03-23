@@ -79,6 +79,9 @@
   .cta-button-primary {
     @apply min-w-32 cursor-pointer rounded-sm border-none bg-primary-dark px-5 py-2.5 text-center text-white shadow-lg duration-200 ease-in-out outline-gray-800 md:hover:bg-primary;
   }
+  .cta-button-icon {
+    @apply size-16 rounded-full cursor-pointer text-5xl border-none bg-primary-dark px-5 py-2.5 text-center text-white shadow-lg duration-200 ease-in-out outline-gray-800 md:hover:bg-primary;
+  }
   button[type=submit] {
     @apply min-w-16 cursor-pointer rounded-sm border-none bg-primary-dark px-5 py-2.5 text-center text-white shadow-lg duration-200 ease-in-out outline-primary-dark md:hover:bg-primary;
   }
