@@ -39,7 +39,7 @@
   </div>
   <SearchResults
     v-if="!error"
-    class="mt-4"
+    class="mx-auto mt-4 lg:w-1/2"
     :milestones="data"
     :status="status"
     @loadmore="loadmoreResults"

@@ -5,7 +5,7 @@
         <span class="text-2xl font-semibold">Welcome to your Milestones!</span>
         <IconMilestone class="size-6" />
       </div>
-      <div class="mb-2 text-md text-gray-500">
+      <div class="-mt-1.5 mb-2 text-md text-gray-500">
         Sign in with your registered email account
       </div>
     </section>
