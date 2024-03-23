@@ -40,10 +40,10 @@
     border-top: 1px solid lightgray;
   }
   div[info] {
-    @apply text-md md:text text-gray-400 -mb-2;
+    @apply text-md md:text text-gray-400 dark:text-white -mb-2;
   }
   div[progress] {
-    @apply text-primary-dark md:text-xl text-center p-2 animate-pulse duration-200 uppercase tracking-wider;
+    @apply text-primary-dark dark:text-white md:text-xl text-center p-2 animate-pulse duration-200 uppercase tracking-wider;
   }
   div[error],
   p[error] {
@@ -53,21 +53,24 @@
     @apply bg-primary-dark p-4 w-full flex flex-row items-center whitespace-nowrap;
   }
   label {
-    @apply text-gray-700;
+    @apply text-gray-700 dark:text-white;
   }
   label[required]::after {
     content: ' *';
     @apply text-sm text-gray-700;
   }
   select {
-    @apply py-4 px-8 rounded border border-gray-200 bg-gray-50 outline-gray-700;
+    @apply py-4 px-8 rounded border border-gray-200 bg-gray-50 outline-gray-700 dark:border dark:border-solid dark:border-white dark:bg-transparent dark:outline-white;
+  }
+  input::placeholder {
+    @apply dark:text-white;
   }
   input[type=text],
   input[type=date],
   input[type=email],
   input[type=password],
   textarea {
-    @apply py-2 px-3 border border-gray-100 rounded-sm hover:border hover:border-gray-400 outline-gray-400 shadow focus:shadow;
+    @apply py-2 px-3 border border-gray-100 rounded-sm hover:border hover:border-gray-400 outline-gray-400 shadow focus:shadow dark:bg-black;
   }
   input[type=radio],
   label[radio] {
@@ -83,7 +86,7 @@
     @apply size-16 rounded-full cursor-pointer text-5xl border-none bg-primary-dark px-5 py-2.5 text-center text-white shadow-lg duration-200 ease-in-out outline-gray-800 md:hover:bg-primary;
   }
   button[type=submit] {
-    @apply min-w-16 cursor-pointer rounded-sm border-none bg-primary-dark px-5 py-2.5 text-center text-white shadow-lg duration-200 ease-in-out outline-primary-dark md:hover:bg-primary;
+    @apply min-w-16 cursor-pointer rounded-sm border-none bg-primary-dark px-5 py-2.5 text-center text-white dark:border dark:border-solid dark:border-white shadow-lg duration-200 ease-in-out outline-primary-dark md:hover:bg-primary;
   }
   button[type=reset] {
     @apply min-w-16 cursor-pointer border-none px-5 py-2.5 text-center text-error duration-200 ease-in-out hover:bg-red-50 bg-transparent rounded-sm outline-red-100;
@@ -102,7 +105,12 @@
     @apply pb-2 pt-0.5;
   }
   div[listitem] {
-    @apply mb-4 mt-2 block min-h-20 p-3 text-md first:mt-0 last:mb-0 bg-background-dark;
+    @apply mb-4 mt-2 block min-h-20 p-3 text-md first:mt-0 last:mb-0 bg-background-dark dark:border dark:border-white dark:border-solid dark:bg-transparent dark:text-white;
     box-shadow: 0 3px 3px -2px #0003,0 3px 4px #00000024,0 1px 8px #0000001f;
+  }
+  @media (prefers-color-scheme: dark) {
+    .cta-button-icon {
+      @apply border-2 border-solid !border-white;
+    }
   }
 }

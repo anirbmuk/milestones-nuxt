@@ -2,7 +2,7 @@
   <UiNotification v-for="(notification, index) of notifications"
                   :key="notification.id"
                   :notification="notification"
-                  :style="{ top: `${(index + 1) * 68}px` }"
+                  :style="{ top: `${(index + 1) * 72}px` }"
   />
 </template>
 

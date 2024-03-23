@@ -142,7 +142,7 @@ defineOptions({
   background-color: rgba(var(--base), 0.5)
 }
 .modal-container {
-  @apply bg-white m-auto p-6 rounded w-[95%] md:w-[70%] lg:w-[50%] xl:w-[40%] flex flex-col;
+  @apply bg-white dark:bg-primary-dark dark:border dark:border-white m-auto p-6 rounded w-[95%] md:w-[70%] lg:w-[50%] xl:w-[40%] flex flex-col;
   transition: all 0.3s ease;
 }
 .modal-header {

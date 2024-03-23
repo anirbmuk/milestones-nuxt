@@ -1,8 +1,10 @@
 <template>
   <div class="chip">
-    <div>{{ text }}</div>
+    <div class="dark:text-white">
+      {{ text }}
+    </div>
     <div v-if="removable"
-         class="cursor-pointer text-sm !text-primary-light"
+         class="cursor-pointer text-sm text-primary-dark dark:text-white"
          role="button"
          :aria-label="`Remove tag ${text}`"
          @click="$emit('remove', text)"
@@ -31,6 +33,6 @@ defineOptions({
 
 <style scoped>
 .chip {
-  @apply flex items-center justify-between min-w-20 max-w-fit rounded-sm border border-gray-400 bg-transparent px-2 py-1 text-center text-md bg-gray-100 space-x-2;
+  @apply flex items-center justify-between min-w-20 max-w-fit rounded-sm border border-gray-400 bg-transparent px-2 py-1 text-center text-md bg-gray-100 dark:bg-transparent dark:border dark:border-white space-x-2;
 }
 </style>

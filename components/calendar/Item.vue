@@ -34,7 +34,7 @@ defineOptions({
 
 <style scoped>
 .calendar-sm {
-  @apply flex min-h-[6rem] cursor-pointer items-center rounded-md p-6 text-center text-md;
+  @apply flex min-h-[6rem] cursor-pointer items-center rounded-md p-6 text-center text-md dark:border-white dark:border dark:border-solid dark:rounded;
   text-shadow: 1px 1px 5px rgba(124, 102, 0, 0.45);
   box-shadow: 1px 1px 5px rgba(124, 102, 0, 0.45);
 }

@@ -3,7 +3,7 @@
     <div v-if="allowUnlistedValue"
          info
     >
-      Press enter to select values not in the list
+      Press enter to add tags which are not suggested
     </div>
     <input id="autocomplete"
            ref="autocompleteInput"
@@ -14,7 +14,7 @@
            @keydown.enter="selectOnEnter"
     >
     <div v-if="options.length"
-         class="absolute z-10 my-2 flex w-full flex-col space-y-2 rounded border border-gray-200 bg-white p-0.5"
+         class="absolute z-10 my-2 flex w-full flex-col space-y-2 rounded border border-gray-200 bg-white p-0.5 dark:bg-primary-dark"
          :class="optionsPosition"
          role="listbox"
     >

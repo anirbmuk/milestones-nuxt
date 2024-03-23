@@ -1,13 +1,13 @@
 <template>
   <div milestone>
     <div milestone-header>
-      <div class="text font-bold text-blue-light md:text-xl">
+      <div class="text font-bold text-blue-light md:text-xl dark:text-white">
         {{ milestone.activitycodes?.join(', ') }}
       </div>
-      <div class="text-sm text-primary-light md:text-md">
+      <div class="text-primary-lightdark:text-white text-sm md:text-md">
         {{ 'Created: ' + getFullDateAndTime(milestone.createdAt) }}
       </div>
-      <div class="text-sm text-primary-light md:text-md">
+      <div class="text-primary-lightdark:text-white text-sm md:text-md">
         {{ 'Last updated: ' + getFullDateAndTime(milestone.updatedAt) }}
       </div>
     </div>
@@ -63,12 +63,12 @@ defineOptions({
 
 <style scoped>
 div[milestone] {
-  @apply block mb-3 px-3 py-2 rounded bg-background-dark;
+  @apply block mb-3 px-3 py-2 rounded bg-background-dark dark:bg-transparent dark:border dark:border-solid dark:border-white;
   box-shadow: 0 2px 1px -1px #0003,0 1px 1px #00000024,0 1px 3px #0000001f;
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 div[milestone-content] {
-  @apply block py-4 md:h-56 md:max-h-56;
+  @apply block py-4 md:h-56 md:max-h-56 dark:text-white;
 }
 div[milestone-actions] {
   @apply flex flex-row justify-between pt-8 pb-2;

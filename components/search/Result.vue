@@ -5,14 +5,14 @@
     listitem
     @click="navigateToMilestone"
   >
-    <div class="text font-bold text-blue-light md:text-xl">
+    <div class="text font-bold text-blue-light md:text-xl dark:text-white">
       {{ milestone.activitycodes?.join(', ') }}
     </div>
-    <div class="py-0.5 text-sm text-primary-light md:text-md">
+    <div class="py-0.5 text-sm text-primary-light md:text-md dark:text-white">
       {{ displayDate }}
     </div>
     <div
-      class="whitespace-pre-line break-words !py-1.5 text-justify text-primary-dark"
+      class="whitespace-pre-line break-words !py-1.5 text-justify text-primary-dark dark:text-white"
     >
       {{ milestone.description }}
     </div>

@@ -2,10 +2,10 @@
   <div class="signin-container">
     <section class="px-4">
       <div class="mx-auto mb-2 mt-4 flex items-center space-x-2">
-        <span class="text-2xl font-semibold">Welcome to your Milestones!</span>
-        <IconMilestone class="size-6" />
+        <span class="text-2xl font-semibold dark:text-white">Welcome to your Milestones!</span>
+        <IconMilestone class="size-6 dark:hidden" />
       </div>
-      <div class="-mt-1.5 mb-2 text-md text-gray-500">
+      <div class="-mt-1.5 mb-2 text-md text-gray-500 dark:text-white">
         Sign in with your registered email account
       </div>
     </section>
@@ -104,7 +104,7 @@ defineOptions({
 
 <style scoped>
 .signin-container {
-  @apply mt-32 w-full lg:w-[50%] xl:w-[40%] 4xl:w-[30%] lg:absolute lg:right-4 rounded px-2 py-4 bg-gray-50 border border-gray-300;
+  @apply mt-32 w-full lg:w-[50%] xl:w-[40%] 4xl:w-[30%] lg:absolute lg:right-4 rounded px-2 py-4 bg-gray-50 border border-gray-300 dark:bg-transparent;
 }
 #auth {
   @apply m-auto rounded-sm lg:relative;
