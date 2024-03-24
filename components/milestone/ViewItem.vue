@@ -4,10 +4,10 @@
       <div class="text font-bold text-blue-light md:text-xl dark:text-white">
         {{ milestone.activitycodes?.join(', ') }}
       </div>
-      <div class="text-primary-lightdark:text-white text-sm md:text-md">
+      <div class="text-sm text-primary-light md:text-md dark:text-white">
         {{ 'Created: ' + getFullDateAndTime(milestone.createdAt) }}
       </div>
-      <div class="text-primary-lightdark:text-white text-sm md:text-md">
+      <div class="text-sm text-primary-light md:text-md dark:text-white">
         {{ 'Last updated: ' + getFullDateAndTime(milestone.updatedAt) }}
       </div>
     </div>
@@ -63,14 +63,17 @@ defineOptions({
 
 <style scoped>
 div[milestone] {
-  @apply block mb-3 px-3 py-2 rounded bg-background-dark dark:bg-transparent dark:border dark:border-solid dark:border-white;
+  @apply grid grid-flow-row grid-rows-6 mb-3 px-3 py-2 max-h-[600px] rounded bg-background-dark dark:bg-transparent dark:border dark:border-solid dark:border-white;
   box-shadow: 0 2px 1px -1px #0003,0 1px 1px #00000024,0 1px 3px #0000001f;
   transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+div[milestone-header] {
+  @apply row-span-1 pt-1 pb-4;
+}
 div[milestone-content] {
-  @apply block py-4 md:h-56 md:max-h-56 dark:text-white;
+  @apply block py-4 dark:text-white row-span-4 overflow-scroll;
 }
 div[milestone-actions] {
-  @apply flex flex-row justify-between pt-8 pb-2;
+  @apply flex flex-row justify-between pt-1 row-span-1;
 }
 </style>

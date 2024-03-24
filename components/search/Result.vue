@@ -14,7 +14,7 @@
     <div
       class="whitespace-pre-line break-words !py-1.5 text-justify text-primary-dark dark:text-white"
     >
-      {{ milestone.description }}
+      {{ description }}
     </div>
   </div>
 </template>
@@ -22,7 +22,9 @@
 <script setup lang="ts">
 import { getFullDate } from '~/helpers/date';
 import type { Milestone } from '~/types/milestone';
+
 const { setCalendar } = useCalendar();
+const { transform } = useText();
 
 const props = defineProps({
   milestone: {
@@ -31,10 +33,14 @@ const props = defineProps({
   },
 });
 const {
-  day: dd, month: mm, year: yyyy, 
+  day: dd,
+  month: mm,
+  year: yyyy, 
 } = props.milestone;
 const displayDate = computed(() => getFullDate(dd, mm, yyyy, 'long'));
 const calendarPath = computed(() => `/calendar/edit/${dd}`);
+
+const description = computed(() => transform(props.milestone?.description, 600, false));
 
 const navigateToMilestone = () => {
   setCalendar({
