@@ -3,11 +3,12 @@
     <div class="dark:text-white">
       {{ text }}
     </div>
-    <div v-if="removable"
-         class="cursor-pointer text-sm text-primary-dark dark:text-white"
-         role="button"
-         :aria-label="`Remove tag ${text}`"
-         @click="$emit('remove', text)"
+    <div
+      v-if="removable"
+      class="cursor-pointer text-sm text-primary-dark dark:text-white"
+      role="button"
+      :aria-label="`Remove tag ${text}`"
+      @click="$emit('remove', text)"
     >
       &#x2715;
     </div>

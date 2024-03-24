@@ -1,14 +1,16 @@
 <template>
   <div menu>
-    <NuxtLink to="/calendar"
-              aria-label="Calendar Menu"
-              title="Calendar"
+    <NuxtLink
+      to="/calendar"
+      aria-label="Calendar Menu"
+      title="Calendar"
     >
       <IconCalendar class="size-8" />
     </NuxtLink>
-    <NuxtLink to="/search"
-              aria-label="Search Menu"
-              title="Search"
+    <NuxtLink
+      to="/search"
+      aria-label="Search Menu"
+      title="Search"
     >
       <IconSearch class="size-8" />
     </NuxtLink>

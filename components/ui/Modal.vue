@@ -5,8 +5,9 @@
       :appear="true"
       mode="out-in"
     >
-      <div v-if="open"
-           class="backdrop"
+      <div
+        v-if="open"
+        class="backdrop"
       >
         <div class="modal-container">
           <div class="modal-header">
@@ -54,8 +55,9 @@
                   <button type="submit">
                     SAVE
                   </button>
-                  <button type="reset"
-                          @click="$emit('close')"
+                  <button
+                    type="reset"
+                    @click="$emit('close')"
                   >
                     CANCEL
                   </button>

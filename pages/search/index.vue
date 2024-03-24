@@ -1,23 +1,27 @@
 <template>
   <div class="flex items-center justify-center space-x-4">
     <div class="flex items-center justify-center space-x-2">
-      <input id="tag"
-             v-model="searchState.searchType"
-             type="radio"
-             value="tag"
+      <input
+        id="tag"
+        v-model="searchState.searchType"
+        type="radio"
+        value="tag"
       >
-      <label for="tag"
-             radio
+      <label
+        for="tag"
+        radio
       >Search with tags</label>
     </div>
     <div class="flex items-center justify-center space-x-2">
-      <input id="daterange"
-             v-model="searchState.searchType"
-             type="radio"
-             value="daterange"
+      <input
+        id="daterange"
+        v-model="searchState.searchType"
+        type="radio"
+        value="daterange"
       >
-      <label for="daterange"
-             radio
+      <label
+        for="daterange"
+        radio
       >Search with date</label>
     </div>
   </div>
@@ -29,8 +33,9 @@
         <button type="submit">
           SEARCH
         </button>
-        <button type="reset"
-                @click="reset"
+        <button
+          type="reset"
+          @click="reset"
         >
           RESET
         </button>
@@ -44,9 +49,10 @@
     :status="status"
     @loadmore="loadmoreResults"
   />
-  <div v-else
-       class="mx-auto mt-4 bg-red-50 p-4 lg:w-1/2"
-       error
+  <div
+    v-else
+    class="mx-auto mt-4 bg-red-50 p-4 lg:w-1/2"
+    error
   >
     {{ error }}
   </div>

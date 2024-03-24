@@ -1,12 +1,14 @@
 <template>
   <section>
     <div class="flex items-center justify-center">
-      <select v-model.number="selectedYear"
-              aria-label="Select year"
-              @change="onYearChange"
+      <select
+        v-model.number="selectedYear"
+        aria-label="Select year"
+        @change="onYearChange"
       >
-        <option v-for="history of getHistoricalYears()"
-                :key="history"
+        <option
+          v-for="history of getHistoricalYears()"
+          :key="history"
         >
           {{ history }}
         </option>
@@ -46,8 +48,9 @@
       <div
         class="grid grid-cols-3 gap-4 md:grid-cols-7 md:gap-6"
       >
-        <template v-for="dayOfMonth in daysOfMonth"
-                  :key="dayOfMonth"
+        <template
+          v-for="dayOfMonth in daysOfMonth"
+          :key="dayOfMonth"
         >
           <NuxtLink :to="`/calendar/edit/${dayOfMonth}`">
             <CalendarItem

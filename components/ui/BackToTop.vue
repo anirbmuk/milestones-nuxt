@@ -1,9 +1,11 @@
 <template>
-  <button type="button"
-          @click="$emit('scrollToTop')"
+  <button
+    type="button"
+    @click="$emit('scrollToTop')"
   >
-    <div class="absolute bottom-[9px] left-[18px] text-2xl text-primary-dark"
-         translate="no"
+    <div
+      class="absolute bottom-[9px] left-[18px] text-2xl text-primary-dark"
+      translate="no"
     >
       &#8593;
     </div>

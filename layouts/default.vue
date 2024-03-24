@@ -2,8 +2,9 @@
   <UiHeader />
   <main class="container mx-auto mb-4 mt-20 md:mt-24">
     <ClientOnly>
-      <UiBackToTop v-show="scrollState > 200"
-                   @scroll-to-top="scrollToTop"
+      <UiBackToTop
+        v-show="scrollState > 200"
+        @scroll-to-top="scrollToTop"
       />
     </ClientOnly>
     <slot />

@@ -1,11 +1,13 @@
 <template>
   <div toggle>
-    <template v-for="option of options"
-              :key="option.value"
+    <template
+      v-for="option of options"
+      :key="option.value"
     >
-      <button type="button"
-              :class="{ selected: modelValue === option.value }"
-              @click="toggleState(option.value)"
+      <button
+        type="button"
+        :class="{ selected: modelValue === option.value }"
+        @click="toggleState(option.value)"
       >
         {{ option.label }}
       </button>

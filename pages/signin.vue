@@ -15,31 +15,35 @@
         @submit.prevent="signin"
       >
         <div class="flex flex-col space-y-1">
-          <input id="email"
-                 ref="emailInput"
-                 v-model="email"
-                 placeholder="Email address"
-                 type="email"
-                 name="email"
-                 required
+          <input
+            id="email"
+            ref="emailInput"
+            v-model="email"
+            placeholder="Email address"
+            type="email"
+            name="email"
+            required
           >
         </div>
         <div class="flex flex-col space-y-1">
-          <input id="password"
-                 v-model="password"
-                 placeholder="Password"
-                 type="password"
-                 name="password"
-                 required
+          <input
+            id="password"
+            v-model="password"
+            placeholder="Password"
+            type="password"
+            name="password"
+            required
           >
         </div>
-        <button type="submit"
-                class="cta-button-primary"
+        <button
+          type="submit"
+          class="cta-button-primary"
         >
           Submit
         </button>
-        <div v-if="error"
-             error
+        <div
+          v-if="error"
+          error
         >
           {{ error }}
         </div>

@@ -6,9 +6,10 @@
           <span v-if="isLoggedIn">{{ user?.firstname }}'s {{ ' ' }}</span>MILESTONES
         </NuxtLink>
       </div>
-      <UiMenu v-if="isLoggedIn"
-              class="flex items-center justify-between space-x-3"
-              @signout="signout"
+      <UiMenu
+        v-if="isLoggedIn"
+        class="flex items-center justify-between space-x-3"
+        @signout="signout"
       />
     </nav>
     <ClientOnly>

@@ -1,5 +1,5 @@
-import type { Milestone } from "~/types/milestone";
-import type { Operation } from "~/types/operation";
+import type { Milestone } from '~/types/milestone';
+import type { Operation } from '~/types/operation';
 
 const open = ref<boolean>(false);
 const type = ref<Operation>('create');

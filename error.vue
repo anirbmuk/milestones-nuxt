@@ -6,9 +6,10 @@
           <span v-if="isLoggedIn">{{ user?.firstname }}'s {{ ' ' }}</span>MILESTONES
         </NuxtLink>
       </div>
-      <UiMenu v-if="isLoggedIn"
-              class="flex items-center justify-between space-x-3"
-              @signout="signout"
+      <UiMenu
+        v-if="isLoggedIn"
+        class="flex items-center justify-between space-x-3"
+        @signout="signout"
       />
     </nav>
   </header>
@@ -18,8 +19,9 @@
         !{{ error?.statusCode }}!
       </h1>
       <template v-if="error?.message">
-        <div class="m-2"
-             error
+        <div
+          class="m-2"
+          error
         >
           {{ error.message }}
         </div>

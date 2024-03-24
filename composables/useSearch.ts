@@ -1,11 +1,11 @@
-import { validateDateRangeAsString } from "~/helpers/date";
-import { getMilestoneEndPoint } from "~/helpers/rest";
-import type { Milestone } from "~/types/milestone";
+import { validateDateRangeAsString } from '~/helpers/date';
+import { getMilestoneEndPoint } from '~/helpers/rest';
+import type { Milestone } from '~/types/milestone';
 import type {
   SearchState,
   SearchStatus, 
-} from "~/types/search";
-import type { KeyValue } from "~/types/toggle";
+} from '~/types/search';
+import type { KeyValue } from '~/types/toggle';
 
 const getInitialState = () => ({
   tq: '',

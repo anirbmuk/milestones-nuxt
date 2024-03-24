@@ -1,19 +1,21 @@
 <template>
-  <input id="daterangestart"
-         ref="daterangeStartInput"
-         v-model="startDateInputValue"
-         class="w-full"
-         placeholder="Start date"
-         type="date"
+  <input
+    id="daterangestart"
+    ref="daterangeStartInput"
+    v-model="startDateInputValue"
+    class="w-full"
+    placeholder="Start date"
+    type="date"
   >
-  <input id="daterangeend"
-         ref="daterangeEndInput"
-         v-model="endDateInputValue"
-         :min="startDateInputValue"
-         :max="today"
-         class="w-full"
-         placeholder="End date"
-         type="date"
+  <input
+    id="daterangeend"
+    ref="daterangeEndInput"
+    v-model="endDateInputValue"
+    :min="startDateInputValue"
+    :max="today"
+    class="w-full"
+    placeholder="End date"
+    type="date"
   >
 </template>
 

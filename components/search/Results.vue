@@ -1,30 +1,36 @@
 <template>
   <div>
     <div v-if="['complete', 'loadmore'].includes(status)">
-      <div v-if="milestones?.length"
-           role="list"
-           list
+      <div
+        v-if="milestones?.length"
+        role="list"
+        list
       >
-        <SearchResult v-for="milestone of milestones"
-                      :key="milestone.milestoneid"
-                      :milestone="milestone"
+        <SearchResult
+          v-for="milestone of milestones"
+          :key="milestone.milestoneid"
+          :milestone="milestone"
         />
       </div>
-      <div v-else
-           error
+      <div
+        v-else
+        error
       >
         No milestone entries found
       </div>
-      <UtilIntersect multiple
-                     @tracked="$emit('loadmore')"
+      <UtilIntersect
+        multiple
+        @tracked="$emit('loadmore')"
       >
-        <div class="p-2"
-             aria-hidden="true"
+        <div
+          class="p-2"
+          aria-hidden="true"
         />
       </UtilIntersect>
     </div>
-    <div v-if="['inprogress', 'loadmore'].includes(status)"
-         progress
+    <div
+      v-if="['inprogress', 'loadmore'].includes(status)"
+      progress
     >
       Fetching...
     </div>

@@ -1,4 +1,4 @@
-import type { NuxtError } from "#app";
+import type { NuxtError } from '#app';
 
 export const useDeleteData = () => {
   const { token } = useUser();
