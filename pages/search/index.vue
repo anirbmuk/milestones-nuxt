@@ -42,7 +42,7 @@
       </div>
     </form>
   </div>
-  <SearchResults
+  <LazySearchResults
     v-if="!error"
     class="mx-auto mt-4 lg:w-1/2"
     :milestones="data"

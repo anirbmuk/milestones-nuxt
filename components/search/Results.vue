@@ -6,7 +6,7 @@
         role="list"
         list
       >
-        <SearchResult
+        <LazySearchResult
           v-for="milestone of milestones"
           :key="milestone.milestoneid"
           :milestone="milestone"
@@ -18,7 +18,7 @@
       >
         No milestone entries found
       </div>
-      <UtilIntersect
+      <LazyUtilIntersect
         multiple
         @tracked="$emit('loadmore')"
       >
@@ -26,7 +26,7 @@
           class="p-2"
           aria-hidden="true"
         />
-      </UtilIntersect>
+      </LazyUtilIntersect>
     </div>
     <div
       v-if="['inprogress', 'loadmore'].includes(status)"

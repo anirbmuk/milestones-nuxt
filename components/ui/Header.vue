@@ -13,8 +13,8 @@
       />
     </nav>
     <ClientOnly>
-      <UiLoadingScreen v-show="processing" />
-      <UiNotifications />
+      <LazyUiLoadingScreen v-show="processing" />
+      <LazyUiNotifications />
     </ClientOnly>
   </header>
 </template>
