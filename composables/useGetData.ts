@@ -29,7 +29,6 @@ export const useGetData = <T extends Array<any>>({
     if (processing.value) {
       return;
     }
-    data.value = [] as any;
     if (!path) {
       return;
     }
@@ -38,6 +37,7 @@ export const useGetData = <T extends Array<any>>({
       // @ts-ignore
       data.value = await getFn(path);
     } catch (e) {
+      data.value = [] as any;
       handleError(e as NuxtError);
     } finally {
       endProcessing();
