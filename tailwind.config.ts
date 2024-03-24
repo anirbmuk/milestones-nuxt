@@ -85,6 +85,27 @@ export default {
             border: 'var(--border-error-alert)',
           },
         },
+        overlay: {
+          DEFAULT: 'var(--overlay-color)',
+        },
+      },
+      zIndex: {
+        100: '100',
+        150: '150',
+        200: '200',
+      },
+      animation: {
+        rotate: 'rotate var(--duration) var(--timing) infinite',
+      },
+      keyframes: {
+        rotate: {
+          '0%': {
+            transform: 'rotate(0)', 
+          },
+          '100%': {
+            transform: 'rotate(360deg)', 
+          },
+        },
       },
     },
   },

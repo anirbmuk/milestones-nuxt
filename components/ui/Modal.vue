@@ -33,6 +33,7 @@
                 :options="options"
                 placeholder="New tag..."
                 class="mb-4"
+                :processing="processing"
                 options-position="top-[3.7rem]"
                 @update:input="fetchActivities($event)"
               />
@@ -101,7 +102,10 @@ const {
 const {
   fetch,
   data: options,
-} = useGetData<string[]>();
+  processing,
+} = useGetData<string[]>({
+  stateKey: 'modal', 
+});
 
 const fetchActivities = async (value: string) => {
   if (!value) {

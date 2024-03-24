@@ -34,7 +34,9 @@ export const useSearch = () => {
   const {
     fetch,
     data, 
-  } = useGetData<Milestone[]>();
+  } = useGetData<Milestone[]>({
+    showLoading: false, 
+  });
 
   const searchData = ref<Milestone[]>([]);
 
@@ -96,10 +98,6 @@ export const useSearch = () => {
     return true;
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const wait = (delay = 5000) =>
-    new Promise<void>((resolve) => setTimeout(resolve, delay));
-
   const search = async () => {
     if (!validateSearchState()) {
       return;
@@ -120,7 +118,6 @@ export const useSearch = () => {
     await fetch(`/api/${endPoint}`);
     searchData.value = [...data.value || []];
     updateState('allFetched', data.value?.length < state.value.limit);
-    // await wait();
     status.value = 'complete';
   };
 
@@ -140,7 +137,6 @@ export const useSearch = () => {
       id: '',
     });
 
-    // await wait();
     await fetch(`/api/${endPoint}`);
     updateState('allFetched', data.value?.length < state.value.limit);
     searchData.value.push(...(data.value || []));

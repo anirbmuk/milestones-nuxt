@@ -76,7 +76,8 @@ const signin = async () => {
     initSearchState();
     router.push('/');
   } catch (e) {
-    error.value = (e as any)?.data?.data?.error;
+    console.error(e);
+    error.value = (e as any)?.data?.data?.error || 'Unknown error: failed to sign in';
     setTimeout(() => emailInput.value?.focus());
   }
 };

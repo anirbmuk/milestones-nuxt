@@ -15,4 +15,5 @@
   --border-error-alert: #ebccd1;
   --blue: #0d5baf;
   --blue-light: #1877f2;
+  --overlay-color: rgba(var(--base), 0.6);
 }

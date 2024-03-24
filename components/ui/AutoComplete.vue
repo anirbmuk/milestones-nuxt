@@ -1,45 +1,54 @@
 <template>
   <div autocomplete>
-    <div v-if="allowUnlistedValue"
-         info
+    <div 
+      v-if="allowUnlistedValue"
+      info
     >
       Press enter to add tags which are not suggested
     </div>
-    <input id="autocomplete"
-           ref="autocompleteInput"
-           :placeholder="placeholder"
-           class=" w-full"
-           type="text"
-           @input="_debouncedTypeahead"
-           @keydown.enter="selectOnEnter"
+    <input
+      id="autocomplete"
+      ref="autocompleteInput"
+      :placeholder="placeholder"
+      class="w-full"
+      :class="{ 'animate-pulse bg-gray-200': processing }"
+      type="text"
+      @input="_debouncedTypeahead"
+      @keydown.enter="selectOnEnter"
     >
-    <div v-if="options.length"
-         class="absolute z-10 my-2 flex w-full flex-col space-y-2 rounded border border-gray-200 bg-white p-0.5 dark:bg-primary-dark"
-         :class="optionsPosition"
-         role="listbox"
+    <div
+      v-if="options.length"
+      class="absolute z-10 my-2 flex w-full flex-col space-y-2 rounded border border-gray-200 bg-white p-0.5 dark:bg-primary-dark"
+      :class="optionsPosition"
+      role="listbox"
     >
-      <template v-for="option of options"
-                :key="option"
+      <template
+        v-for="option of options"
+        :key="option"
       >
-        <div class="cursor-pointer rounded-sm px-1 py-2 hover:bg-gray-100"
-             role="option"
-             @click="select(option)"
+        <div
+          class="cursor-pointer rounded-sm px-1 py-2 hover:bg-gray-100"
+          role="option"
+          @click="select(option)"
         >
           {{ option }}
         </div>
       </template>
     </div>
-    <div v-if="chips.length"
-         class="flex flex-wrap"
+    <div
+      v-if="chips.length"
+      class="flex flex-wrap"
     >
-      <template v-for="(chip, index) of chips"
-                :key="chip"
+      <template
+        v-for="(chip, index) of chips"
+        :key="chip"
       >
-        <UiChip v-if="chip"
-                :text="chip"
-                removable
-                class="mb-1 mr-1"
-                @remove="removeItem(index)"
+        <UiChip
+          v-if="chip"
+          :text="chip"
+          removable
+          class="mb-1 mr-1"
+          @remove="removeItem(index)"
         />
       </template>
     </div>
@@ -67,18 +76,24 @@ const props = defineProps({
     default: 'Enter search term',
   },
   allowUnlistedValue: {
-    type: Boolean,
+    type: Boolean as PropType<boolean>,
     default: () => false,
   },
   optionsPosition: {
     type: String,
     default: 'top-[2.3rem] md:top-[2.2rem]',
   },
+  processing: {
+    type: Boolean as PropType<boolean>,
+    default: () => false,
+  },
 });
 // eslint-disable-next-line vue/valid-define-emits
 const emit = defineEmits([UPDATE_MODEL_VALUE, UPDATE_INPUT]);
 
 const chips = computed(() => props.modelValue.split(',').filter(Boolean));
+
+const _processing = computed(() => props.processing);
 
 const typeahead = (event: Event) => {
   const { value } = (event.target as HTMLInputElement);
@@ -89,7 +104,7 @@ const typeahead = (event: Event) => {
   }
 };
 
-const _debouncedTypeahead = debounce(typeahead, 300);
+const _debouncedTypeahead = debounce(typeahead, 250);
 
 const removeItem = (index: number) => {
   const copy = chips.value.slice();
@@ -110,6 +125,10 @@ const select = (item: string) => {
 };
 
 const selectOnEnter = (event: KeyboardEvent) => {
+  if (_processing.value) {
+    event.preventDefault();
+    return;
+  }
   if (props.allowUnlistedValue) {
     event.preventDefault();
     const { value } = (event.target as HTMLInputElement);

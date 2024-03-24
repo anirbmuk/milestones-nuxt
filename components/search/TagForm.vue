@@ -1,17 +1,21 @@
 <template>
   <div class="mx-auto my-3 space-y-2 lg:w-1/2">
     <div class="flex items-center justify-between">
-      <UiToggleButton v-model="searchState.searchDepth"
-                      :options="DEPTH_OPTIONS"
+      <UiToggleButton
+        v-model="searchState.searchDepth"
+        :options="DEPTH_OPTIONS"
       />
-      <UiToggleButton v-model="searchState.sortDir"
-                      :options="SORT_OPTIONS"
+      <UiToggleButton
+        v-model="searchState.sortDir"
+        :options="SORT_OPTIONS"
       />
     </div>
-    <UiAutoComplete v-model="searchState.tq"
-                    :options="options"
-                    placeholder="Search by tags (min 3 characters)..."
-                    @update:input="fetchActivities($event)"
+    <UiAutoComplete
+      v-model="searchState.tq"
+      :options="options"
+      :processing="processing"
+      placeholder="Search by tags (min 3 characters)..."
+      @update:input="fetchActivities($event)"
     />
   </div>
 </template>
@@ -25,7 +29,11 @@ const {
 const {
   fetch,
   data: options,
-} = useGetData<string[]>();
+  processing,
+} = useGetData<string[]>({
+  showLoading: true,
+  stateKey: 'tagform',
+});
 
 const fetchActivities = async (value: string) => {
   if (!value) {

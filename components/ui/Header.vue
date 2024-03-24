@@ -11,7 +11,10 @@
               @signout="signout"
       />
     </nav>
-    <UiNotifications />
+    <ClientOnly>
+      <UiLoadingScreen v-show="processing" />
+      <UiNotifications />
+    </ClientOnly>
   </header>
 </template>
 
@@ -19,19 +22,10 @@
 const {
   isLoggedIn,
   user,
-  setAuthState,
 } = useUser();
+const { processing } = useUIState();
+const { signout } = useAuth();
 
-const signout = async () => {
-  try {
-    await $fetch<{ auth: boolean }>('/api/logout', {
-      method: 'POST',
-    });
-  } finally {
-    setAuthState(undefined);
-  }
-  return navigateTo('/');
-};
 defineOptions({
   name: 'HeaderComponent',
 });

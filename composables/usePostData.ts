@@ -3,6 +3,10 @@ import type { NuxtError } from "#app";
 export const usePostData = <T>() => {
   const { token } = useUser();
   const { handleError } = useErrorhandler();
+  const {
+    startProcessing,
+    endProcessing, 
+  } = useUIState();
 
   const data = ref<T | undefined>();
 
@@ -22,10 +26,13 @@ export const usePostData = <T>() => {
     if (!path) {
       return;
     }
+    startProcessing();
     try {
       data.value = await postFn(path, body);
     } catch (e) {
       handleError(e as NuxtError);
+    } finally {
+      endProcessing();
     }
   };
 
