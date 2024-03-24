@@ -26,9 +26,9 @@ const {
   getTooltipDate,
 } = useCalendar();
 const label = computed(() => `${getShortMonth(month.value)} ${getQualifiedDate(props.displayDate)}`);
-const tooltip = getTooltipDate(props.displayDate, month.value, year.value);
+const tooltip = computed(() => getTooltipDate(props.displayDate, month.value, year.value));
 defineOptions({
-  name: 'CalendarItemComponent',
+  name: 'CalendarItem',
 });
 </script>
 
