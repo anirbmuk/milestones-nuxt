@@ -28,6 +28,6 @@ const { processing } = useUIState();
 const { signout } = useAuth();
 
 defineOptions({
-  name: 'HeaderComponent',
+  name: 'UiHeader',
 });
 </script>

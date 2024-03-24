@@ -103,7 +103,7 @@ useHead({
   ],
 });
 defineOptions({
-  name: 'SigninComponent',
+  name: 'SigninPage',
 });
 </script>
 
