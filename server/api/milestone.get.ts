@@ -4,7 +4,12 @@ import { Milestone } from '~/types/milestone';
 import type { SupportedQueryParams } from '~/types/query';
 
 export default defineEventHandler(async (event) => {
-  const { middleware } = useRuntimeConfig();
+  const {
+    middleware: {
+      hostUrl,
+      apiBasePath, 
+    }, 
+  } = useRuntimeConfig();
   const authorization = getRequestHeader(event, 'Authorization');
   const [, token] = authorization?.toString()?.split('Bearer ') || [];
 
@@ -20,7 +25,7 @@ export default defineEventHandler(async (event) => {
   const query = getQuery<SupportedQueryParams>(event);
   const endPoint = getMilestoneEndPoint(query);
 
-  return await $fetch<Milestone[]>(`${middleware.hostUrl}${middleware.apiBasePath}/${endPoint}`, {
+  return await $fetch<Milestone[]>(`${hostUrl}${apiBasePath}/${endPoint}`, {
     headers: {
       Authorization: authorization!,
     },

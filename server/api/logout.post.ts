@@ -2,7 +2,12 @@ import { COOKIES } from '~/helpers/cookie';
 import type { AuthState } from '~/types/auth';
 
 export default defineEventHandler(async (event) => {
-  const { middleware } = useRuntimeConfig();
+  const {
+    middleware: {
+      hostUrl,
+      apiBasePath, 
+    }, 
+  } = useRuntimeConfig();
   const { token } = JSON.parse(getCookie(event, '_session') || '{}') as AuthState;
 
   for (const cookie of COOKIES) {
@@ -13,7 +18,7 @@ export default defineEventHandler(async (event) => {
 
   try {
     if (token) {
-      await $fetch(`${middleware.hostUrl}${middleware.apiBasePath}/user/logout`, {
+      await $fetch(`${hostUrl}${apiBasePath}/user/logout`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,

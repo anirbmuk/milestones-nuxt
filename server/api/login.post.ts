@@ -1,14 +1,19 @@
 import type { AuthState } from '~/types/auth';
 
 export default defineEventHandler(async (event) => {
-  const { middleware } = useRuntimeConfig();
+  const {
+    middleware: {
+      hostUrl,
+      apiBasePath, 
+    }, 
+  } = useRuntimeConfig();
   const body = await readBody(event);
 
   const {
     auth,
     user,
     token,
-  } = await $fetch<AuthState>(`${middleware.hostUrl}${middleware.apiBasePath}/user/login`, {
+  } = await $fetch<AuthState>(`${hostUrl}${apiBasePath}/user/login`, {
     method: 'POST',
     body,
   });

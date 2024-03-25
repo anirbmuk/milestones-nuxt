@@ -3,7 +3,12 @@ import { getActivityEndPoint } from '~/helpers/rest';
 import type { SupportedQueryParams } from '~/types/query';
 
 export default defineEventHandler(async (event) => {
-  const { middleware } = useRuntimeConfig();
+  const {
+    middleware: {
+      hostUrl,
+      apiBasePath, 
+    }, 
+  } = useRuntimeConfig();
   const authorization = getRequestHeader(event, 'Authorization');
   const [, token] = authorization?.toString()?.split('Bearer ') || [];
 
@@ -19,7 +24,7 @@ export default defineEventHandler(async (event) => {
   const { q = '' } = getQuery<SupportedQueryParams>(event);
   const endPoint = getActivityEndPoint(q);
   
-  return q ? await $fetch<string[]>(`${middleware.hostUrl}${middleware.apiBasePath}/${endPoint}`, {
+  return q ? await $fetch<string[]>(`${hostUrl}${apiBasePath}/${endPoint}`, {
     headers: {
       Authorization: authorization!,
     },
