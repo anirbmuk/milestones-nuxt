@@ -23,7 +23,7 @@ module.exports = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
     'sonarjs/cognitive-complexity': ['warn'],
-    'sonarjs/no-duplicate-string': ['warn'],
+    'sonarjs/no-duplicate-string': ['off'],
     indent: ['error', 2],
     quotes: ['error', 'single'],
     'computed-property-spacing': ['error', 'never'],
