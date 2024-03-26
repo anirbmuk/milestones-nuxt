@@ -15,9 +15,11 @@
       type="text"
       @input="_debouncedTypeahead"
       @keydown.enter="selectOnEnter"
+      @keydown="focusDownFromInput"
     >
     <div
       v-if="options.length"
+      id="listbox"
       class="absolute z-10 my-2 flex w-full flex-col space-y-2 rounded border border-gray-200 bg-white p-0.5 dark:bg-primary-dark"
       :class="optionsPosition"
       role="listbox"
@@ -26,13 +28,15 @@
         v-for="option of options"
         :key="option"
       >
-        <div
-          class="cursor-pointer rounded-sm px-1 py-2 hover:bg-gray-100"
+        <button
+          class="cursor-pointer rounded-sm px-1 py-2 text-left outline-none hover:bg-gray-100"
           role="option"
+          tabindex="-1"
+          @keydown="keyboardNavigationWithinOptions"
           @click="select(option)"
         >
           {{ option }}
-        </div>
+        </button>
       </template>
     </div>
     <div
@@ -102,6 +106,7 @@ const typeahead = (event: Event) => {
   } else {
     emit(UPDATE_INPUT, '');
   }
+  clearFocus();
 };
 
 const _debouncedTypeahead = debounce(typeahead, 250);
@@ -134,6 +139,53 @@ const selectOnEnter = (event: KeyboardEvent) => {
     const { value } = (event.target as HTMLInputElement);
     if (value && value.trim().length > 2) {
       select(value);
+    }
+  }
+};
+
+const focusDownFromInput = (event: KeyboardEvent) => {
+  if (event.code !== 'ArrowDown' || !props.options.length) {
+    return;
+  }
+  const options = document.getElementById('listbox')?.children;
+  const button = options?.item(0) as HTMLButtonElement;
+  button.classList.add('bg-gray-100');
+  button.focus();
+};
+
+const keyboardNavigationWithinOptions = (event: KeyboardEvent) => {
+  if (!['ArrowDown', 'ArrowUp'].includes(event.code)) {
+    return;
+  }
+  event.preventDefault();
+  const options = document.getElementById('listbox')?.children;
+  const first = options?.item(0);
+  const last = options?.item(options.length - 1);
+  const target = event.target as HTMLButtonElement;
+  target.classList.remove('bg-gray-100');
+
+  if (event.code === 'ArrowDown') {
+    let next = target.nextElementSibling as HTMLButtonElement;
+    if (!next) {
+      next = first as HTMLButtonElement;
+    }
+    next?.focus();
+    next?.classList.add('bg-gray-100');
+  } else {
+    let previous = target.previousElementSibling as HTMLButtonElement;
+    if (!previous) {
+      previous = last as HTMLButtonElement;
+    }
+    previous?.focus();
+    previous?.classList.add('bg-gray-100');
+  }
+};
+
+const clearFocus = () => {
+  const options = document.getElementById('listbox')?.children;
+  if (options) {
+    for (const node of options) {
+      node?.classList.remove('bg-gray-100');
     }
   }
 };
