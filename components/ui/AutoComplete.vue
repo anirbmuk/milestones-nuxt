@@ -29,7 +29,7 @@
         :key="option"
       >
         <button
-          class="cursor-pointer rounded-sm px-1 py-2 text-left outline-none hover:bg-gray-100"
+          class="cursor-pointer rounded-sm px-1 py-2 text-left outline-none hover:bg-gray-100 dark:hover:text-primary-dark"
           role="option"
           tabindex="-1"
           @keydown="keyboardNavigationWithinOptions"
