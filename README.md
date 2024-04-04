@@ -21,5 +21,5 @@ https://github.com/anirbmuk/milestones-server.git
 
 ## Cloud deployment  
 Nuxt3 - https://home-milestones.netlify.app  
-Node & Express - https://home-milestones.el.r.appspot.com  
+Node & Express - https://home-milestones-mw.appspot.com  
 Mongo - Cloud atlas
