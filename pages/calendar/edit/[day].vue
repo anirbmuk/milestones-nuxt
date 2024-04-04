@@ -109,7 +109,7 @@ const {
 
 const getMax = () => {
   const currentDate = new Date();
-  if (month.value === currentDate.getMonth() + 1) {
+  if (month.value === currentDate.getMonth() + 1 && year.value === currentDate.getFullYear()) {
     return currentDate.getDate();
   }
   return getLastDayOfMonth(year.value, month.value);
