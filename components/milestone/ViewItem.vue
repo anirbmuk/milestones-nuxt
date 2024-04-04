@@ -71,7 +71,7 @@ div[milestone-header] {
   @apply row-span-1 pt-1 pb-4;
 }
 div[milestone-content] {
-  @apply block py-4 dark:text-white row-span-4 overflow-scroll;
+  @apply block py-4 dark:text-white row-span-4 overflow-auto whitespace-break-spaces;
 }
 div[milestone-actions] {
   @apply flex flex-row justify-between pt-1 row-span-1;
