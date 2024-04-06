@@ -43,6 +43,7 @@
                 placeholder="Description..."
                 rows="8"
                 class="w-full"
+                spellcheck
                 required
               />
             </div>

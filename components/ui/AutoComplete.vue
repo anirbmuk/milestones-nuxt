@@ -13,6 +13,7 @@
       class="w-full"
       :class="{ 'animate-pulse bg-gray-200': processing }"
       type="text"
+      spellcheck="false"
       @input="_debouncedTypeahead"
       @keydown.enter="selectOnEnter"
       @keydown="focusDownFromInput"

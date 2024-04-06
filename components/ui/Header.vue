@@ -1,7 +1,10 @@
 <template>
   <header class="fixed top-0 z-50 w-full dark:border-b dark:border-solid dark:border-b-white">
     <nav class="flex justify-between">
-      <div class="text-shadow cursor-pointer rounded-sm bg-secondary px-3 py-1 text-xl lowercase tracking-wide text-primary outline-0 md:text-2xl">
+      <div
+        class="text-shadow cursor-pointer rounded-sm bg-secondary px-3 py-1 text-xl lowercase tracking-wide text-primary outline-0 md:text-2xl"
+        translate="no"
+      >
         <NuxtLink to="/">
           <span v-if="isLoggedIn">{{ user?.firstname }}'s {{ ' ' }}</span>MILESTONES
         </NuxtLink>
