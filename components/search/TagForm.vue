@@ -39,7 +39,7 @@ const fetchActivities = async (value: string) => {
   if (!value) {
     return options.value = [];
   }
-  await fetch(`/api/activity?q=${value}`);
+  await fetch(`/api/activity?q=${value.toLowerCase()}`);
 };
 
 defineOptions({

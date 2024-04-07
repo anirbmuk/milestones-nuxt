@@ -114,7 +114,7 @@ const fetchActivities = async (value: string) => {
   if (!value) {
     return options.value = [];
   }
-  await fetch(`/api/activity?q=${value}`);
+  await fetch(`/api/activity?q=${value.toLowerCase()}`);
 };
 const changed = ref(false);
 const output = ref<Partial<Milestone> | undefined>(props.selection);
