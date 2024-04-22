@@ -3,16 +3,21 @@ import type { AuthState } from '~/types/auth';
 export const useAuth = () => {
   const { setAuthState } = useUser();
   const {
+    startProcessing: startSignin,
+    endProcessing: endSignin,
+    processing,
+  } = useUIState('signin');
+
+  const {
     startProcessing,
     endProcessing,
-    processing,
   } = useUIState();
 
   const signin = async (email: string, password: string) => {
     if (processing.value) {
       return;
     }
-    startProcessing();
+    startSignin();
     try {
       return await $fetch<AuthState>('/api/login', {
         body: {
@@ -22,7 +27,7 @@ export const useAuth = () => {
         method: 'POST',
       });
     } finally {
-      endProcessing();
+      endSignin();
     }
   };
 
@@ -45,5 +50,6 @@ export const useAuth = () => {
   return {
     signin,
     signout,
+    processing,
   };
 };

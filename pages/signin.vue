@@ -38,8 +38,9 @@
         <button
           type="submit"
           class="cta-button-primary"
+          :disabled="processing"
         >
-          Submit
+          {{ processing ? 'Signing in...' : 'Submit' }}
         </button>
         <div
           v-if="error"
@@ -61,7 +62,9 @@ const emailInput = ref<HTMLInputElement>();
 
 const error = ref<string | undefined>();
 
-const { signin: authenticate } = useAuth();
+const {
+  signin: authenticate, processing, 
+} = useAuth();
 const { setAuthState } = useUser();
 const { initState: initCalendarState } = useCalendar();
 const { initState: initSearchState } = useSearch();

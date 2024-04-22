@@ -2,7 +2,7 @@
   <div class="overlay">
     <div class="overlay-content">
       <div class="spinner">
-        <span class="spinner-text animate-pulse">Loading</span>
+        <span class="spinner-text animate-pulse">Loading...</span>
         <div class="spinner-sector spinner-sector-red" />
         <div class="spinner-sector spinner-sector-blue" />
         <div class="spinner-sector spinner-sector-green" />

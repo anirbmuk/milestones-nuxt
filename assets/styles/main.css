@@ -91,6 +91,9 @@
   button[type=reset] {
     @apply min-w-16 cursor-pointer border-none px-5 py-2.5 text-center text-error duration-200 ease-in-out hover:bg-red-50 bg-transparent rounded-sm outline-red-100;
   }
+  button:disabled {
+    @apply opacity-40 pointer-events-none animate-pulse duration-300;
+  }
   .absolute-center {
     @apply absolute top-1/2 left-1/2;
     transform: translate(-50%, -50%);
