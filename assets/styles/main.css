@@ -9,8 +9,7 @@
     }
     input,
     textarea,
-    select,
-    .mat-select {
+    select {
       font-size: 16px !important;
     }
   }

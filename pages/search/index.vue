@@ -27,7 +27,7 @@
   </div>
   <div class="mt-6 md:mt-10">
     <SearchTagForm v-if="searchState.searchType === 'tag'" />
-    <SearchDateRangeForm v-if="searchState.searchType === 'daterange'" />
+    <LazySearchDateRangeForm v-if="searchState.searchType === 'daterange'" />
     <form @submit.prevent="search">
       <div class="flex items-center justify-center space-x-2">
         <button type="submit">

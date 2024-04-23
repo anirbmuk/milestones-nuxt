@@ -1,18 +1,11 @@
 <template>
   <section>
-    <div class="flex items-center justify-center">
-      <select
+    <div class="mx-auto flex max-w-28 items-center justify-center">
+      <UiDropDown
         v-model.number="selectedYear"
         aria-label="Select year"
-        @change="onYearChange"
-      >
-        <option
-          v-for="history of getHistoricalYears()"
-          :key="history"
-        >
-          {{ history }}
-        </option>
-      </select>
+        :options="getHistoricalYears()"
+      />
     </div>
     <div class="mb-2 mt-4 grid grid-cols-8 items-center md:mb-4">
       <button
@@ -80,7 +73,7 @@ const {
 
 const selectedYear = ref<number>(year.value);
 watch(year, (value) => (selectedYear.value = value));
-const onYearChange = () => changeYearAction(selectedYear.value);
+watch(selectedYear, (value) => changeYearAction(value));
 definePageMeta({
   middleware: ['guard'],
 });
