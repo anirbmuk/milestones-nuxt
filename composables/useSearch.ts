@@ -33,7 +33,7 @@ export const useSearch = () => {
 
   const {
     fetch,
-    data, 
+    data,
   } = useGetData<Milestone[]>({
     showLoading: false, 
   });

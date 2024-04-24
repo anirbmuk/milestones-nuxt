@@ -1,8 +1,12 @@
 import type { NuxtError } from '#app';
 
 export const useGetData = <T extends Array<any>>({
-  showLoading = true, stateKey = 'global', 
-}: { showLoading?: boolean, stateKey?: string } = {
+  showLoading = true,
+  stateKey = 'global', 
+}: {
+  showLoading?: boolean,
+  stateKey?: string
+} = {
   showLoading: true,
   stateKey: 'global',
 }) => {

@@ -30,9 +30,10 @@
     </div>
     <div
       v-if="['inprogress', 'loadmore'].includes(status)"
-      progress
+      class="grid place-content-center"
     >
-      Fetching...
+      <LazyIconDarkCircle class="size-6 animate-spin duration-300 md:size-8 dark:hidden" />
+      <LazyIconLightCircle class="hidden size-6 animate-spin duration-300 md:size-8 dark:block" />
     </div>
   </div>
 </template>

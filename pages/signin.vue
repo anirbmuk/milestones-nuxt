@@ -40,14 +40,21 @@
           class="cta-button-primary"
           :disabled="processing"
         >
-          {{ processing ? 'Signing in...' : 'Submit' }}
+          <template v-if="processing">
+            <div class="flex animate-spin items-center justify-center duration-300">
+              <LazyIconLightCircle class="size-5 md:size-6" />
+            </div>
+          </template>
+          <template v-else>
+            Submit
+          </template>
+          <div
+            v-if="error"
+            error
+          >
+            {{ error }}
+          </div>
         </button>
-        <div
-          v-if="error"
-          error
-        >
-          {{ error }}
-        </div>
       </form>
     </div>
   </div>
