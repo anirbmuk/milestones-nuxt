@@ -10,7 +10,7 @@ A Nuxt3 front-end application for tracking personal milestones!
 | Front-end     | Nuxt3/Vue3/Tailwind   |
 | Database      | MongoDB               |
 | Middleware    | Node, Express         |
-| MW Hosting    | GCP (asia-south1)     |
+| MW Hosting    | -                     |
 
 ---
 
@@ -20,6 +20,6 @@ https://github.com/anirbmuk/milestones-server.git
 ---
 
 ## Cloud deployment  
-Nuxt3 - https://home-milestones.netlify.app  
-Node & Express - https://home-milestones-mw.appspot.com  
+Nuxt3 - ~~https://home-milestones.netlify.app~~  
+Node & Express - ~~https://home-milestones-mw.appspot.com~~  
 Mongo - Cloud atlas
