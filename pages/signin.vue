@@ -70,7 +70,8 @@ const emailInput = ref<HTMLInputElement>();
 const error = ref<string | undefined>();
 
 const {
-  signin: authenticate, processing, 
+  signin: authenticate,
+  processing,
 } = useAuth();
 const { setAuthState } = useUser();
 const { initState: initCalendarState } = useCalendar();
